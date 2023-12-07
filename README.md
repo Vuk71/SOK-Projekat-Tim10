@@ -9,3 +9,9 @@
 | SV52/2021 | Vuk Dimitrov |
 | SV57/2021 | Katarina Krstin |
 | SV76/2020 | Jovan Vučković |
+
+## To start the Django app
+
+venv\Scripts\activate
+cd graph_explorer
+python manage.py runserver
