@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     # naziv komponente prilikom instaliranja
-    name="SOK-Graf-Core",
+    name="core",
     # verzija komponente
     version="0.1",
     # Distribucija svih paketa koji se nalaze u `.` direktorijumu.
@@ -14,7 +14,7 @@ setup(
     # ovih paketa na vise distribucija, potrebno je definisati namespace-ove.
     # Takodje, `__init__.py` moduli ova tri paketa moraju sadrzati poziv
     # declare_namespace() funkcije.
-    namespace_packages=['core','core.SOK'],
+    namespace_packages=['core'],
     # Sta ova distribucija (komponenta) nudi ostalim komponentama na koriscenje.
     # Na ovaj nacin radimo export FakultetPrikazBase i FakultetUcitavanjeBase
     # apstraktnih servisa.
@@ -28,7 +28,7 @@ setup(
     # upotrebno alias (tj. $ sluzba_main)
     entry_points={
         'console_scripts':
-            ['sluzba_main=rs.uns.ftn.studentska.sluzba.console_main:main'],
+            ['graph_main=core.SOK.core:main'],
     },
     # Da li je u redu da se nasa komponente spakuje u zip arhivu.
     zip_safe=True

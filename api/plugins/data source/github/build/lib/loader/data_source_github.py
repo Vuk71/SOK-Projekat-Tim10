@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from core.SOK.services.graph import ParseDataBase
 from core.SOK.services.model import Graph,Node,Edge
 
