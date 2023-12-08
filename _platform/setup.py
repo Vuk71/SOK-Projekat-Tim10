@@ -14,11 +14,11 @@ setup(
     # ovih paketa na vise distribucija, potrebno je definisati namespace-ove.
     # Takodje, `__init__.py` moduli ova tri paketa moraju sadrzati poziv
     # declare_namespace() funkcije.
-    namespace_packages=['_platform', '_platform.core'],
+    namespace_packages=['core','core.SOK'],
     # Sta ova distribucija (komponenta) nudi ostalim komponentama na koriscenje.
     # Na ovaj nacin radimo export FakultetPrikazBase i FakultetUcitavanjeBase
     # apstraktnih servisa.
-    provides=['core.services',
+    provides=['core.SOK.services',
               ],
     # Koje su ulazne tacke u nasu komponentu?
     # Ova komponenta se korista kao skripta iz konzole (terminala),
