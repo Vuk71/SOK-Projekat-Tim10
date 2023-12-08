@@ -18,7 +18,7 @@ setup(
     # Sta ova distribucija (komponenta) nudi ostalim komponentama na koriscenje.
     # Na ovaj nacin radimo export FakultetPrikazBase i FakultetUcitavanjeBase
     # apstraktnih servisa.
-    provides=['Core.services',
+    provides=['core.services',
               ],
     # Koje su ulazne tacke u nasu komponentu?
     # Ova komponenta se korista kao skripta iz konzole (terminala),

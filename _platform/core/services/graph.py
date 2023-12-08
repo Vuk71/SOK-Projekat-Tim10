@@ -15,8 +15,14 @@ class ServiceBase(ABC):
         pass
 
 
-class GraphLoadBase(ServiceBase):
+class ParseDataBase(ServiceBase):
 
     @abstractmethod
-    def ucitati_fakultete(self) -> List[Fakultet]:
+    def parse_data(self) -> Graph:
+        pass
+
+class VisualizeDataBase(ServiceBase):
+
+    @abstractmethod
+    def visualize_graph(self, graph: Graph):
         pass

@@ -1,5 +1,6 @@
-from ..api.plugins.data_source import DataSourcePlugin
-from ..api.plugins.visualization import VisualizerPlugin
+import pkg_resources
+
+from services.graph import ParseDataBase, VisualizeDataBase
 from typing import Union
 
 class Platform:
