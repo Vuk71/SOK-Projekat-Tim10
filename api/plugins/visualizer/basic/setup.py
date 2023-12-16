@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="visualize basic graph",
+    name="basic visualizer",
     version="0.1",
     packages=find_packages(),
     namespace_packages=['visualizer'],

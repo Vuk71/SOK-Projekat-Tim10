@@ -14,6 +14,12 @@ class Platform:
             raise Exception("No data source has been set.")
         return plugin.visualize_graph(self.graph)
 
+    def platform_test(self) -> str:
+        dataLoader = load_plugins("graph.load")
+        dataVisualizer = load_plugins("graph.visualizer")
+        self.graph = dataLoader[0].parse_data()
+        return dataVisualizer[0].visualize_graph(self.graph)
+
 
 def load_plugins(oznaka):
     """
@@ -28,11 +34,3 @@ def load_plugins(oznaka):
         plugin = p()
         plugins.append(plugin)
     return plugins
-
-
-def main():
-    dataLoader = load_plugins("graph.load")
-    dataVisualizator = load_plugins("graph.visualizer")
-    graph = dataLoader[0].parse_data()
-    dataVisualizator[0].visualize_graph(graph)
-    print("dobar pocetak")

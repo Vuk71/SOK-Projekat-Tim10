@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index, visualize_graph
+from .views import index, visualize_graph, index_test
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', index_test, name='index_test'),
     path('visualize-graph/', visualize_graph, name='visualize_graph'),
     path("admin/", admin.site.urls)
 ]

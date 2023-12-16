@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 
-from _platform.core import Platform
-from api.plugins.data_source import DataSourcePlugin
-from api.plugins.visualization import VisualizerPlugin
+from core.SOK.core import Platform
+from core.SOK.services.graph import ParseDataBase, VisualizeDataBase
 
 platform = Platform()
 
@@ -20,6 +19,10 @@ def index(request):
         return render(request, 'graph.html', {'visualized_graph': visualized_graph})
 
     return render(request, 'index.html', {'data_sources': get_available_data_sources(), 'visualizers': get_available_visualizers()})
+
+def index_test(request):
+    return render(request, 'test.html', {'data': platform.platform_test()})
+
 
 def visualize_graph(request):
     pass

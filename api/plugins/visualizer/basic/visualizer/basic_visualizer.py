@@ -11,7 +11,11 @@ class VisualizeBasic(VisualizeDataBase):
         return "Basic visualization graph"
 
     def visualize_graph(self, graph: Graph):
-        print("NODOVI")
-        print(graph.nodes)
-        print("GRNCICE")
-        print(graph.edges)
+        nodes = ""
+        edges = ""
+        for node in graph.nodes.values():
+            nodes += str(node) + " "
+        for edge in graph.edges:
+            edges += str(edge) + " "
+        string = "Nodovi: " + nodes + " " + "Grane: " + edges
+        return string
