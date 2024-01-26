@@ -20,12 +20,13 @@ python manage.py runserver
 
 1. install venv in projekat folder (python -m venv venv)
 2. activate venv windows->(venv/scripts/activate)
-3. install core,plugins
+3. install django: pip3 install django / pip install django
+4. install core,plugins
     3.1 position at _platform->(python setup.py install)
     3.2 position at api.plugins.data_source.github->(python setup.py install)
     3.3 position at api.plugins.visualizer.basic->(python setup.py install)
-4. run graph_main
-5. expected result :
+5. run graph_main (from terminal: position in graph_explorer, then python3 manage.py runserver)
+6. expected result :
 
 load_github <class 'loader.data_source_github.DataSourceGithub'>
 visualize_basic <class 'visualizer.basic_visualizer.VisualizeBasic'>
