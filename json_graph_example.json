@@ -1,0 +1,75 @@
+[
+    {
+        "@id": "id1",
+        "name": "Peter Parker",
+        "age": 35,
+        "degree": "PhD",
+        "job": "Scientist",
+        "salary": 100000.00,
+        "@wife": {
+            "@id": "id2",
+            "love": "Strong",
+            "years": 14
+        },
+        "@children": [
+            {
+                "@id": "id3",
+                "favorite": true
+            },
+            {
+                "@id": "id4",
+                "favorite": false
+            }
+        ]
+    },
+    {
+        "@id": "id2",
+        "name": "Mary Jane Watson",
+        "age": 34,
+        "degree": "Bachelor's",
+        "job": "Journalist",
+        "salary": 60000.00,
+        "@husband": {
+            "@id": "id1",
+            "love": "Strong",
+            "years": 14
+        },
+        "@children": [
+            {
+                "@id": "id3",
+                "favorite": false
+            },
+            {
+                "@id": "id4",
+                "favorite": true
+            }
+        ]
+    },
+    {
+        "@id": "id3",
+        "name": "May Parker",
+        "age": 5,
+        "@parents": [
+            {
+                "@id": "id1"
+            },
+            {
+                "@id": "id2"
+            }
+        ]
+    },
+    {
+        "@id": "id4",
+        "name": "Ben Parker",
+        "age": 13,
+        "school": "Midtown School of Science and Technology",
+        "@parents": [
+            {
+                "@id": "id1"
+            },
+            {
+                "@id": "id2"
+            }
+        ]
+    }
+]
