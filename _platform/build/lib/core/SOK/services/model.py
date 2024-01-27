@@ -23,6 +23,6 @@ class Edge:
         self.data = data
 
     def __str__(self):
-        if(self.data == None):
+        if self.data == None:
             return "source: " + self.source + " target: " + self.target + " data: None "
         return "source: " + self.source + " target: " + self.target + " data: " + str(self.data)
