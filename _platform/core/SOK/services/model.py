@@ -17,10 +17,10 @@ class Node:
         return " id: " + self.id + " data: " + str(self.data)
 
 class Edge:
-    def __init__(self, source: str, target: str, data: Dict = None):
+    def __init__(self, source: str, target: str, name: str = "default"):
         self.source = source
         self.target = target
-        self.data = data
+        self.name = name
 
     def __str__(self):
         if self.data == None:

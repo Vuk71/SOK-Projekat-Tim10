@@ -1,4 +1,4 @@
-from core.SOK.services.graph import VisualizeDataBase
+from core.SOK.services.api import VisualizeDataBase
 from core.SOK.services.model import Graph,Node,Edge
 
 
