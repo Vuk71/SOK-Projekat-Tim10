@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from core.SOK.core import Platform
-from core.SOK.services.graph import ParseDataBase, VisualizeDataBase
+from core.SOK.services.api import ParseDataBase, VisualizeDataBase
 
 platform = Platform()
 

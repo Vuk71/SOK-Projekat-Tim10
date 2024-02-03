@@ -1,5 +1,5 @@
-from core.SOK.services.graph import ParseDataBase
-from core.SOK.services.model import Graph,Node,Edge
+from core.SOK.services.api import ParseDataBase
+from core.SOK.services.api import Graph,Node,Edge
 
 class DataSourceGithub(ParseDataBase):
 
