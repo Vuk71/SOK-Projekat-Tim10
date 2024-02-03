@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
-from Core.services.model import graph
-from Core.
+from core.services.model import graph
 
 class DataSourcePlugin(ABC):
     @abstractmethod
