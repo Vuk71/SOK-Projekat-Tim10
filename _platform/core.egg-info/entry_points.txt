@@ -1,0 +1,2 @@
+[console_scripts]
+graph_main = core.SOK.core:main

@@ -15,3 +15,24 @@
 venv\Scripts\activate
 cd graph_explorer
 python manage.py runserver
+
+## To start test console app
+
+1. install venv in projekat folder (python -m venv venv)
+2. activate venv windows->(venv/scripts/activate)
+3. install django: pip3 install django / pip install django
+4. install core,plugins
+    3.1 position at _platform->(python setup.py install)
+    3.2 position at api.plugins.data_source.github->(python setup.py install)
+    3.3 position at api.plugins.visualizer.basic->(python setup.py install)
+5. run graph_main (from terminal: position in graph_explorer, then python3 manage.py runserver)
+6. expected result :
+
+load_github <class 'loader.data_source_github.DataSourceGithub'>
+visualize_basic <class 'visualizer.basic_visualizer.VisualizeBasic'>
+NODOVI
+{'2': <core.SOK.services.model.Node object at 0x000001D45E8F61B0>, '3': <core.SOK.services.model.Node object at 0x000001D45E8F6090>}
+GRNCICE
+[<core.SOK.services.model.Edge object at 0x000001D4606FF9B0>]
+dobar pocetak
+

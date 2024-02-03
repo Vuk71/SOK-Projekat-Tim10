@@ -1,0 +1,2 @@
+[graph.load]
+load_github = loader.data_source_github:DataSourceGithub

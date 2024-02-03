@@ -1,0 +1,9 @@
+setup.py
+load_github.egg-info/PKG-INFO
+load_github.egg-info/SOURCES.txt
+load_github.egg-info/dependency_links.txt
+load_github.egg-info/entry_points.txt
+load_github.egg-info/namespace_packages.txt
+load_github.egg-info/top_level.txt
+loader/__init__.py
+loader/data_source_github.py
