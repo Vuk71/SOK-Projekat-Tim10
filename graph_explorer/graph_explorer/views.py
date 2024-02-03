@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 
-from core.SOK.core import Platform
+from django.apps.registry import apps
 from core.SOK.services.api import ParseDataBase, VisualizeDataBase
+from core.SOK.core import Platform
 
 platform = Platform()
+
 
 def index(request):
     # Handle user interactions, list available data sources and visualizers
@@ -14,14 +16,15 @@ def index(request):
 
     if request.method == 'POST':
         # Parse data and generate visualization
-        platform.set_data_source(data_source_plugin)
-        visualized_graph = platform.get_visualized_graph(visualizer_plugin)
+        apps.get_app_config("graph_explorer").platform.set_data_source(data_source_plugin)
+        visualized_graph = apps.get_app_config("graph_explorer").platform.get_visualized_graph(visualizer_plugin)
         return render(request, 'graph.html', {'visualized_graph': visualized_graph})
 
     return render(request, 'index.html', {'data_sources': get_available_data_sources(), 'visualizers': get_available_visualizers()})
 
 def index_test(request):
-    return render(request, 'test.html', {'data': platform.platform_test()})
+    print(apps.get_app_config("graph_explorer"))
+    return render(request, 'test.html', {'data': apps.get_app_config("graph_explorer").platform.platform_test()})
 
 
 def visualize_graph(request):
