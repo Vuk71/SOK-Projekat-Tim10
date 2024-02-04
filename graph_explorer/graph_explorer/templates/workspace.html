@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace Test</title>
+    <link rel="stylesheet" href="../static/css/workspace.css"> <!-- Uključivanje CSS datoteke -->
+    <!-- Uključivanje jQuery i jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <h1>Workspaces</h1>
+    <form id="workspaceForm" method="post">
+        {% csrf_token %}
+        {% for workspace in workspaces %}
+            <button type="button" onclick="changeWorkspace(this, '{{ workspace }}')">Workspace {{ workspace }}</button>
+        {% endfor %}
+        <input type="hidden" id="addWorkspaceField" name="add_workspace" value="add">
+        <button type="button" id="addWorkspaceButton">+ Add Workspace</button>
+    </form>
+    <input  type="hidden" id="availableDataSources" value="{{ data_sources }}">
+    <p id="workspaceNumber"></p>
+    <!-- Definisanje dijaloga -->
+    <div id="dialog" title="Choose an option">
+        <!-- Dodajte dodatne opcije po potrebi -->
+    </div>
+    <script src="../static/js/workspace.js"></script> <!-- Uključivanje JavaScript datoteke -->
+</body>
+</html>

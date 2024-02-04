@@ -8,6 +8,13 @@ class Platform:
         self.data_sources = []
         self.data_visualizers = []
 
+    def set_graph(self,graph):
+        self.graph = graph
+
+    def get_graph(self):
+        return self.graph
+
+
     def set_data_source(self, plugin: ParseDataBase) -> None:
         self.graph = plugin.parse_data()
 
@@ -27,10 +34,10 @@ class Platform:
 
 
     def platform_test(self) -> str:
-        dataLoader = load_plugins("graph.load")
-        dataVisualizer = load_plugins("graph.visualizer")
-        self.graph = dataLoader[0].parse_data()
-        return dataVisualizer[0].visualize_graph(self.graph)
+        self.data_sources = load_plugins("graph.load")
+        self.data_visualizers = load_plugins("graph.visualizer")
+        self.graph = self.data_sources[0].parse_data()
+        return self.data_visualizers[0].visualize_graph(self.graph)
 
 
 def load_plugins(oznaka):

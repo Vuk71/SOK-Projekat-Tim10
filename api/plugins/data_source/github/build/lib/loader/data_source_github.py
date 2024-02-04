@@ -18,3 +18,6 @@ class DataSourceGithub(ParseDataBase):
         graph.nodes[node2.id]=node2
         graph.edges.append(edge)
         return graph
+
+    def __str__(self):
+        return "load_github " + str(type(self))
