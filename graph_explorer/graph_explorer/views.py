@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect
 
 from django.apps.registry import apps
-from core.SOK.services.api import ParseDataBase, VisualizeDataBase
-from core.SOK.core import Platform
 
-platform = Platform()
 
 
 def index(request):
