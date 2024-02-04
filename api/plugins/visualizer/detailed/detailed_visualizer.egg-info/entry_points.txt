@@ -1,0 +1,2 @@
+[view.load]
+detailed_visualizer = view.load.detailedVisualizer:DetailedVisualizer
