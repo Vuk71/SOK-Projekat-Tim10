@@ -19,3 +19,6 @@ class VisualizeBasic(VisualizeDataBase):
             edges += str(edge) + " "
         string = "Nodovi: " + nodes + " " + "Grane: " + edges
         return string
+
+    def __str__(self):
+        return "load_github " + str(type(self))

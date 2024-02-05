@@ -3,6 +3,13 @@ from core.SOK.services.model import Graph,Node,Edge
 
 class DataSourceGithub(ParseDataBase):
 
+
+    def __init__(self: str):
+        self.account = ""
+
+    def set_account(self, account):
+        self.account = account
+
     def identifier(self):
         return "Github Data Source"
 
@@ -18,3 +25,6 @@ class DataSourceGithub(ParseDataBase):
         graph.nodes[node2.id]=node2
         graph.edges.append(edge)
         return graph
+
+    def __str__(self):
+        return "load_github " + str(type(self))
