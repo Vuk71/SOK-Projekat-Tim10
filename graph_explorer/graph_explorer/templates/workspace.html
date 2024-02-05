@@ -17,6 +17,9 @@
         {% for workspace in workspaces %}
             <button type="button" onclick="changeWorkspace(this, '{{ workspace }}')">Workspace {{ workspace }}</button>
         {% endfor %}
+        <input type="hidden" id="dataSourceField" name="selected_data_source" value="">
+        <input type="hidden" id="param1Field" name="param1" value="">
+        <input type="hidden" id="param2Field" name="param2" value="">
         <input type="hidden" id="addWorkspaceField" name="add_workspace" value="add">
         <button type="button" id="addWorkspaceButton">+ Add Workspace</button>
     </form>

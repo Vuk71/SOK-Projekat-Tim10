@@ -7,6 +7,9 @@ import json
 
 core_config = apps.get_app_config("graph_explorer")
 
+#simple/detailed
+selected_visualizer = core_config.platform.get_available_visualizers()[0]
+
 def index(request):
     # Handle user interactions, list available data sources and visualizers
     # ...
@@ -37,6 +40,7 @@ def update_active_workspace(request):
     return JsonResponse({'success': False})
 
 def workspace_test(request):
+    print(request.POST)
     # Prikupimo broj workspaces i trenutno aktivni workspace iz CoreConfig klase
     num_workspaces = len(core_config.workspaces)
     active_workspace = core_config.active_workspace
@@ -49,25 +53,22 @@ def workspace_test(request):
         # Provera da li je kliknuto dugme "Add Workspace"
         if 'add_workspace' in request.POST:
             selected_data_source = request.POST.get('selected_data_source')
-
+            param1 = ""
+            param2 = ""
             if(selected_data_source == "Github Data Source"):
                 param1 = request.POST.get('param1')
-                core_config.platform.set_data_source(core_config.data_sources["Github Data Source"])
+                data_source = core_config.get_data_source_plugin(selected_data_source)
+                data_source.set_account(param1)
+                core_config.platform.set_data_source(data_source)
 
-            if (selected_data_source == "source test 1"):
-                param1 = request.POST.get('param1')
-                param2 = request.POST.get('param2')
+            core_config.workspaces.append(core_config.platform.get_visualized_graph(selected_visualizer))
+            core_config.active_workspace = len(core_config.workspaces)-1 # Postavljamo na indeks poslednjeg workspace-a
 
-            if (selected_data_source == "source test 3"):
-                param1 = request.POST.get('param1')
-                param2 = request.POST.get('param2')
-
-            core_config.workspaces.append(1)
-            core_config.active_workspace = num_workspaces # Postavljamo na indeks poslednjeg workspace-a
             print(core_config.active_workspace)
 
             print("Selected data source:", selected_data_source)
-            print("Input field value:", param1)
+            print("Input param 1:", param1)
+            print("Input param 2:", param2)
             return redirect('workspace_test')
 
 

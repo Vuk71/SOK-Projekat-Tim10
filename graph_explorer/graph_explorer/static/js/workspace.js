@@ -1,3 +1,34 @@
+
+    // Funkcija za promenu workspace-a
+function changeWorkspace(button, workspace) {
+    var paragraph = document.getElementById('workspaceNumber');
+    paragraph.textContent = "Selected workspace: " + workspace;
+
+    var buttons = document.querySelectorAll('button');
+    buttons.forEach(function(btn) {
+        btn.classList.remove('selected');
+    });
+
+    button.classList.add('selected');
+
+    // Slanje AJAX zahteva za ažuriranje aktivnog workspace-a
+    $.ajax({
+        url: '/update_active_workspace/', // URL endpoint za ažuriranje aktivnog workspace-a
+        type: 'POST',
+        data: {
+            active_workspace: workspace // Šaljemo ID aktivnog workspace-a
+        },
+        dataType: 'json',
+        success: function(response) {
+            console.log(response); // Možemo ispisati odgovor u konzoli radi provere
+            // Ovde možete dodati dodatnu logiku ako je potrebno
+        },
+        error: function(error) {
+            console.error('Error:', error); // Ako dođe do greške, ispisujemo je u konzoli
+        }
+    });
+}
+
 $(document).ready(function() {
     // Kreiranje dijaloga
     var dialog = $("#dialog").dialog({
@@ -6,8 +37,26 @@ $(document).ready(function() {
         buttons: {
             Ok: function() {
                 // Zatvaranje dijaloga
-                $(this).dialog("close");
-                $("#workspaceForm").submit();
+
+                selectedSource = $('#dataSourceSelect').val()
+
+                if(selectedSource == "default"){
+                    alert("Please select a valid data source.");
+                }
+                else{
+                    $(this).dialog("close");
+                    $("#dataSourceField").val(selectedSource);
+
+                    param1 = $('#param1').val();
+                    $("#param1Field").val(param1);
+
+                    param2 = $('#param2').val();
+                    $("#param2Field").val(param2);
+
+                    $("#workspaceForm").submit();
+                }
+
+
             },
             Cancel: function() {
                 // Zatvaranje dijaloga
@@ -47,31 +96,13 @@ $(document).ready(function() {
 
             if (selectedDataSource === 'default') {
                 // Dodavanje dodatnih input polja u dijalog
-                dialog.append('<div id="additionalFields"><input type="text" id="someInputField" name="someInputField" placeholder="Enter something"></div>');
-            }
-            if (selectedDataSource === 'test') {
-                // Dodavanje dodatnih input polja u dijalog
-                dialog.append('<div id="additionalFields"><input type="text" id="someInputField" name="someInputField" placeholder="Enter something"></div>');
-
             }
             if (selectedDataSource === 'Github Data Source') {
                 // Dodavanje dodatnih input polja u dijalog
-                dialog.append('<div id="additionalFields"><input type="text" id="someInputField" name="someInputField" placeholder="Enter something else"></div>');
+                dialog.append('<div id="additionalParam1"><input type="text" id="param1" name="someInputField" placeholder="enter git repo"></div>');
+                dialog.append('<div id="additionalParam2"><input type="hidden" id="param2" name="someInputField" placeholder="enter git repo"></div>');
 
             }
         });
     });
 });
-
-    // Funkcija za promenu workspace-a
-function changeWorkspace(button, workspace) {
-    var paragraph = document.getElementById('workspaceNumber');
-    paragraph.textContent = "Selected workspace: " + workspace;
-
-    var buttons = document.querySelectorAll('button');
-    buttons.forEach(function(btn) {
-        btn.classList.remove('selected');
-    });
-
-    button.classList.add('selected');
-}

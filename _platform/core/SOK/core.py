@@ -29,7 +29,7 @@ class Platform:
 
     def get_available_data_sources(self) -> list[ParseDataBase]:
         return self.data_sources
-    def get_available_visualizators(self) -> list[VisualizeDataBase]:
+    def get_available_visualizers(self) -> list[VisualizeDataBase]:
         return self.data_visualizers
 
 

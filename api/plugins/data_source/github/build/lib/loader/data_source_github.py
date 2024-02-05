@@ -3,6 +3,13 @@ from core.SOK.services.model import Graph,Node,Edge
 
 class DataSourceGithub(ParseDataBase):
 
+
+    def __init__(self: str):
+        self.account = ""
+
+    def set_account(self, account):
+        self.account = account
+
     def identifier(self):
         return "Github Data Source"
 
