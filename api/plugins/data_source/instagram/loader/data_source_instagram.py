@@ -2,6 +2,7 @@ from core.SOK.services.api import ParseDataBase
 from core.SOK.services.model import Graph,Node,Edge
 import instaloader
 from itertools import islice
+import time
 
 #profile - starting point profile
 #followee - profile that starting point profile follows
@@ -31,6 +32,8 @@ class DataSourceGithub(ParseDataBase):
 
 
     def parse_data(self) -> Graph:
+        start_loading = time.time()  # Pokreni tajmer za učitavanje podataka
+
         ig = instaloader.Instaloader()
         ig.login(self.username, self.password)
         profile = instaloader.Profile.from_username(ig.context, self.profile)
@@ -41,6 +44,15 @@ class DataSourceGithub(ParseDataBase):
         for followee in islice(profile.get_followees(), self.width):
             followee_followees = islice(followee.get_followers(), self.width)
             profile_followees[followee] = followee_followees
+
+        end_loading = time.time()  # Zaustavi tajmer za učitavanje podataka
+        loading_time = end_loading - start_loading  # Izračunaj vreme učitavanja
+
+        print("loading time: ")
+        print(loading_time)
+
+
+        start_loading = time.time()  # Pokreni tajmer za učitavanje podataka
 
         #forming graph from data
         graph = Graph()
@@ -58,6 +70,12 @@ class DataSourceGithub(ParseDataBase):
                 graph.nodes[node.id] = node
                 graph.edges.append(edge)
 
+
+        end_loading = time.time()  # Zaustavi tajmer za učitavanje podataka
+        loading_time = end_loading - start_loading  # Izračunaj vreme učitavanja
+
+        print("forming graph time: ")
+        print(loading_time)
 
 
         return graph
