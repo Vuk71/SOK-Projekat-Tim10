@@ -12,6 +12,7 @@ def run_server(django_project):
 
 if __name__ == "__main__":
     lay_egs("./_platform")
+    lay_egs("./api/plugins/data_source/instagram")
     lay_egs("./api/plugins/data_source/github")
     lay_egs("./api/plugins/visualizer/basic")
     subprocess.run(["pip", "install", "setuptools"])

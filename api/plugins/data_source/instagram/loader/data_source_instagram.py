@@ -8,7 +8,7 @@ import time
 #followee - profile that starting point profile follows
 
 #profile object has username, num of followers, list of followers...
-class DataSourceGithub(ParseDataBase):
+class DataSourceInstagram(ParseDataBase):
 
 
     def __init__(self: str):
@@ -85,6 +85,6 @@ class DataSourceGithub(ParseDataBase):
 
 
 if __name__=="__main__":
-    data_source = DataSourceGithub()
+    data_source = DataSourceInstagram()
     graph = data_source.parse_data()
     print(graph)
