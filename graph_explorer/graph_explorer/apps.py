@@ -13,7 +13,7 @@ class CoreConfig(AppConfig):
             self.platform.load_available_plugins()
 
     def get_vizualizator_plugin(self, visualizer_identifier) ->VisualizeDataBase:
-        for visualizer in self.platform.get_available_visualizators():
+        for visualizer in self.platform.get_available_visualizers():
             if visualizer.identifier() == visualizer_identifier:
                 return visualizer
         return None
