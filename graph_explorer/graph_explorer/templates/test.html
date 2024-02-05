@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-
+{% extends "base.html" %}
+{% block main %}
 <html>
     <head>
     </head>
     <body>
         <p>test : <p>
         <p>{{data}}<p>
+        {% if data %}
+            <p>Variable is being passed correctly</p>
+        {% else %}
+            <p>Variable is not being passed correctly</p>
+        {% endif %}
     </body>
 </html>
+{% endblock %}

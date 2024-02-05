@@ -23,3 +23,16 @@ select {
     height: 400px;
     border: 1px solid #ccc;
 }
+
+.navbar {
+    background-color: #800080; /* Ljubičasta boja - možete prilagoditi ovu vrednost prema vašim željama */
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-color: #ffffff; /* Boja ikonice tastera za otvaranje/natrag - takođe možete prilagoditi ovu vrednost */
+}
+
+.navbar-light .navbar-toggler-icon:focus,
+.navbar-light .navbar-toggler-icon:hover {
+    background-color: #ffffff; /* Dodatna boja ikonice tastera za otvaranje/natrag na hover ili focus - možete prilagoditi ovu vrednost */
+}
