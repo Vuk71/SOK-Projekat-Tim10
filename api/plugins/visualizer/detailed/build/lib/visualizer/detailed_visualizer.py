@@ -1,8 +1,8 @@
 import pkg_resources
 import importlib.resources as resources
 
-from _platform.core.SOK.core import VisualizeDataBase
-from _platform.core.SOK.services.model import Graph
+from core.SOK.core import VisualizeDataBase
+from core.SOK.services.model import Graph
 
 
 class DetailedVisualizer(VisualizeDataBase):
@@ -13,11 +13,12 @@ class DetailedVisualizer(VisualizeDataBase):
         return "Detailed visualization graph"
 
     def visualize_graph(self, graph: Graph):
-        nodes = ""
-        edges = ""
-        for node in graph.nodes.values():
-            nodes += str(node) + " "
-        for edge in graph.edges:
-            edges += str(edge) + " "
-        string = "Nodovi: " + nodes + " " + "Grane: " + edges
-        return string
+        # nodes = ""
+        # edges = ""
+        # for node in graph.nodes.values():
+        #     nodes += str(node) + " "
+        # for edge in graph.edges:
+        #     edges += str(edge) + " "
+        # string = "Nodovi: " + nodes + " " + "Grane: " + edges
+        # return string
+        return pkg_resources.resource_string(__name__, 'detailed_main_view.js')

@@ -60,7 +60,7 @@ var edge = svg_complex.selectAll('.edge')
         .attr('class', 'main_view_edge');
 
 var node = svg_complex.selectAll('.main_view_node')
-        .data(force_bird.nodes())
+        .data(d3.values(nodes))
         .enter().append('g')
         .attr('class', '.main_view_node')
         .attr('id', function (d) {

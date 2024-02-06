@@ -7,7 +7,7 @@ import json
 core_config = apps.get_app_config("graph_explorer")
 
 # simple/detailed
-# selected_visualizer = core_config.platform.get_available_visualizers()[0]
+selected_visualizer = core_config.platform.get_available_visualizers()[1]
 
 
 def index(request):
@@ -29,7 +29,7 @@ def index(request):
 
 def index_test(request):
     core_config.platform.set_data_source(core_config.platform.get_available_data_sources()[0])
-    return render(request, 'test.html', {'data': core_config.platform.get_visualized_graph(selected_visualizer)})
+    return render(request, 'detailed.html', {'data': core_config.platform.get_visualized_graph(selected_visualizer)})
 
 
 # take graph from workspaces and set it on platform

@@ -8,7 +8,7 @@ setup(
     namespace_packages=['visualizer'],
     package_data={'visualizer': ['detailed_main_view.js']},
     entry_points={
-        'visualizer':
+        'graph.visualizer':
             ['detailed_visualizer=visualizer.detailed_visualizer:DetailedVisualizer']
     }
 )

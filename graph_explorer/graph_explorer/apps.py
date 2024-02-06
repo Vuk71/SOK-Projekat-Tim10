@@ -3,7 +3,7 @@ from django.apps import AppConfig
 from core.SOK.core import Platform, VisualizeDataBase, ParseDataBase
 class CoreConfig(AppConfig):
     name = 'graph_explorer'
-    platform = Platform()
+    platform = None
 
     def ready(self):
         if self.platform is None:
