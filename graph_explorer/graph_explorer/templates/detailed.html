@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Detailed Visualizator Test</title>
+    {% load static %}
+    <link rel="stylesheet" href="../static/css/detailed.css"> <!-- Ukljucivanje CSS datoteke -->
+    <!-- Ukljucivanje jQuery i jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+    <h1>Detailed Visualizator</h1>
+    <div class="center" id="center">
+        {% block main %}
+            <svg id="main-view"></svg>
+            <script>
+                {% autoescape off %}{{ main_script }}{% endautoescape %}
+            </script>
+        {% endblock %}
+    </div>
+
+</body>
+</html>
