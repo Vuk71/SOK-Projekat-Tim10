@@ -1,9 +1,23 @@
 from core.SOK.services.model import Graph, Node, Edge
+from core.SOK.services.api import ParseDataBase
 import json
 
-class FileSystemJSONPlugin:
-    def __init__(self, filepath: str):
+class FileSystemJSONPlugin(ParseDataBase):
+
+    def __init__(self):
+        self.filepath = None
+
+    def get_filepath(self):
+        return self.filepath
+    
+    def set_filepath(self, filepath):
         self.filepath = filepath
+
+    def identifier(self):
+        return "JSON Parser Data Source"
+
+    def name(self):
+        return "Load from a JSON file"
 
     def parse_data(self) -> Graph:
         """Parses the JSON file and constructs the graph."""
@@ -15,8 +29,8 @@ class FileSystemJSONPlugin:
 
             for node_data in data:
                 node_id = node_data["@id"]
-                node_data = {key: value for key, value in node_data.items() if not key.startswith("@")}
-                node = Node(node_id, node_data)
+                node_data_attributes = {key: value for key, value in node_data.items() if not key.startswith("@")}
+                node = Node(node_id, node_data_attributes)
                 graph.add_node(node)
 
                 for key, value in node_data.items():
@@ -36,3 +50,9 @@ class FileSystemJSONPlugin:
             raise ValueError(f"Invalid JSON format in file: {self.filepath}")
 
         return graph
+    
+if __name__=="__main__":
+    data_source = FileSystemJSONPlugin()
+    data_source.set_filepath("C:\SOK_TEST\json_test.json")
+    graph = data_source.parse_data()
+    print(graph)
