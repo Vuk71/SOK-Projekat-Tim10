@@ -1,2 +1,2 @@
-[view.load]
-detailed_visualizer = view.load.detailedVisualizer:DetailedVisualizer
+[visualizer]
+detailed_visualizer = visualizer.detailed_visualizer:DetailedVisualizer
