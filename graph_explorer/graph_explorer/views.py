@@ -38,8 +38,10 @@ def update_active_workspace(request):
         active_workspace = int(request.POST['active_workspace'])
         core_config.active_workspace = active_workspace
         print("selected workspace: " + str(active_workspace))
+        print(str(core_config.workspaces[active_workspace]))
         core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace])
-        return JsonResponse({'success': True})
+        print(core_config.platform.get_graph())
+        return JsonResponse({'success': True, 'data':core_config.platform.get_visualized_graph(selected_visualizer)})
     return JsonResponse({'success': False})
 
 
@@ -66,7 +68,7 @@ def workspace_test(request):
                 data_source.set_account(param1)
                 core_config.platform.set_data_source(data_source)
 
-            core_config.workspaces.append(core_config.platform.get_visualized_graph(selected_visualizer))
+            core_config.workspaces.append(core_config.platform.get_graph())
             core_config.active_workspace = len(
                 core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
 
@@ -83,7 +85,7 @@ def workspace_test(request):
     # transoform to json
     json_data_sources = json.dumps(data_sources)
 
-    return render(request, 'workspace.html', {'data_sources': json_data_sources, 'workspaces': workspace_indices})
+    return render(request, 'workspace.html', {'data':"no data", 'data_sources': json_data_sources, 'workspaces': workspace_indices})
 
 
 def visualize_graph(request):

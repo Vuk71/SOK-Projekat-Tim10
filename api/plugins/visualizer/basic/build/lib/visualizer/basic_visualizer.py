@@ -13,7 +13,7 @@ class VisualizeBasic(VisualizeDataBase):
     def visualize_graph(self, graph: Graph):
         nodes = ""
         edges = ""
-        for node in graph.nodes.values():
+        for node in graph.nodes:
             nodes += str(node) + " "
         for edge in graph.edges:
             edges += str(edge) + " "

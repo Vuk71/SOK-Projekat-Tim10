@@ -19,7 +19,7 @@ from django.urls import path
 from .views import index, visualize_graph, index_test, workspace_test, update_active_workspace
 
 urlpatterns = [
-    path('', index_test, name='index_test'),
+    path('', workspace_test, name='workspace_test'),
     path('update_active_workspace/', update_active_workspace, name='update_active_workspace'),
     path('visualize-graph/', visualize_graph, name='visualize_graph'),
     path("admin/", admin.site.urls)
