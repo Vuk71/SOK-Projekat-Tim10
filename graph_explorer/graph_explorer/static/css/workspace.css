@@ -1,0 +1,41 @@
+/* styles.css */
+
+body {
+    background-color: #333; /* Tamno siva pozadina */
+    font-family: Arial, sans-serif; /* Font */
+    color: #fff; /* Bela boja teksta */
+    padding: 20px; /* Razmak od ivice stranice */
+}
+
+/* Stilizacija za kliknuto dugme */
+button {
+    background-color: #007bff; /* Tamno plava pozadina */
+    color: #fff; /* Bela boja teksta */
+    padding: 10px 20px; /* Podešavanje veličine dugmeta */
+    border: none; /* Uklanjanje ivice */
+    border-radius: 20px; /* Zaobljavanje ivica */
+    cursor: pointer; /* Pokazivač kursora */
+    transition: all 0.3s ease; /* Animacija */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Senka */
+}
+
+button:hover {
+    background-color: #0056b3; /* Tamnija nijansa tamno plave pri hoveru */
+    border-radius: 25px; /* Zaobljenje ivica pri hoveru */
+}
+
+/* Stil za dugme koje je odabrano */
+button.selected {
+    background-color: #0056b3; /* Tamno plava pozadina */
+}
+
+h1 {
+    color: #fff; /* Bela boja teksta za naslov */
+}
+
+/* Prikazivanje broja workspace-a */
+#workspaceNumber {
+    font-size: 18px; /* Veličina fonta */
+    margin-top: 20px; /* Razmak između workspace-a i paragrafa */
+    color: #fff; /* Bela boja teksta */
+}
