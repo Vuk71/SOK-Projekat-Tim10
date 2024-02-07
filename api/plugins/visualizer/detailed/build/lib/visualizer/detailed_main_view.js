@@ -60,7 +60,7 @@ var edge = svg_complex.selectAll('.edge')
         .attr('class', 'main_view_edge');
 
 var node = svg_complex.selectAll('.main_view_node')
-        .data(d3.values(nodes))
+        .data(force_bird.nodes())
         .enter().append('g')
         .attr('class', '.main_view_node')
         .attr('id', function (d) {
@@ -77,30 +77,30 @@ d3.selectAll('.main_view_node').each(function (d) {
 
 function complexView(d) {
     var length = 150;
-    var attrNum = Object.keys(d.attributes).length;
+    var attrNum = Object.keys(d.data).length;
     console.log(attrNum);
 
     var fontSize = 10;
     var height = (attrNum === 0) ? fontSize: attrNum * fontSize;
     height += fontSize;
 
-    d3.select("g#" + "main_" + d.name).append('rect').
+    d3.select("g#" + "main_" + d.id).append('rect').
         attr('x', 0).attr('y', 0).attr('width', length).attr('height', height + 20)
         .attr('fill', "#6bcf57");
 
-    d3.select("g#", "main_" + d.name).append('text').attr('x', length / 2).attr('y', 10)
+    d3.select("g#", "main_" + d.id).append('text').attr('x', length / 2).attr('y', 10)
         .attr('text-anchor', 'middle')
         .attr('font-size', fontSize).attr('font-family', 'sans-serif')
         .attr('fill', "#fff1e6").attr('border', 'bold').text(d.name);
 
-    d3.select("g#", "main_" + d.name).append('line').
+    d3.select("g#", "main_" + d.id).append('line').
         attr('x1', 0).attr('y1', fontSize).attr('x2', length).attr('y2', fontSize)
         .attr('stroke', '#11172F').attr('stroke-width', 1);
 
 
     for (var i = 0; i < attrNum; i++) {
-        var text = Object.keys(d.attributes)[i] + " : " + Object.values(d.attributes)[i];
-        d3.select("g#" + "main_" + d.name).append('text').attr('x', 0).attr('y', 20 + i * fontSize)
+        var text = Object.keys(d.data)[i] + " : " + Object.values(d.data)[i];
+        d3.select("g#" + "main_" + d.id).append('text').attr('x', 0).attr('y', 20 + i * fontSize)
         .attr('text-anchor', 'start')
         .attr('font-size', fontSize).attr('font-family', 'sans-serif')
         .attr('fill', '#fff1e6').attr('border', 'bold').text(text);

@@ -1,0 +1,9 @@
+
+{% if graph.edges|length != 0 %}
+    {% for edge in graph.edges %}
+        {source: "cvor_{{ edge.source }}", target: "cvor_{{ edge.target }}"},
+        {% with node=child template_name="edge.html" %}
+            {% include template_name %}
+        {% endwith %}
+    {% endfor %}
+{% endif %}
