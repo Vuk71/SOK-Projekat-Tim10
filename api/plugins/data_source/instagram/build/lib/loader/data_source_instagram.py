@@ -24,6 +24,12 @@ class DataSourceInstagram(ParseDataBase):
     def set_width(self, width):
         self.width = width
 
+    def set_username(self, username):
+        self.username = username
+
+    def set_password(self, password):
+        self.password = password
+
     def identifier(self):
         return "Instagram Data Source"
 
@@ -38,11 +44,14 @@ class DataSourceInstagram(ParseDataBase):
         # dictionary to keep profile followees username as key and their followees (profiles) as value
         profile_followees = {}
 
+        print("loading data: ")
+
         for followee in islice(profile.get_followees(), self.width):
             followee_followees = islice(followee.get_followers(), self.width)
             profile_followees[followee] = followee_followees
 
         # forming graph from data
+        print("making graph: ")
         graph = Graph()
         profile_node = Node(id=profile.username, data={"private": profile.is_private, "followers": profile.followers,
                                                        "followees": profile.followees})

@@ -55,6 +55,12 @@ $(document).ready(function() {
                     param2 = $('#param2').val();
                     $("#param2Field").val(param2);
 
+                    param3 = $('#param3').val();
+                    $("#param3Field").val(param3);
+
+                    param4 = $('#param4').val();
+                    $("#param4Field").val(param4);
+
                     $("#workspaceForm").submit();
                 }
 
@@ -93,20 +99,21 @@ $(document).ready(function() {
             // Npr. ako je selectedDataSource === 'neki_id', dodajte input polja u dijalog
 
             // Uklanjanje prethodno dodatih input polja iz dijaloga
-            $('#additionalFields').remove();
+            $('.additionalFields').remove();
 
             if (selectedDataSource === 'default') {
                 // Dodavanje dodatnih input polja u dijalog
             }
             if (selectedDataSource === 'Github Data Source') {
                 // Dodavanje dodatnih input polja u dijalog
-                dialog.append('<div id="additionalFields"><input type="text" id="param1" name="someInputField" placeholder="enter git repo"></div>');
-                dialog.append('<div id="additionalFields"><input type="hidden" id="param2" name="someInputField" placeholder="enter git repo"></div>');
+                dialog.append('<div class="additionalFields"><input type="text" id="param1" name="git repo" placeholder="enter git repo"></div>');
             }
             if (selectedDataSource === 'Instagram Data Source') {
                 // Dodavanje dodatnih input polja u dijalog
-                dialog.append('<div id="additionalFields"><input type="text" id="param1" name="someInputField" placeholder="instagram username"></div>');
-                dialog.append('<div id="additionalFields"><input type="text" id="param2" name="someInputField" placeholder="width"></div>');
+                dialog.append('<div class="additionalFields"><input type="text" id="param1" name="instagram profile" placeholder="instagram profile"></div>');
+                dialog.append('<div class="additionalFields"><input type="text" id="param2" name="width" placeholder="enter width (default 5)"></div>');
+                dialog.append('<div class="additionalFields"><input type="text" id="param3" name="username" placeholder="enter username (optional)"></div>');
+                dialog.append('<div class="additionalFields"><input type="text" id="param4" name="password" placeholder="enter password (optional)"></div>');
             }
         });
     });

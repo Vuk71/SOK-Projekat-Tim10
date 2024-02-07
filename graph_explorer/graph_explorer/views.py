@@ -34,6 +34,7 @@ def index_test(request):
 
 # take graph from workspaces and set it on platform
 def update_active_workspace(request):
+    print("ovde je upao")
     if request.method == 'POST' and 'active_workspace' in request.POST:
         print("updated")
         active_workspace = int(request.POST['active_workspace'])
@@ -57,6 +58,8 @@ def workspace_test(request):
             # get params based on data source
             param1 = ""
             param2 = ""
+            param3 = ""
+            param4 = ""
 
             # make data source and send it to platform to make a graph with it
             if (selected_data_source == "Github Data Source"):
@@ -66,13 +69,25 @@ def workspace_test(request):
                 core_config.platform.set_data_source(data_source)
 
             if (selected_data_source == "Instagram Data Source"):
-                username = request.POST.get('param1')
+                profile = request.POST.get('param1')
                 width = request.POST.get('param2')
+                username = request.POST.get('param3')
+                password = request.POST.get('param4')
+                print("profile: " + profile)
+                print("width: " + width)
+                print("username: " + username)
+                print("password: " +password)
+                print("ovde je upao")
                 data_source = core_config.get_data_source_plugin(selected_data_source)
-                if(username != ""):
-                    data_source.set_profile(username)
+                if(profile != ""):
+                    data_source.set_profile(profile)
                 if(width != ""):
                     data_source.set_width(width)
+                if(username != ""):
+                    data_source.set_username(username)
+                if(password != ""):
+                    data_source.set_password(password)
+
                 core_config.platform.set_data_source(data_source)
 
             core_config.workspaces.append(core_config.platform.get_graph())
@@ -89,8 +104,8 @@ def workspace_test(request):
     json_data_sources = json.dumps(data_sources)
     try:
         data = core_config.platform.get_visualized_graph(selected_visualizer)
-    except:
-        data = "no data"
+    except Exception as ex:
+        data = ex.__str__()
 
     return render(request, 'workspace.html', {'data': data, 'data_sources': json_data_sources, 'workspaces': workspace_indices})
 
