@@ -100,13 +100,13 @@ $(document).ready(function() {
             }
             if (selectedDataSource === 'Github Data Source') {
                 // Dodavanje dodatnih input polja u dijalog
-                dialog.append('<div id="additionalParam1"><input type="text" id="param1" name="someInputField" placeholder="enter git repo"></div>');
-                dialog.append('<div id="additionalParam2"><input type="hidden" id="param2" name="someInputField" placeholder="enter git repo"></div>');
+                dialog.append('<div id="additionalFields"><input type="text" id="param1" name="someInputField" placeholder="enter git repo"></div>');
+                dialog.append('<div id="additionalFields"><input type="hidden" id="param2" name="someInputField" placeholder="enter git repo"></div>');
             }
             if (selectedDataSource === 'Instagram Data Source') {
                 // Dodavanje dodatnih input polja u dijalog
-                dialog.append('<div id="additionalParam1"><input type="text" id="param1" name="someInputField" placeholder="instagram username"></div>');
-                dialog.append('<div id="additionalParam2"><input type="text" id="param2" name="someInputField" placeholder="width"></div>');
+                dialog.append('<div id="additionalFields"><input type="text" id="param1" name="someInputField" placeholder="instagram username"></div>');
+                dialog.append('<div id="additionalFields"><input type="text" id="param2" name="someInputField" placeholder="width"></div>');
             }
         });
     });
