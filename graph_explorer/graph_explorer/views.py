@@ -8,7 +8,7 @@ core_config = apps.get_app_config("graph_explorer")
 
 # simple/detailed
 selected_visualizer = core_config.platform.get_available_visualizers()[0]
-
+available_data_sources = core_config.platform.get_available_data_sources()
 
 def index(request):
     # Handle user interactions, list available data sources and visualizers
@@ -35,21 +35,18 @@ def index_test(request):
 # take graph from workspaces and set it on platform
 def update_active_workspace(request):
     if request.method == 'POST' and 'active_workspace' in request.POST:
+        print("updated")
         active_workspace = int(request.POST['active_workspace'])
         core_config.active_workspace = active_workspace
-        print("selected workspace: " + str(active_workspace))
-        print(str(core_config.workspaces[active_workspace]))
         core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace])
-        print(core_config.platform.get_graph())
-        return JsonResponse({'success': True, 'data':core_config.platform.get_visualized_graph(selected_visualizer)})
+        data = core_config.platform.get_visualized_graph(selected_visualizer)
+        return JsonResponse({'success': False, 'data':data})
     return JsonResponse({'success': False})
 
 
 # change graph on platform based on selected data source and add it to workspaces
 def workspace_test(request):
 
-    # get number of workspaces nad currently selected work space
-    num_workspaces = len(core_config.workspaces)
     # check if form was sent
     if request.method == 'POST':
         # if clicked on add workspace
@@ -68,24 +65,34 @@ def workspace_test(request):
                 data_source.set_account(param1)
                 core_config.platform.set_data_source(data_source)
 
-            core_config.workspaces.append(core_config.platform.get_graph())
-            core_config.active_workspace = len(
-                core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
+            if (selected_data_source == "Instagram Data Source"):
+                username = request.POST.get('param1')
+                width = request.POST.get('param2')
+                data_source = core_config.get_data_source_plugin(selected_data_source)
+                if(username != ""):
+                    data_source.set_profile(username)
+                if(width != ""):
+                    data_source.set_width(width)
+                core_config.platform.set_data_source(data_source)
 
+            core_config.workspaces.append(core_config.platform.get_graph())
+            core_config.active_workspace = len(core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
             return redirect('workspace_test')
 
     # list of indexes to draw all buttons for workspaces
-    workspace_indices = range(0, num_workspaces)
-    available_data_sources = core_config.platform.get_available_data_sources()
+    workspace_indices = range(0, len(core_config.workspaces))
 
     # send plugins names and id so user can select new data source
     data_sources = [{"id": ds.identifier(), "name": ds.name()} for ds in available_data_sources]
-    print(data_sources)
 
-    # transoform to json
+    # transform to json
     json_data_sources = json.dumps(data_sources)
+    try:
+        data = core_config.platform.get_visualized_graph(selected_visualizer)
+    except:
+        data = "no data"
 
-    return render(request, 'workspace.html', {'data':"no data", 'data_sources': json_data_sources, 'workspaces': workspace_indices})
+    return render(request, 'workspace.html', {'data': data, 'data_sources': json_data_sources, 'workspaces': workspace_indices})
 
 
 def visualize_graph(request):

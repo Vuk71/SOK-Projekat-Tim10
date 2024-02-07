@@ -12,10 +12,10 @@ class DataSourceInstagram(ParseDataBase):
 
 
     def __init__(self: str):
-        self.username = "betty_foxterrier"
-        self.password = "bettykerety"
-        self.profile = "betty_foxterrier"
-        self.width = 10
+        self.username = "jovanvuckovic2"
+        self.password = "&ca#VPsN5d3szS"
+        self.profile = "jovanvuckovic2"
+        self.width = 5
         self.depth = 1
 
     def set_profile(self, profile):
