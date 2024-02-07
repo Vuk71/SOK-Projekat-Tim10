@@ -1,8 +1,6 @@
 
     // Funkcija za promenu workspace-a
 function changeWorkspace(button, workspace) {
-    var paragraph = document.getElementById('workspaceNumber');
-    paragraph.textContent = "Selected workspace: " + workspace;
 
     var buttons = document.querySelectorAll('button');
     buttons.forEach(function(btn) {
