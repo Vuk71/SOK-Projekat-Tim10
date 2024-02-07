@@ -21,6 +21,7 @@ if __name__ == "__main__":
         "sqlparse",
         "tzdata",
         "setuptools"
+
     ]
 
     # Pozivanje funkcije za deinstalaciju paketa

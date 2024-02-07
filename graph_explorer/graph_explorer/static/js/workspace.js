@@ -20,8 +20,10 @@ function changeWorkspace(button, workspace) {
         },
         dataType: 'json',
         success: function(response) {
-            console.log(response); // Možemo ispisati odgovor u konzoli radi provere
-            // Ovde možete dodati dodatnu logiku ako je potrebno
+            console.log(response); // Ispisujemo odgovor u konzoli radi provere
+
+        // Ažuriramo podatke na stranici
+            $('#dataParagraph').text(response.data);
         },
         error: function(error) {
             console.error('Error:', error); // Ako dođe do greške, ispisujemo je u konzoli
@@ -53,6 +55,12 @@ $(document).ready(function() {
                     param2 = $('#param2').val();
                     $("#param2Field").val(param2);
 
+                    param3 = $('#param3').val();
+                    $("#param3Field").val(param3);
+
+                    param4 = $('#param4').val();
+                    $("#param4Field").val(param4);
+
                     $("#workspaceForm").submit();
                 }
 
@@ -76,7 +84,6 @@ $(document).ready(function() {
         availableDataSources.forEach(function(dataSource) {
             dialogOptions += '<option value="' + dataSource.id + '">' + dataSource.name + '</option>';
         });
-        dialogOptions += '<option value="' + "test"+ '">' + "test opcija" + '</option>';
 
         // Postavljanje opcija u dijalog
         dialog.html('<p>Choose a data source:</p><select id="dataSourceSelect">' + dialogOptions + '</select>');
@@ -92,16 +99,21 @@ $(document).ready(function() {
             // Npr. ako je selectedDataSource === 'neki_id', dodajte input polja u dijalog
 
             // Uklanjanje prethodno dodatih input polja iz dijaloga
-            $('#additionalFields').remove();
+            $('.additionalFields').remove();
 
             if (selectedDataSource === 'default') {
                 // Dodavanje dodatnih input polja u dijalog
             }
             if (selectedDataSource === 'Github Data Source') {
                 // Dodavanje dodatnih input polja u dijalog
-                dialog.append('<div id="additionalParam1"><input type="text" id="param1" name="someInputField" placeholder="enter git repo"></div>');
-                dialog.append('<div id="additionalParam2"><input type="hidden" id="param2" name="someInputField" placeholder="enter git repo"></div>');
-
+                dialog.append('<div class="additionalFields"><input type="text" id="param1" name="git repo" placeholder="enter git repo"></div>');
+            }
+            if (selectedDataSource === 'Instagram Data Source') {
+                // Dodavanje dodatnih input polja u dijalog
+                dialog.append('<div class="additionalFields"><input type="text" id="param1" name="instagram profile" placeholder="instagram profile"></div>');
+                dialog.append('<div class="additionalFields"><input type="text" id="param2" name="width" placeholder="enter width (default 5)"></div>');
+                dialog.append('<div class="additionalFields"><input type="text" id="param3" name="username" placeholder="enter username (optional)"></div>');
+                dialog.append('<div class="additionalFields"><input type="text" id="param4" name="password" placeholder="enter password (optional)"></div>');
             }
         });
     });
