@@ -28,12 +28,15 @@ def index(request):
 
 
 def index_test(request):
-    core_config.platform.set_data_source(core_config.platform.get_available_data_sources()[0])
     data_sources = [{"id": ds.identifier(), "name": ds.name()} for ds in available_data_sources]
     workspace_indices = range(0, len(core_config.workspaces))
+    try:
+        data = core_config.platform.get_visualized_graph(selected_visualizer)
+    except:
+        data = "no data source selected"
     # transform to json
     json_data_sources = json.dumps(data_sources)
-    return render(request, 'test.html', {'data': core_config.platform.get_visualized_graph(selected_visualizer), 
+    return render(request, 'test.html', {'data': data,
                                          'data_sources': json_data_sources,
                                          'workspaces': workspace_indices})
 

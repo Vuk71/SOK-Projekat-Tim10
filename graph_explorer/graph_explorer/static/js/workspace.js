@@ -34,7 +34,10 @@ function changeWorkspace(button, workspace) {
 $(document).ready(function() {
 
     $('#workspaceForm').submit(function(event) {
+
         event.preventDefault(); // Spriječava podnošenje forme putem uobičajenog postupka
+
+
 
         var selectedWorkspace = $('.selected').text().replace('Workspace ', ''); // Dohvaća odabrani workspace
 
@@ -58,6 +61,12 @@ $(document).ready(function() {
 
                 // Ažuriramo podatke na stranici
                 $('#dataParagraph').text(response.data);
+
+                var buttons = document.querySelectorAll('.button');
+
+                var newWorkspace = buttons[buttons.length - 2];
+
+                newWorkspace.classList.add('selected');
             },
             error: function(error) {
                 console.error('Error:', error); // Ako dođe do greške, ispisujemo je u konzoli
