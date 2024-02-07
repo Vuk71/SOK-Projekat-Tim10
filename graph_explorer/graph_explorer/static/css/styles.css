@@ -25,7 +25,7 @@ select {
 }
 
 .navbar {
-    background-color: #800080; /* Ljubičasta boja - možete prilagoditi ovu vrednost prema vašim željama */
+    background-color: #241024 !important; /* Ljubičasta boja - možete prilagoditi ovu vrednost prema vašim željama */
 }
 
 .navbar-light .navbar-toggler-icon {
