@@ -15,7 +15,7 @@ class DataSourceInstagram(ParseDataBase):
         self.username = "betty_foxterrier"
         self.password = "bettykerety"
         self.profile = "betty_foxterrier"
-        self.width = 5
+        self.width = 10
         self.depth = 1
 
     def set_profile(self, profile):
@@ -30,43 +30,53 @@ class DataSourceInstagram(ParseDataBase):
     def name(self):
         return "Load from instagram"
 
+
     def parse_data(self) -> Graph:
+        start_loading = time.time()  # Pokreni tajmer za učitavanje podataka
+
         ig = instaloader.Instaloader()
         ig.login(self.username, self.password)
         profile = instaloader.Profile.from_username(ig.context, self.profile)
 
-        graph = Graph()
+        #dictionary to keep profile followees username as key and their followees (profiles) as value
+        profile_followees = {}
 
-        profile_node = Node(id=profile.username, data={"private": profile.is_private, "followers": profile.followers,
-                                                       "followees": profile.followees})
-        graph.nodes[profile_node.id] = profile_node
-
-        # Add profile's followees and their followees to the graph
         for followee in islice(profile.get_followees(), self.width):
-            followee_node = Node(id=followee.username,
-                                 data={"private": followee.is_private, "followers": followee.followers,
-                                       "followees": followee.followees})
-            graph.nodes[followee_node.id] = followee_node
-            graph.edges.append(Edge(source=self.username, target=followee.username, name="following"))
+            followee_followees = islice(followee.get_followers(), self.width)
+            profile_followees[followee] = followee_followees
 
-            # Handle rate limit
-            while True:
-                try:
-                    for followee_followee in islice(followee.get_followers(), self.width):
-                        followee_followee_node = Node(id=followee_followee.username,
-                                                      data={"private": followee_followee.is_private,
-                                                            "followers": followee_followee.followers,
-                                                            "followees": followee_followee.followees})
-                        graph.nodes[followee_followee_node.id] = followee_followee_node
-                        graph.edges.append(Edge(source=followee.username, target=followee_followee.username,
-                                                name="following"))
-                    break  # Ako je zahtjev uspješno izvršen, prekidamo petlju
-                except instaloader.HTTPException as e:
-                    if e.msg.startswith('HTTP error "429'):
-                        print("Premašen rate limit. Čekamo {} sekundi...".format(self.rate_limit_wait_time))
-                        time.sleep(self.rate_limit_wait_time)
-                    else:
-                        raise  # Ukoliko je greška drugačija od rate limite, izuzetak se ponovo podiže
+        end_loading = time.time()  # Zaustavi tajmer za učitavanje podataka
+        loading_time = end_loading - start_loading  # Izračunaj vreme učitavanja
+
+        print("loading time: ")
+        print(loading_time)
+
+
+        start_loading = time.time()  # Pokreni tajmer za učitavanje podataka
+
+        #forming graph from data
+        graph = Graph()
+        profile_node = Node(id=profile.username, data={"private":profile.is_private,"followers":profile.followers,"followees":profile.followees})
+        graph.nodes[profile_node.id] = profile_node
+        for followee, followee_followees in profile_followees.items():
+            node = Node(id=followee.username,data={"private":followee.is_private,"followers":followee.followers,"followees":followee.followees})
+            graph.nodes[node.id] = node
+            edge = Edge(source= self.username, target = followee.username, name = "following")
+            graph.edges.append(edge)
+            for followee_followee in followee_followees:
+                edge = Edge(source= followee.username, target = followee_followee.username, name = "following")
+                node = Node(id=followee_followee.username, data={"private": followee_followee.is_private, "followers": followee_followee.followers,
+                                                        "followees": followee_followee.followees})
+                graph.nodes[node.id] = node
+                graph.edges.append(edge)
+
+
+        end_loading = time.time()  # Zaustavi tajmer za učitavanje podataka
+        loading_time = end_loading - start_loading  # Izračunaj vreme učitavanja
+
+        print("forming graph time: ")
+        print(loading_time)
+
 
         return graph
 

@@ -8,11 +8,6 @@ class Graph:
         self.nodes: Dict[str, Node] = {}
         self.edges: List[Edge] = []
 
-    def __str__(self) -> str:
-        node_str = '\n'.join(str(node) for node in self.nodes.values())
-        edge_str = '\n'.join(str(edge) for edge in self.edges)
-        return f"#node\n{node_str}\n\n#edges\n{edge_str}"
-
 class Node:
     def __init__(self, id: str, data: Dict):
         self.id = id

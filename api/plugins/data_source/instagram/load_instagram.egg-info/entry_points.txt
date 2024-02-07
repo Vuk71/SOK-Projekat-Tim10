@@ -1,2 +1,0 @@
-[graph.load]
-load_instagram = loader.data_source_instagram:DataSourceInstagram
