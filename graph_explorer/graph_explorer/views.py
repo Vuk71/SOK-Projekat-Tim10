@@ -1,3 +1,4 @@
+import pkg_resources
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -113,3 +114,11 @@ def get_available_visualizers():
     pass
     # Implement logic to discover and return available visualizer plugins
     # ...
+
+def bird_view(request):
+    html_graph_script = pkg_resources.resource_string(__name__, 'static/js/bird_view.js')
+
+    return render(request, "bird_view.html", {
+        "script": html_graph_script.decode("utf-8"),
+        "graph": apps.get_app_config('Core').searchedGraph
+    })

@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index, visualize_graph, index_test
+from .views import index, visualize_graph, index_test, bird_view
 
 urlpatterns = [
     path('', index_test, name='index_test'),
     path('visualize-graph/', visualize_graph, name='visualize_graph'),
+    path('bird_view', bird_view, name='bird_view'),
     path("admin/", admin.site.urls)
 ]

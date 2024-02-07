@@ -109,6 +109,54 @@ function complexView(d) {
 
 }
 
+// Dummy data
+var nodes = [
+    { id: "node1", name: "Node 1", data: { attribute1: "Value 1", attribute2: "Value 2" } },
+    { id: "node2", name: "Node 2", data: { attribute1: "Value 3", attribute2: "Value 4" } },
+    // Add more nodes as needed
+];
+
+var edges = [
+    { source: "node1", target: "node2" },
+    // Define more edges as needed
+];
+
+// Add dummy data to the force layout
+force
+    .nodes(nodes)
+    .edges(edges)
+    .start();
+
+// Render edges
+var edge = svg_complex.selectAll('.edge')
+    .data(edges)
+    .enter().append('line')
+    .attr('class', 'main_view_edge');
+
+// Render nodes
+var node = svg_complex.selectAll('.main_view_node')
+    .data(nodes)
+    .enter().append('g')
+    .attr('class', '.main_view_node')
+    .attr('id', function (d) {
+        return "main_" + d.id;
+    })
+    .on('click', function () {
+        clickNode(this);
+    })
+    .call(drag);
+
+// Code to render node attributes (you may need to adjust this part according to your data structure)
+node.each(function (d) {
+    complexView(d);
+});
+
+// Function to render node attributes
+function complexView(d) {
+    // Your rendering logic here
+}
+
+
 function dragstart(d) {
     d3.event.sourceEvent.stopPropagation();
     d3.select(this).classed('fixed', d.fixed = true);
