@@ -1,34 +1,10 @@
 {% extends "base.html" %}
 {% block main %}
-<html>
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workspace Test</title>
-    <link rel="stylesheet" href="../static/css/workspace.css"> <!-- Uključivanje CSS datoteke -->
-    <!-- Uključivanje jQuery i jQuery UI -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</head>
-    <body>
         <p>test : <p>
 
-        <!-- <p>{{data}}<p>
-        {% if data %}
-            <p>Variable is being passed correctly</p>
-        {% else %}
-            <p>Variable is not being passed correctly</p>
-        {% endif %}
-    </body>
-</html>
-{% endblock %} -->
-
         <p id="dataParagraph">{{data}}<p>
-    </body>
 
-    <div>
-        {% block workspace %}{% endblock %}
-    </div>
-</html>
-
+            <div>
+                {% include "workspace.html" %}
+            </div>
+{% endblock %}
