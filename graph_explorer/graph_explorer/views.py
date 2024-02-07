@@ -83,7 +83,6 @@ def workspace_test(request):
                 print("width: " + width)
                 print("username: " + username)
                 print("password: " +password)
-                print("ovde je upao")
                 data_source = core_config.get_data_source_plugin(selected_data_source)
                 if(profile != ""):
                     data_source.set_profile(profile)
@@ -98,23 +97,9 @@ def workspace_test(request):
 
             core_config.workspaces.append(core_config.platform.get_graph())
             core_config.active_workspace = len(core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
-            return redirect('workspace_test')
+            return redirect('index_test')
 
-    # list of indexes to draw all buttons for workspaces
-    workspace_indices = range(0, len(core_config.workspaces))
-
-    # send plugins names and id so user can select new data source
-    data_sources = [{"id": ds.identifier(), "name": ds.name()} for ds in available_data_sources]
-
-    # transform to json
-    json_data_sources = json.dumps(data_sources)
-    try:
-        data = core_config.platform.get_visualized_graph(selected_visualizer)
-    except Exception as ex:
-        data = ex.__str__()
-
-    return render(request, 'workspace.html', {'data': data, 'data_sources': json_data_sources, 'workspaces': workspace_indices})
-
+    return redirect('index_test')
 
 def visualize_graph(request):
     pass

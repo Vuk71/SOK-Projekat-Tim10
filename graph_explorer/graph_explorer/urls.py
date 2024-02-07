@@ -20,6 +20,7 @@ from .views import index, visualize_graph, index_test, workspace_test, update_ac
 
 urlpatterns = [
     path('', index_test, name='index_test'),
+    path('add_workspace/', workspace_test, name='add_workspace'),
     path('update_active_workspace/', update_active_workspace, name='update_active_workspace'),
     path('visualize-graph/', visualize_graph, name='visualize_graph'),
     path("admin/", admin.site.urls)
