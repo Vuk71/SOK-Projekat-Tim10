@@ -72,6 +72,9 @@ $(document).ready(function() {
                 console.error('Error:', error); // Ako dođe do greške, ispisujemo je u konzoli
             }
         });
+
+        return false; // Spriječava preusmjeravanje na drugu stranicu
+
     });
 
 
