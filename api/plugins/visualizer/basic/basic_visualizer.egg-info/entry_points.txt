@@ -1,3 +1,0 @@
-[graph.visualizer]
-visualize_basic = visualizer.basic_visualizer:VisualizeBasic
-
