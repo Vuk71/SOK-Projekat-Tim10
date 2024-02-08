@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="{% static 'css/workspace.css' %}" />
         <link rel="stylesheet" href="{% static 'css/test.css' %}" />
         <script src="{% static 'js/app.js' %}"></script>
+        <!-- d3 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!-- JQuery -->
@@ -44,22 +46,20 @@
                 <button class="btn btn-outline-secondary" type="button">Simple Visualizer</button>
                 <button class="btn btn-outline-secondary" type="button">Detailed Visualizer</button>
             </form>
-        </nav> 
-        
-        <div class="left">
-            {% block tree %}{% endblock %}
-        </div>
-    
-        <div class="right">
-            {% block bird %}{% endblock %}
-        </div>
-    
-        <div class="center" id="center">
+        </nav>
+
+        <div class="mainView">
             {% block main %}{% endblock %}
         </div>
 
-        <div class="workspace" id="center">
-            {% block workspace %}{% endblock %}
+
+        <div class="treeView">
+            {% block tree %}{% endblock %}
         </div>
+
+        <div class="footer">
+            {% include "workspace.html" %}
+        </div>
+
     </body>
 </html>

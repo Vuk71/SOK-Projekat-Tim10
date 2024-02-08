@@ -293,7 +293,6 @@ function _drawTree(treeData) {
                 for ([key, valueA] of Object.entries(current_node.data)) {
                     node_val = {
                         name: key,
-                        naziv: key + " : " + valueA,
                         attributes: {},
                         children: [],
                         attr: true,
@@ -306,8 +305,6 @@ function _drawTree(treeData) {
                 nodes.forEach(function(node) {
                     node_val = {
                         name: node.id,
-                        init_name: node.init_node_id,
-                        naziv: node.name,
                         attributes: node.data,
                         children: [],
                         attr: false,

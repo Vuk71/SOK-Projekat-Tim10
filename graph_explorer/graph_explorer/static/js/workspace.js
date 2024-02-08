@@ -18,10 +18,8 @@ function changeWorkspace(button, workspace) {
         },
         dataType: 'json',
         success: function(response) {
-            console.log(response); // Ispisujemo odgovor u konzoli radi provere
+                window.location.href = '';
 
-        // Ažuriramo podatke na stranici
-            $('#dataParagraph').text(response.data);
         },
         error: function(error) {
             console.error('Error:', error); // Ako dođe do greške, ispisujemo je u konzoli

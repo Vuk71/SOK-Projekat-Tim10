@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 
 from django.apps.registry import apps
 import json
+import jsonpickle
+import pkg_resources
 
 core_config = apps.get_app_config("graph_explorer")
 
@@ -31,16 +33,31 @@ def index_test(request):
     data_sources = [{"id": ds.identifier(), "name": ds.name()} for ds in available_data_sources]
     workspace_indices = range(0, len(core_config.workspaces))
     try:
-        data, bird_view, tree_view = core_config.platform.get_visualized_graph(selected_visualizer)
-    except:
-        data = "no data source selected"
-        bird_view = "no data"
-        tree_view= "no data"
+        main_script, bird_script, tree_script = core_config.platform.get_visualized_graph(selected_visualizer)
+    except Exception as e:
+        print(f"An exception occurred: {e}")
+        main_script = ""
+        bird_script = ""
+        tree_script= ""
+    graph = "nema"
+    if core_config.platform.get_graph():
+        graph = core_config.platform.get_graph().get_roots()
+
+    main_script_decoded = ""
+    if main_script != "":
+        main_script_decoded = main_script.decode("utf-8")
+
+    tree_script = pkg_resources.resource_string(__name__, 'static/js/tree_view.js')
     # transform to json
     json_data_sources = json.dumps(data_sources)
-    return render(request, 'test.html', {'data': data, 'bird' : bird_view, 'tree' : tree_view,
-                                         'data_sources': json_data_sources,
-                                         'workspaces': workspace_indices})
+    return render(request, 'tree_view.html',
+                  {'main_script': main_script_decoded,
+                   'bird_script': bird_script,
+                   'tree_script': tree_script.decode("utf-8"),
+                   'roots': graph,
+                   'data_sources': json_data_sources,
+                   'workspaces': workspace_indices}
+                  )
 
 
 # take graph from workspaces and set it on platform
@@ -51,8 +68,7 @@ def update_active_workspace(request):
         active_workspace = int(request.POST['active_workspace'])
         core_config.active_workspace = active_workspace
         core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace])
-        data, bird_view, tree_view = core_config.platform.get_visualized_graph(selected_visualizer)
-        return JsonResponse({'success': False, 'data':data, 'bird':bird_view, 'tree':tree_view})
+        return JsonResponse({'success': True})
     return JsonResponse({'success': False})
 
 
@@ -133,3 +149,14 @@ def get_available_visualizers():
     pass
     # Implement logic to discover and return available visualizer plugins
     # ...
+
+
+def get_children(request):
+    node_id =  request.GET["node_id"]
+    children = []
+    for edge in apps.get_app_config('Core').graph.edges:
+        if node_id == edge.source:
+            children.append(edge.destination)
+    children_json = jsonpickle.encode(children, unpicklable=False)
+    return JsonResponse(children_json, safe=False)
+

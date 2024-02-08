@@ -1,13 +1,6 @@
 "cvor_{{ node.id }}":{
     name: "cvor_{{node.id}}",
-    naziv: "{{node.name}}",
-    attributes: {{%for key,value in node.attributes.items %}
+    attributes: {{%for key,value in node.data.items %}
                     "{{key}}" : "{{value}}",
-                    {%endfor%}}},
-    {%if node.children|length != 0 %}
-        {%for ch in node.children %}
-              {%with node=ch template_name="nodes_main.html" %}
-                   {%include template_name%}
-              {%endwith%}
-         {%endfor%}
-    {% endif %}
+                    {%endfor%}}
+}
