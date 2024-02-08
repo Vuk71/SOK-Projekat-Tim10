@@ -1,15 +1,8 @@
 /* styles.css */
 
-body {
-    background-color: #333; /* Tamno siva pozadina */
-    font-family: Arial, sans-serif; /* Font */
-    color: #fff; /* Bela boja teksta */
-    padding: 20px; /* Razmak od ivice stranice */
-}
-
 /* Stilizacija za kliknuto dugme */
 button {
-    background-color: #007bff; /* Tamno plava pozadina */
+    background-color: #1F2544; /* Tamno plava pozadina */
     color: #fff; /* Bela boja teksta */
     padding: 10px 20px; /* Podešavanje veličine dugmeta */
     border: none; /* Uklanjanje ivice */
@@ -20,13 +13,13 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3; /* Tamnija nijansa tamno plave pri hoveru */
+    background-color: #1F2544; /* Tamnija nijansa tamno plave pri hoveru */
     border-radius: 25px; /* Zaobljenje ivica pri hoveru */
 }
 
 /* Stil za dugme koje je odabrano */
 button.selected {
-    background-color: #0056b3; /* Tamno plava pozadina */
+    background-color: #81689D; /* Tamno plava pozadina */
 }
 
 h1 {

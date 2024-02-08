@@ -21,7 +21,7 @@ class Platform:
     def get_visualized_graph(self, plugin: VisualizeDataBase) -> str:
         if not self.graph:
             raise Exception("No data source has been set.")
-        return plugin.visualize_graph(self.graph)
+        return plugin.visualize_graph(self.graph), "bird view", "tree, view"
 
     def load_available_plugins(self):
         self.data_sources = load_plugins("graph.load")
