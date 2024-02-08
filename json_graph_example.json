@@ -1,75 +1,1313 @@
 [
     {
         "@id": "id1",
+        "type": "human",
         "name": "Peter Parker",
         "age": 35,
         "degree": "PhD",
         "job": "Scientist",
         "salary": 100000.00,
-        "@wife": {
-            "@id": "id2",
-            "love": "Strong",
-            "years": 14
-        },
-        "@children": [
-            {
-                "@id": "id3",
-                "favorite": true
-            },
-            {
-                "@id": "id4",
-                "favorite": false
-            }
-        ]
+        "@wife": "id2",
+        "@child": ["id3", "id4"],
+        "@supervisor": "id10"
     },
     {
         "@id": "id2",
+        "type": "human",
         "name": "Mary Jane Watson",
         "age": 34,
         "degree": "Bachelor's",
         "job": "Journalist",
         "salary": 60000.00,
-        "@husband": {
-            "@id": "id1",
-            "love": "Strong",
-            "years": 14
-        },
-        "@children": [
-            {
-                "@id": "id3",
-                "favorite": false
-            },
-            {
-                "@id": "id4",
-                "favorite": true
-            }
-        ]
+        "@husband": "id1",
+        "@child": ["id3", "id4"],
+        "@supervisor": "id10"
     },
     {
         "@id": "id3",
+        "type": "human",
         "name": "May Parker",
         "age": 5,
-        "@parents": [
-            {
-                "@id": "id1"
-            },
-            {
-                "@id": "id2"
-            }
-        ]
+        "@parent": ["id1", "id2"]
     },
     {
         "@id": "id4",
+        "type": "human",
         "name": "Ben Parker",
         "age": 13,
         "school": "Midtown School of Science and Technology",
-        "@parents": [
-            {
-                "@id": "id1"
-            },
-            {
-                "@id": "id2"
-            }
-        ]
+        "@parent": ["id1", "id2"]
+    },
+    {
+        "@id": "id5",
+        "type": "human",
+        "name": "Tony Stark",
+        "age": 45,
+        "degree": "Master's",
+        "job": "CEO",
+        "salary": 500000.00,
+        "@supervisor": "id1"
+    },
+    {
+        "@id": "id6",
+        "type": "human",
+        "name": "Bruce Wayne",
+        "age": 40,
+        "job": "CEO",
+        "salary": 700000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id7",
+        "type": "human",
+        "name": "Clark Kent",
+        "age": 35,
+        "job": "Journalist",
+        "salary": 80000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id8",
+        "type": "pet",
+        "name": "Fido",
+        "species": "dog",
+        "breed": "Labrador",
+        "age": 3,
+        "color": "golden",
+        "@owner": ["id1"]
+    },
+    {
+        "@id": "id9",
+        "type": "pet",
+        "name": "Whiskers",
+        "species": "cat",
+        "breed": "Siamese",
+        "age": 2,
+        "color": "white",
+        "@owner": ["id2"]
+    },
+    {
+        "@id": "id10",
+        "type": "human",
+        "name": "Dr. Octavius",
+        "age": 50,
+        "degree": "PhD",
+        "job": "Researcher",
+        "salary": 120000.00
+    },
+    {
+        "@id": "id11",
+        "type": "pet",
+        "name": "Buddy",
+        "species": "dog",
+        "breed": "Golden Retriever",
+        "age": 2,
+        "color": "golden",
+        "@owner": ["id5"]
+    },
+    {
+        "@id": "id12",
+        "type": "pet",
+        "name": "Sylvester",
+        "species": "cat",
+        "breed": "Persian",
+        "age": 4,
+        "color": "gray",
+        "@owner": ["id7"]
+    },
+    {
+        "@id": "id13",
+        "type": "human",
+        "name": "Barry Allen",
+        "age": 28,
+        "job": "Forensic Scientist",
+        "salary": 75000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id14",
+        "type": "human",
+        "name": "Diana Prince",
+        "age": 30,
+        "job": "Archaeologist",
+        "salary": 80000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id15",
+        "type": "pet",
+        "name": "Max",
+        "species": "dog",
+        "breed": "German Shepherd",
+        "age": 5,
+        "color": "black",
+        "@owner": ["id13"]
+    },
+    {
+        "@id": "id16",
+        "type": "human",
+        "name": "Arthur Curry",
+        "age": 33,
+        "job": "Marine Biologist",
+        "salary": 85000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id17",
+        "type": "pet",
+        "name": "Oliver",
+        "species": "parrot",
+        "age": 2,
+        "@owner": ["id16"]
+    },
+    {
+        "@id": "id18",
+        "type": "human",
+        "name": "Hal Jordan",
+        "age": 34,
+        "job": "Test Pilot",
+        "salary": 90000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id19",
+        "type": "pet",
+        "name": "Coco",
+        "species": "rabbit",
+        "age": 3,
+        "@owner": ["id18"]
+    },
+    {
+        "@id": "id20",
+        "type": "human",
+        "name": "Wally West",
+        "age": 25,
+        "job": "Mechanic",
+        "salary": 60000.00,
+        "@supervisor": "id13"
+    },
+    {
+        "@id": "id21",
+        "type": "human",
+        "name": "Kara Danvers",
+        "age": 27,
+        "job": "Reporter",
+        "salary": 70000.00,
+        "@supervisor": "id14"
+    },
+    {
+        "@id": "id22",
+        "type": "pet",
+        "name": "Luna",
+        "species": "cat",
+        "breed": "Maine Coon",
+        "age": 1,
+        "color": "brown",
+        "@owner": ["id20"]
+    },
+    {
+        "@id": "id23",
+        "type": "human",
+        "name": "Victor Stone",
+        "age": 29,
+        "job": "Engineer",
+        "salary": 80000.00,
+        "@supervisor": "id13"
+    },
+    {
+        "@id": "id24",
+        "type": "human",
+        "name": "Harleen Quinzel",
+        "age": 31,
+        "job": "Psychiatrist",
+        "salary": 85000.00,
+        "@supervisor": "id14"
+    },
+    {
+        "@id": "id25",
+        "type": "pet",
+        "name": "Harvey",
+        "species": "dog",
+        "breed": "Dalmatian",
+        "age": 4,
+        "color": "spotted",
+        "@owner": ["id23"]
+    },
+    {
+        "@id": "id26",
+        "type": "human",
+        "name": "Selina Kyle",
+        "age": 32,
+        "job": "Thief",
+        "salary": 70000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id27",
+        "type": "pet",
+        "name": "Mittens",
+        "species": "cat",
+        "breed": "Tabby",
+        "age": 2,
+        "color": "orange",
+        "@owner": ["id26"]
+    },
+    {
+        "@id": "id28",
+        "type": "human",
+        "name": "Barbara Gordon",
+        "age": 26,
+        "job": "Librarian",
+        "salary": 65000.00,
+        "@supervisor": "id13"
+    },
+    {
+        "@id": "id29",
+        "type": "human",
+        "name": "Harvey Dent",
+        "age": 36,
+        "job": "District Attorney",
+        "salary": 90000.00,
+        "@supervisor": "id14"
+    },
+    {
+        "@id": "id30",
+        "type": "pet",
+        "name": "Paws",
+        "species": "dog",
+        "breed": "Poodle",
+        "age": 3,
+        "color": "white",
+        "@owner": ["id28"]
+    },
+    {
+        "@id": "id31",
+        "type": "human",
+        "name": "Pamela Isley",
+        "age": 30,
+        "job": "Botanist",
+        "salary": 75000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id32",
+        "type": "pet",
+        "name": "Spike",
+        "species": "turtle",
+        "age": 3,
+        "color": "green",
+        "@owner": ["id31"]
+    },
+    {
+        "@id": "id33",
+        "type": "human",
+        "name": "John Jones",
+        "age": 38,
+        "job": "Detective",
+        "salary": 85000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id34",
+        "type": "human",
+        "name": "J'onn J'onzz",
+        "age": 200,
+        "job": "Superhero",
+        "salary": 0.00,
+        "@supervisor": "id33"
+    },
+    {
+        "@id": "id35",
+        "type": "human",
+        "name": "Dinah Lance",
+        "age": 29,
+        "job": "Singer",
+        "salary": 70000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id36",
+        "type": "pet",
+        "name": "Feathers",
+        "species": "canary",
+        "age": 2,
+        "@owner": ["id35"]
+    },
+    {
+        "@id": "id37",
+        "type": "human",
+        "name": "Ray Palmer",
+        "age": 37,
+        "job": "Physicist",
+        "salary": 90000.00,
+        "@supervisor": "id10"
+    },
+    {
+        "@id": "id38",
+        "type": "pet",
+        "name": "Tiny",
+        "species": "ant",
+        "age": 1,
+        "@owner": ["id37"]
+    },
+    {
+        "@id": "id39",
+        "type": "human",
+        "name": "Barry Allen Jr.",
+        "age": 10,
+        "school": "Central City Elementary School",
+        "@parent": ["id13"]
+    },
+    {
+        "@id": "id40",
+        "type": "human",
+        "name": "Damian Wayne",
+        "age": 14,
+        "school": "Gotham Academy",
+        "@parent": ["id6"]
+    },
+    {
+        "@id": "id41",
+        "type": "human",
+        "name": "Jon Kent",
+        "age": 15,
+        "school": "Smallville High School",
+        "@parent": ["id7"]
+    },
+    {
+        "@id": "id42",
+        "type": "human",
+        "name": "Billy Batson",
+        "age": 16,
+        "school": "Fawcett City High School",
+        "@parent": ["id16"]
+    },
+    {
+        "@id": "id43",
+        "type": "human",
+        "name": "Cassie Sandsmark",
+        "age": 17,
+        "school": "Gateway City High School",
+        "@parent": ["id14"]
+    },
+    {
+        "@id": "id44",
+        "type": "human",
+        "name": "Tim Drake",
+        "age": 19,
+        "school": "Gotham University",
+        "@parent": ["id6"]
+    },
+    {
+        "@id": "id45",
+        "type": "human",
+        "name": "Stephanie Brown",
+        "age": 18,
+        "school": "Gotham High School",
+        "@parent": ["id6"]
+    },
+    {
+        "@id": "id46",
+        "type": "human",
+        "name": "Kara Zor-El",
+        "age": 16,
+        "school": "Midvale High School",
+        "@parent": ["id21"]
+    },
+    {
+        "@id": "id47",
+        "type": "human",
+        "name": "Jaime Reyes",
+        "age": 17,
+        "school": "El Paso High School",
+        "@parent": ["id18"]
+    },
+    {
+        "@id": "id48",
+        "type": "human",
+        "name": "Kaldur'ahm",
+        "age": 18,
+        "school": "Atlantis Academy",
+        "@parent": ["id16"]
+    },
+    {
+        "@id": "id49",
+        "type": "human",
+        "name": "Roy Harper",
+        "age": 19,
+        "school": "Gotham University",
+        "@parent": ["id18"]
+    },
+    {
+        "@id": "id50",
+        "type": "human",
+        "name": "Koriand'r",
+        "age": 17,
+        "school": "Tamaran Royal Academy",
+        "@parent": ["id18"]
+    },
+    {
+        "@id": "id51",
+        "type": "human",
+        "name": "Wally West Jr.",
+        "age": 15,
+        "school": "Central City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id52",
+        "type": "human",
+        "name": "Mia Queen",
+        "age": 17,
+        "school": "Star City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id53",
+        "type": "human",
+        "name": "Conner Kent",
+        "age": 18,
+        "school": "Smallville High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id54",
+        "type": "human",
+        "name": "Rachel Roth",
+        "age": 16,
+        "school": "Jump City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id55",
+        "type": "human",
+        "name": "Garfield Logan",
+        "age": 16,
+        "school": "Jump City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id56",
+        "type": "human",
+        "name": "Cassandra Cain",
+        "age": 17,
+        "school": "Gotham High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id57",
+        "type": "human",
+        "name": "Duke Thomas",
+        "age": 17,
+        "school": "Gotham High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id58",
+        "type": "human",
+        "name": "Damian Wayne",
+        "age": 16,
+        "school": "Gotham Academy",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id59",
+        "type": "human",
+        "name": "Helena Bertinelli",
+        "age": 18,
+        "school": "Gotham University",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id60",
+        "type": "human",
+        "name": "Cassie Sandsmark",
+        "age": 18,
+        "school": "Gateway City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id61",
+        "type": "human",
+        "name": "Bart Allen",
+        "age": 15,
+        "school": "Central City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id62",
+        "type": "human",
+        "name": "Tara Markov",
+        "age": 17,
+        "school": "Metropolis High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id63",
+        "type": "human",
+        "name": "Vic Sage",
+        "age": 18,
+        "school": "Hub City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id64",
+        "type": "human",
+        "name": "Ted Kord",
+        "age": 17,
+        "school": "Hub City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id65",
+        "type": "human",
+        "name": "Zatanna Zatara",
+        "age": 16,
+        "school": "Gotham High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id66",
+        "type": "human",
+        "name": "Kyle Rayner",
+        "age": 18,
+        "school": "Coast City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id67",
+        "type": "human",
+        "name": "Tatsu Yamashiro",
+        "age": 16,
+        "school": "Hub City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id68",
+        "type": "human",
+        "name": "Jessica Cruz",
+        "age": 17,
+        "school": "Coast City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id69",
+        "type": "human",
+        "name": "Simon Baz",
+        "age": 18,
+        "school": "Coast City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id70",
+        "type": "human",
+        "name": "Kate Kane",
+        "age": 17,
+        "school": "Gotham High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id71",
+        "type": "human",
+        "name": "Renee Montoya",
+        "age": 18,
+        "school": "Gotham University",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id72",
+        "type": "human",
+        "name": "Dinah Drake",
+        "age": 16,
+        "school": "Gotham High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id73",
+        "type": "human",
+        "name": "Mari McCabe",
+        "age": 17,
+        "school": "Metropolis High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id74",
+        "type": "human",
+        "name": "Rex Mason",
+        "age": 18,
+        "school": "Opal City High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id75",
+        "type": "human",
+        "name": "Elisa Maza",
+        "age": 17,
+        "school": "New York High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id76",
+        "type": "human",
+        "name": "Goliath",
+        "age": 16,
+        "school": "New York High School",
+        "@parent": ["id29"]
+    },
+    {
+        "@id": "id77",
+        "type": "human",
+        "name": "Matt Murdock",
+        "age": 25,
+        "school": "Columbia Law School",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id78",
+        "type": "human",
+        "name": "Elektra Natchios",
+        "age": 24,
+        "school": "Columbia Law School",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id79",
+        "type": "human",
+        "name": "Frank Castle",
+        "age": 35,
+        "school": "Marine Corps University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id80",
+        "type": "human",
+        "name": "Jessica Jones",
+        "age": 28,
+        "school": "Columbia University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id81",
+        "type": "human",
+        "name": "Danny Rand",
+        "age": 27,
+        "school": "Harvard University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id82",
+        "type": "human",
+        "name": "Luke Cage",
+        "age": 30,
+        "school": "Ryker's Island",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id83",
+        "type": "human",
+        "name": "Jubilation Lee",
+        "age": 25,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id84",
+        "type": "human",
+        "name": "Remy LeBeau",
+        "age": 27,
+        "school": "Thieves' Guild",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id85",
+        "type": "human",
+        "name": "Anna Marie",
+        "age": 24,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id86",
+        "type": "human",
+        "name": "Ororo Munroe",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id87",
+        "type": "human",
+        "name": "Warren Worthington III",
+        "age": 26,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id88",
+        "type": "human",
+        "name": "Betsy Braddock",
+        "age": 30,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id89",
+        "type": "human",
+        "name": "Kurt Wagner",
+        "age": 31,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id90",
+        "type": "human",
+        "name": "Elizabeth Braddock",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id91",
+        "type": "human",
+        "name": "James Howlett",
+        "age": 200,
+        "school": "Military Training",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id92",
+        "type": "human",
+        "name": "Scott Summers",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id93",
+        "type": "human",
+        "name": "Jean Grey",
+        "age": 27,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id94",
+        "type": "human",
+        "name": "Henry McCoy",
+        "age": 29,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id95",
+        "type": "human",
+        "name": "Warren Worthington II",
+        "age": 55,
+        "school": "Harvard University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id96",
+        "type": "human",
+        "name": "Nathaniel Essex",
+        "age": 65,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id97",
+        "type": "human",
+        "name": "Charles Xavier",
+        "age": 60,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id98",
+        "type": "human",
+        "name": "Erik Lehnsherr",
+        "age": 62,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id99",
+        "type": "human",
+        "name": "Stephen Strange",
+        "age": 42,
+        "school": "Harvard University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id100",
+        "type": "human",
+        "name": "Wanda Maximoff",
+        "age": 38,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id101",
+        "type": "human",
+        "name": "Vision",
+        "age": 40,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id102",
+        "type": "human",
+        "name": "Robert Drake",
+        "age": 27,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id103",
+        "type": "human",
+        "name": "Kitty Pryde",
+        "age": 26,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id104",
+        "type": "human",
+        "name": "Anna Marie",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id105",
+        "type": "human",
+        "name": "Piotr Rasputin",
+        "age": 30,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id106",
+        "type": "human",
+        "name": "Rachel Summers",
+        "age": 35,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id107",
+        "type": "human",
+        "name": "Ororo Munroe",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id108",
+        "type": "human",
+        "name": "Kurt Wagner",
+        "age": 32,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id109",
+        "type": "human",
+        "name": "Elizabeth Braddock",
+        "age": 29,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id110",
+        "type": "human",
+        "name": "James Howlett",
+        "age": 200,
+        "school": "Military Training",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id111",
+        "type": "human",
+        "name": "Scott Summers",
+        "age": 29,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id112",
+        "type": "human",
+        "name": "Jean Grey",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id113",
+        "type": "human",
+        "name": "Henry McCoy",
+        "age": 30,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id114",
+        "type": "human",
+        "name": "Warren Worthington II",
+        "age": 55,
+        "school": "Harvard University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id115",
+        "type": "human",
+        "name": "Nathaniel Essex",
+        "age": 65,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id116",
+        "type": "human",
+        "name": "Charles Xavier",
+        "age": 60,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id117",
+        "type": "human",
+        "name": "Erik Lehnsherr",
+        "age": 62,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id118",
+        "type": "human",
+        "name": "Stephen Strange",
+        "age": 42,
+        "school": "Harvard University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id119",
+        "type": "human",
+        "name": "Wanda Maximoff",
+        "age": 38,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id120",
+        "type": "human",
+        "name": "Vision",
+        "age": 40,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id121",
+        "type": "human",
+        "name": "Robert Drake",
+        "age": 27,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id122",
+        "type": "human",
+        "name": "Kitty Pryde",
+        "age": 26,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id123",
+        "type": "human",
+        "name": "Anna Marie",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id124",
+        "type": "human",
+        "name": "Piotr Rasputin",
+        "age": 30,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id125",
+        "type": "human",
+        "name": "Rachel Summers",
+        "age": 35,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id126",
+        "type": "human",
+        "name": "Ororo Munroe",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id127",
+        "type": "human",
+        "name": "Kurt Wagner",
+        "age": 32,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id128",
+        "type": "human",
+        "name": "Elizabeth Braddock",
+        "age": 29,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id129",
+        "type": "human",
+        "name": "James Howlett",
+        "age": 200,
+        "school": "Military Training",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id130",
+        "type": "human",
+        "name": "Scott Summers",
+        "age": 29,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id131",
+        "type": "human",
+        "name": "Jean Grey",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id132",
+        "type": "human",
+        "name": "Henry McCoy",
+        "age": 30,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id133",
+        "type": "human",
+        "name": "Warren Worthington II",
+        "age": 55,
+        "school": "Harvard University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id134",
+        "type": "human",
+        "name": "Nathaniel Essex",
+        "age": 65,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id135",
+        "type": "human",
+        "name": "Charles Xavier",
+        "age": 60,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id136",
+        "type": "human",
+        "name": "Erik Lehnsherr",
+        "age": 62,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id137",
+        "type": "human",
+        "name": "Stephen Strange",
+        "age": 42,
+        "school": "Harvard University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id138",
+        "type": "human",
+        "name": "Wanda Maximoff",
+        "age": 38,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id139",
+        "type": "human",
+        "name": "Vision",
+        "age": 40,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id140",
+        "type": "human",
+        "name": "Robert Drake",
+        "age": 27,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id141",
+        "type": "human",
+        "name": "Kitty Pryde",
+        "age": 26,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id142",
+        "type": "human",
+        "name": "Anna Marie",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id143",
+        "type": "human",
+        "name": "Piotr Rasputin",
+        "age": 30,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id144",
+        "type": "human",
+        "name": "Rachel Summers",
+        "age": 35,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id145",
+        "type": "human",
+        "name": "Ororo Munroe",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id146",
+        "type": "human",
+        "name": "Kurt Wagner",
+        "age": 32,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id147",
+        "type": "human",
+        "name": "Elizabeth Braddock",
+        "age": 29,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id148",
+        "type": "human",
+        "name": "James Howlett",
+        "age": 200,
+        "school": "Military Training",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id149",
+        "type": "human",
+        "name": "Scott Summers",
+        "age": 29,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id150",
+        "type": "human",
+        "name": "Jean Grey",
+        "age": 28,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id151",
+        "type": "human",
+        "name": "Henry McCoy",
+        "age": 30,
+        "school": "Xavier's School for Gifted Youngsters",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id152",
+        "type": "human",
+        "name": "Warren Worthington II",
+        "age": 55,
+        "school": "Harvard University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id153",
+        "type": "human",
+        "name": "Nathaniel Essex",
+        "age": 65,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id154",
+        "type": "human",
+        "name": "Charles Xavier",
+        "age": 60,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id155",
+        "type": "human",
+        "name": "Erik Lehnsherr",
+        "age": 62,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id156",
+        "type": "human",
+        "name": "Stephen Strange",
+        "age": 42,
+        "school": "Harvard University",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id157",
+        "type": "human",
+        "name": "Wanda Maximoff",
+        "age": 38,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
+    },
+    {
+        "@id": "id158",
+        "type": "human",
+        "name": "Vision",
+        "age": 40,
+        "school": "University of Oxford",
+        "@supervisor": "id34"
     }
 ]
