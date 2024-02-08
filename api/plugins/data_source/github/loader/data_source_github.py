@@ -29,7 +29,7 @@ class DataSourceGithub(ParseDataBase):
         g = Github(self.github_token)
         repo = g.get_repo(self.repo)
         commits = repo.get_commits()
-        commits_list = [{"sha": commit.sha, "author": commit.author.login, "date": commit.commit.author.date, "message": commit.commit.message} for commit in commits]
+        commits_list = [{"sha": commit.sha, "author": commit.author.login, "date": commit.commit.author.date, "message": commit.commit.message, "parents": [p.sha for p in commit.parents]} for commit in commits]
         print("loading data ...")
         
         print("making graph ...")
@@ -47,14 +47,14 @@ class DataSourceGithub(ParseDataBase):
             commit_nodes[sha] = node
 
         # Dodajte grane na osnovu roditelja svakog commita
-        # for commit_data in commits_list:
-        #     sha = commit_data["sha"]
-        #     parents = repo.get_commit(sha).parents
-
-        #     for parent in parents:
-        #         parent_sha = parent.sha
-        #         edge = Edge(parent_sha, sha)
-        #         graph.edges.append(edge)
+        for commit_data in commits_list:
+            sha = commit_data["sha"]
+            parents = commit_data["parents"]
+            for parent_sha in parents:
+                # Create an edge from parent commit to current commit
+                edge = Edge(parent_sha, sha)
+                graph.edges.append(edge)
+        
         return graph
 
     def __str__(self):
