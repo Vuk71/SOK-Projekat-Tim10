@@ -55,6 +55,8 @@ class DataSourceGithub(ParseDataBase):
                 edge = Edge(parent_sha, sha)
                 graph.edges.append(edge)
         
+        print("Number of nodes:", len(graph.nodes))
+
         return graph
 
     def __str__(self):
