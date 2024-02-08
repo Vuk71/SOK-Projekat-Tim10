@@ -1,0 +1,12 @@
+{
+    name: {{node.id}},
+    init_name:{{ node.init_node_id }},
+    naziv: "{{node.name}}",
+    attributes: {{%for key,value in node.attributes.items %}
+                    "{{key}}" : "{{value}}",
+                    {%endfor%}},
+    children:
+            [],
+    attr : false,
+    color : '#3AA9AD'
+}

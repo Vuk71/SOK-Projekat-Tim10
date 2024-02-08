@@ -2,6 +2,7 @@
 
 
 from typing import Dict, List
+#import json
 
 class Graph:
     def __init__(self):
@@ -29,3 +30,11 @@ class Edge:
 
     def __str__(self):
         return "source: " + self.source + " target: " + self.target + "name: " + self.name
+
+    #
+    #
+    # graph = Graph()
+    # nodes_data = {node_id: {"name": node.id, "attributes": node.data} for node_id, node in graph.nodes.items()}
+    # edges_data = [{"source": edge.source, "target": edge.target} for edge in graph.edges]
+    # nodes_json = json.dumps(nodes_data)
+    # edges_json = json.dumps(edges_data)
