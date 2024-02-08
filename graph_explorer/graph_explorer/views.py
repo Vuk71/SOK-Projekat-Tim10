@@ -51,8 +51,8 @@ def update_active_workspace(request):
         active_workspace = int(request.POST['active_workspace'])
         core_config.active_workspace = active_workspace
         core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace])
-        data = core_config.platform.get_visualized_graph(selected_visualizer)
-        return JsonResponse({'success': False, 'data':data})
+        data, bird_view, tree_view = core_config.platform.get_visualized_graph(selected_visualizer)
+        return JsonResponse({'success': False, 'data':data, 'bird':bird_view, 'tree':tree_view})
     return JsonResponse({'success': False})
 
 
