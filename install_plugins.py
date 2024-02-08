@@ -16,4 +16,7 @@ if __name__ == "__main__":
     lay_egs("./api/plugins/data_source/github")
     lay_egs("./api/plugins/visualizer/basic")
     subprocess.run(["pip", "install", "setuptools"])
+    subprocess.run(["pip", "install", "instaloader"])
+    subprocess.run(["pip", "install", "PyGithub"])
+    subprocess.run(["pip", "install", "jsonpickle"])
     subprocess.run(["pip", "install", "django"])
