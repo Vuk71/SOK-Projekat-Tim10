@@ -1,0 +1,8 @@
+.footer {
+    position: fixed; /* Postavi poziciju na fiksnu */
+    bottom: 0; /* Postavi na dno */
+    width: 100%; /* Širina 100% */
+    padding: 20px; /* Dodajte padding po potrebi */
+    box-sizing: border-box; /* Ovo osigurava da padding ne utiče na širinu i visinu */
+    text-align: center; /* Centriraj tekst */
+}

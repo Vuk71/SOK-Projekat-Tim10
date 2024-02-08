@@ -1,5 +1,9 @@
 /* styles.css */
 
+body {
+    padding: 20px; /* Razmak od ivice stranice */
+}
+
 /* Stilizacija za kliknuto dugme */
 button {
     background-color: #1F2544; /* Tamno plava pozadina */
@@ -31,4 +35,9 @@ h1 {
     font-size: 18px; /* Veličina fonta */
     margin-top: 20px; /* Razmak između workspace-a i paragrafa */
     color: #fff; /* Bela boja teksta */
+}
+
+.horizontal-line {
+    border-bottom: 1px solid #1F2544; /* Debljina, tip i boja linije */
+    width: 100%;
 }
