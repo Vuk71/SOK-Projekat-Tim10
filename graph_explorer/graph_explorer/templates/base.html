@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/workspace.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/test.css' %}" />
+        <script src="{% static 'js/app.js' %}"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <!-- JQuery -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <!-- JQuery Jovan -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+        <!-- Bootstrap JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=" 
+        crossorigin="anonymous"></script>
+        <title>Graph Explorer Team 10</title>
+    </head>
+    <body>
+        <nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Team 10</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <!-- Add other navigation items here if needed -->
+                </ul>
+            </div>
+            <form class="form-inline ml-auto">
+                <input class="form-control mr-2" type="text" id="filterInput" placeholder="Filter">
+                <input class="form-control mr-2" type="text" id="searchInput" placeholder="Search">
+                <button class="btn btn-outline-secondary" type="button" onclick="cleanForm()">Clean</button>
+                <button class="btn btn-outline-secondary" type="button">Simple Visualizer</button>
+                <button class="btn btn-outline-secondary" type="button">Detailed Visualizer</button>
+            </form>
+        </nav> 
+        
+        <div class="left">
+            {% block tree %}{% endblock %}
+        </div>
+    
+        <div class="right">
+            {% block bird %}{% endblock %}
+        </div>
+    
+        <div class="center" id="center">
+            {% block main %}{% endblock %}
+        </div>
+
+        <div class="workspace" id="center">
+            {% block workspace %}{% endblock %}
+        </div>
+    </body>
+</html>

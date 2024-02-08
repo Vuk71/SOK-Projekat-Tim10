@@ -28,8 +28,19 @@ def index(request):
 
 
 def index_test(request):
-    core_config.platform.set_data_source(core_config.platform.get_available_data_sources()[0])
-    return render(request, 'test.html', {'data': core_config.platform.get_visualized_graph(selected_visualizer)})
+    data_sources = [{"id": ds.identifier(), "name": ds.name()} for ds in available_data_sources]
+    workspace_indices = range(0, len(core_config.workspaces))
+    try:
+        data, bird_view, tree_view = core_config.platform.get_visualized_graph(selected_visualizer)
+    except:
+        data = "no data source selected"
+        bird_view = "no data"
+        tree_view= "no data"
+    # transform to json
+    json_data_sources = json.dumps(data_sources)
+    return render(request, 'test.html', {'data': data, 'bird' : bird_view, 'tree' : tree_view,
+                                         'data_sources': json_data_sources,
+                                         'workspaces': workspace_indices})
 
 
 # take graph from workspaces and set it on platform
@@ -40,8 +51,8 @@ def update_active_workspace(request):
         active_workspace = int(request.POST['active_workspace'])
         core_config.active_workspace = active_workspace
         core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace])
-        data = core_config.platform.get_visualized_graph(selected_visualizer)
-        return JsonResponse({'success': False, 'data':data})
+        data, bird_view, tree_view = core_config.platform.get_visualized_graph(selected_visualizer)
+        return JsonResponse({'success': False, 'data':data, 'bird':bird_view, 'tree':tree_view})
     return JsonResponse({'success': False})
 
 
@@ -77,7 +88,6 @@ def workspace_test(request):
                 print("width: " + width)
                 print("username: " + username)
                 print("password: " +password)
-                print("ovde je upao")
                 data_source = core_config.get_data_source_plugin(selected_data_source)
                 if(profile != ""):
                     data_source.set_profile(profile)
@@ -92,23 +102,9 @@ def workspace_test(request):
 
             core_config.workspaces.append(core_config.platform.get_graph())
             core_config.active_workspace = len(core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
-            return redirect('workspace_test')
+            return JsonResponse({'success': True})
 
-    # list of indexes to draw all buttons for workspaces
-    workspace_indices = range(0, len(core_config.workspaces))
-
-    # send plugins names and id so user can select new data source
-    data_sources = [{"id": ds.identifier(), "name": ds.name()} for ds in available_data_sources]
-
-    # transform to json
-    json_data_sources = json.dumps(data_sources)
-    try:
-        data = core_config.platform.get_visualized_graph(selected_visualizer)
-    except Exception as ex:
-        data = ex.__str__()
-
-    return render(request, 'workspace.html', {'data': data, 'data_sources': json_data_sources, 'workspaces': workspace_indices})
-
+    return JsonResponse({'success': False})
 
 def visualize_graph(request):
     pass
