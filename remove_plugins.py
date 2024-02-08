@@ -14,6 +14,7 @@ if __name__ == "__main__":
     packages_to_uninstall = [
         "core",
         "basic-visualizer",
+        "detailed-visualizer",
         "load-github",
         "load_instagram",
         "Django",

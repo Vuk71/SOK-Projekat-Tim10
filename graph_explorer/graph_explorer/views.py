@@ -1,10 +1,16 @@
 from django.http import JsonResponse
+import pkg_resources
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from django.apps.registry import apps
 import json
 
 core_config = apps.get_app_config("graph_explorer")
+
+core_config = apps.get_app_config("graph_explorer")
+# simple/detailed
+selected_visualizer = core_config.platform.get_available_visualizers()[1]
 
 # simple/detailed
 selected_visualizer = core_config.platform.get_available_visualizers()[0]
@@ -22,6 +28,9 @@ def index(request):
         apps.get_app_config("graph_explorer").platform.set_data_source(data_source_plugin)
         visualized_graph = apps.get_app_config("graph_explorer").platform.get_visualized_graph(visualizer_plugin)
         return render(request, 'graph.html', {'visualized_graph': visualized_graph})
+
+    return render(request, 'index.html',
+                  {'data_sources': get_available_data_sources(), 'visualizers': get_available_visualizers()})
 
     return render(request, 'index.html',
                   {'data_sources': get_available_data_sources(), 'visualizers': get_available_visualizers()})
@@ -107,8 +116,9 @@ def workspace_test(request):
     return JsonResponse({'success': False})
 
 def visualize_graph(request):
-    pass
-    # ...
+    core_config.platform.set_data_source(core_config.platform.get_available_data_sources()[0])
+    return render(request, 'test.html', {'data': core_config.platform.get_visualized_graph(selected_visualizer)})
+
 
 
 def get_data_source_plugin(name):
@@ -133,3 +143,11 @@ def get_available_visualizers():
     pass
     # Implement logic to discover and return available visualizer plugins
     # ...
+
+def bird_view(request):
+    html_graph_script = pkg_resources.resource_string(__name__, 'static/js/bird_view.js')
+
+    return render(request, "bird_view.html", {
+        "script": html_graph_script.decode("utf-8"),
+        "graph": apps.get_app_config('Core').searchedGraph
+    })
