@@ -1,3 +1,7 @@
 [graph.load]
+<<<<<<< Updated upstream
 load_instagram = loader.data_source_instagram:DataSourceInstagram
 
+=======
+load_instagram = loader.data_source_instagram:DataSourceInstagram
+>>>>>>> Stashed changes

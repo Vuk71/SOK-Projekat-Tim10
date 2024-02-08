@@ -21,7 +21,13 @@ function changeWorkspace(button, workspace) {
             console.log(response); // Ispisujemo odgovor u konzoli radi provere
 
         // Ažuriramo podatke na stranici
-            $('#dataParagraph').text(response.data);
+
+
+            // var tempElement = document.createElement('div');
+            // tempElement.innerHTML = response.data;
+            // var decodedString = tempElement.textContent;
+            // $('#dataParagraph').text(decodedString);
+            window.location.href = '';
         },
         error: function(error) {
             console.error('Error:', error); // Ako dođe do greške, ispisujemo je u konzoli

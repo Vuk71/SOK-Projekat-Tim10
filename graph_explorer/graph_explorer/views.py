@@ -6,7 +6,11 @@ from django.shortcuts import render, redirect
 from django.apps.registry import apps
 import json
 
+from core.SOK.services.model import Graph
+
 core_config = apps.get_app_config("graph_explorer")
+# simple/detailed
+selected_visualizer = core_config.platform.get_available_visualizers()[1]
 
 core_config = apps.get_app_config("graph_explorer")
 # simple/detailed
@@ -47,9 +51,17 @@ def index_test(request):
         tree_view= "no data"
     # transform to json
     json_data_sources = json.dumps(data_sources)
+<<<<<<< Updated upstream
     return render(request, 'test.html', {'data': data, 'bird' : bird_view, 'tree' : tree_view,
+=======
+    g = Graph()
+    g.nodes["1"] = {"name": "node1"}
+    g.nodes["2"] = {"name": "node2"}
+    return render(request, 'test.html', { 'data':data, 'bird':bird_view, 'tree':tree_view, 'graph': g, #core_config.platform.get_graph(),
+>>>>>>> Stashed changes
                                          'data_sources': json_data_sources,
-                                         'workspaces': workspace_indices})
+                                         'workspaces': workspace_indices}
+                                         )
 
 
 # take graph from workspaces and set it on platform
@@ -61,7 +73,11 @@ def update_active_workspace(request):
         core_config.active_workspace = active_workspace
         core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace])
         data, bird_view, tree_view = core_config.platform.get_visualized_graph(selected_visualizer)
+<<<<<<< Updated upstream
         return JsonResponse({'success': False, 'data':data, 'bird':bird_view, 'tree':tree_view})
+=======
+        return JsonResponse({'success': True })
+>>>>>>> Stashed changes
     return JsonResponse({'success': False})
 
 

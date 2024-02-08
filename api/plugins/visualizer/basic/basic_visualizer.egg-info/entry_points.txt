@@ -1,3 +1,7 @@
 [graph.visualizer]
+<<<<<<< Updated upstream
 visualize_basic = visualizer.basic_visualizer:VisualizeBasic
 
+=======
+visualize_basic = visualizer.basic_visualizer:VisualizeBasic
+>>>>>>> Stashed changes

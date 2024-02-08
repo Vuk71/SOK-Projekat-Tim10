@@ -1,7 +1,7 @@
 from core.SOK.services.api import VisualizeDataBase
 from core.SOK.services.model import Graph,Node,Edge
-
-
+import pkg_resources
+import html
 
 class VisualizeBasic(VisualizeDataBase):
     #  def identifier(self):
@@ -23,7 +23,11 @@ class VisualizeBasic(VisualizeDataBase):
     # def __str__(self):
     #     return "load_github " + str(type(self))
     #
+<<<<<<< Updated upstream
     def visualize(self):
+=======
+    def visualize_graph(self, graph: Graph) -> str:
+>>>>>>> Stashed changes
         return pkg_resources.resource_string(__name__, 'basic_main_view.js')
 
     def identifier(self):

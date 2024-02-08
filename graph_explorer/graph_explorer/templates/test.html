@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block main %}
 
+<<<<<<< Updated upstream
     <div class="mainView">
         <p>test : <p>
 
@@ -18,5 +19,61 @@
             <div class="footer">
                 {% include "workspace.html" %}
             </div>
+=======
+{% include "detailed.html" %}
+
+<script>
+
+    var nodes = [
+            {% for node_id, node in graph.nodes.items %}
+                {
+                    id: "{{ node_id }}",
+                    data: {
+                        {% for key, value in node.data.items %}
+                            "{{ key }}": "{{ value }}"{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    }
+                }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        var edges = [
+            {% for edge in graph.edges %}
+                {
+                    source: "{{ edge.source }}",
+                    target: "{{ edge.target }}",
+                    name: "{{ edge.name }}"
+                }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        {% autoescape off %}{{ data }}{% endautoescape %}
+</script>
+
+
+    <div class="mainView" id="mainView">
+        <p>test : <p>
+
+        <!-- <p id="dataParagraph">{{data}}<p> -->
+
+    </div>
+
+    <div class="treeView">
+        <h1>Tree view</h1>
+        <p id="treeParagraph">{{tree}}</p>
+    </div>
+    <div class="birdView">
+        <h1>Bird view</h1>
+        <p id="birdParagraph">{{bird}}</p>
+    </div>
+
+    <div class="footer">
+        {% include "workspace.html" %}
+    </div>
+
+
+
+
+>>>>>>> Stashed changes
 
 {% endblock %}

@@ -1,3 +1,7 @@
 [graph.load]
+<<<<<<< Updated upstream
 load_github = loader.data_source_github:DataSourceGithub
 
+=======
+load_github = loader.data_source_github:DataSourceGithub
+>>>>>>> Stashed changes

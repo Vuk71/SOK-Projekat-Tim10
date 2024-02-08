@@ -1,3 +1,7 @@
 [console_scripts]
+<<<<<<< Updated upstream
 graph_main = core.SOK.core:main
 
+=======
+graph_main = core.SOK.core:main
+>>>>>>> Stashed changes
