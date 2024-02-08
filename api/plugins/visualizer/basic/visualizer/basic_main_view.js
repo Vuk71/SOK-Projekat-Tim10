@@ -1,3 +1,5 @@
+//var nodes = {{ nodes_json|safe }};
+//var edges = {{ edges_json|safe }};
 function getAttributes(attributes){
             var str = ""
             for (const [key, value] of Object.entries(attributes)) {
