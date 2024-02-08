@@ -32,30 +32,27 @@ class DataSourceGithub(ParseDataBase):
         commits_list = [{"sha": commit.sha, "author": commit.author.login, "date": commit.commit.author.date, "message": commit.commit.message} for commit in commits]
         print("loading data ...")
         
-        # print(repo)
-        # for commit in commits_list:
-        #     print("autor: "+ commit["author"] +" message: "+ commit["message"])
-
         print("making graph ...")
         graph = Graph()
-        # commit_nodes = {} 
-        # for commit in commits_list:
-        #     sha = commit["sha"]
-        #     author = commit["author"]
-        #     date = commit["date"]
-        #     message = commit["message"]
+        commit_nodes = {} 
+        for commit_data in commits_list:
+            sha = commit_data["sha"]
+            author = commit_data["author"]
+            date = commit_data["date"]
+            message = commit_data["message"]
 
-        #     # Kreirajte cvor za svaki commit
-        #     node = Node(sha, {"author": author, "date": date, "message":message})
-        #     graph.nodes[sha] = node
-        #     commit_nodes[sha] = node
+            # Kreirajte cvor za svaki commit
+            node = Node(sha, {"author": author, "date": date, "message":message})
+            graph.nodes[sha] = node
+            commit_nodes[sha] = node
 
-        # # Dodajte grane na osnovu roditelja svakog commita
-        # for commit in commits:
-        #     sha = commit["sha"]
-        #     parents = commit_nodes[sha].parents
+        # Dodajte grane na osnovu roditelja svakog commita
+        # for commit_data in commits_list:
+        #     sha = commit_data["sha"]
+        #     parents = repo.get_commit(sha).parents
 
-        #     for parent_sha in parents:
+        #     for parent in parents:
+        #         parent_sha = parent.sha
         #         edge = Edge(parent_sha, sha)
         #         graph.edges.append(edge)
         return graph
