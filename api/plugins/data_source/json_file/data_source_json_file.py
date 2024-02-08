@@ -17,23 +17,18 @@ class FileSystemJSONPlugin:
                 node_id = node_data["@id"]
                 node_data = {key: value for key, value in node_data.items() if not key.startswith("@")}
                 node = Node(node_id, node_data)
-                graph.nodes[node_id] = node
+                graph.add_node(node)
 
                 for key, value in node_data.items():
                     if key.startswith("@") and key != "@id":
                         if isinstance(value, list):
-                            for edge_data in value:
-                                ref_id = edge_data["@id"]
-                                edge_data = {key: value for key, value in edge_data.items() if not key.startswith("@")}
-                                edge_data["@edge_name"] = key[1:]
-                                edge = Edge(node_id, ref_id, edge_data)
-                                graph.edges.append(edge)
+                            for ref_id in value:
+                                edge = Edge(node_id, ref_id, key[1:])
+                                graph.add_edge(edge)
                         else:
-                            ref_id = value["@id"]
-                            edge_data = {key: value for key, value in value.items() if not key.startswith("@")}
-                            edge_data["@edge_name"] = key[1:]
-                            edge = Edge(node_id, ref_id, edge_data)
-                            graph.edges.append(edge)
+                            ref_id = value
+                            edge = Edge(node_id, ref_id, key[1:])
+                            graph.add_edge(edge)
 
         except FileNotFoundError:
             raise ValueError(f"File not found: {self.filepath}")
