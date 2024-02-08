@@ -1,9 +1,8 @@
 "use strict";
-var rootNode = treeData.name; // Definicija korenskog čvora stabla
-
+var rootNode = treeData.name; // Definition of the root node of a tree
 function _drawTree(treeData) {
 
-    // Postavljanje margina i dimenzija za prikaz stabla
+    // Setting the margins and dimensions for the tree display
     var margin = {
         top: 55,
         right: 20,
@@ -17,14 +16,14 @@ function _drawTree(treeData) {
     var duration = 400;
     var root;
 
-    // Definicija layout-a stabla
+    // Tree layout definition
     var tree = d3.layout.tree()
         .nodeSize([0, 75])
         .children(function(d) {
             return d.children;
         });
 
-    // Funkcija za crtanje linija između čvorova
+    // Function to draw lines between nodes
     var line = d3.svg.line().interpolate('step')
         .x(function(d) {
             return d.x - 20;
@@ -33,18 +32,18 @@ function _drawTree(treeData) {
             return d.y - 40;
         });
 
-    // Dodavanje div elementa za prikaz tooltip-a
+    // Adding a div element to display the tooltip
     var div = d3.select('#tree')
         .append('div')
         .attr('class', 'tooltip')
         .style('opacity', 0);
 
-    // Dodavanje SVG elementa za prikaz stabla
+    // Adding an SVG element to display the tree
     var tree_svg = d3.select('#tree').append('svg').attr('class', 'tree_view_svg')
         .append('g')
         .attr('transform', `translate(${ margin.left },${ margin.top })`).attr('class', 'svg_g');
 
-    // Funkcija za generisanje podataka za liniju
+    // A function to generate data for a line
     function lineData(d) {
         var points = [{
                 x: d.source.y + barWidth / 2,
@@ -58,26 +57,26 @@ function _drawTree(treeData) {
         return line(points);
     }
 
-    // Postavljanje korenskog čvora
+    // Setting up the root node
     root = treeData;
     root.x0 = 0;
     root.y0 = 0;
 
-    // Ažuriranje prikaza stabla
+    // Updating the tree view
     update(root);
 
-    // Postavljanje širine SVG elementa
+    // Setting the width of an SVG element
     d3.select('.tree_view_svg')
         .attr('width', $(".svg_g")[0].getBBox().width * 1.4);
 
-    // Funkcija za ažuriranje prikaza stabla
+    // Function to update the tree view
     function update(source) {
         var tree_nodes = tree.nodes(root);
 
-        // Izračunavanje visine SVG elementa na osnovu broja čvorova
+        // Calculating the height of an SVG element based on the number of nodes
         var height = Math.max(500, tree_nodes.length * barHeight + margin.top + margin.bottom);
 
-        // Tranzicija SVG elementa na odgovarajuću visinu
+        // Transition the SVG element to the appropriate height
         d3.select('.tree_view_svg').transition()
             .duration(duration)
             .attr('height', height);
@@ -102,7 +101,7 @@ function _drawTree(treeData) {
             })
             .style('opacity', 1e-6).style('text-align', 'left');
 
-        // Funkcija za dobijanje atributa u obliku stringa
+        // A function to get the attribute in the form of a string
         function getAttributes(attributes) {
             var str = "";
             for (const [key, value] of Object.entries(attributes)) {
@@ -111,7 +110,7 @@ function _drawTree(treeData) {
             return str;
         }
 
-        // Dodavanje pravougaonika (čvorova) i definisanje akcija na događaje
+        //Adding rectangles (nodes) and defining actions on events
         nodeEnter.append('rect')
             .attr('y', -barHeight / 2)
             .attr('height', function() {
@@ -126,7 +125,7 @@ function _drawTree(treeData) {
             .attr('class', 'ractangle')
             .on('click', click)
             .on('mouseover', function(d) {
-                // Postavljanje tooltip-a na hover
+                // Setting the tooltip on hover
                 div.transition()
                     .duration(500)
                     .style('opacity', 0);
@@ -144,7 +143,7 @@ function _drawTree(treeData) {
                     .style('left', '20%')
                     .style('top', '80px').style('color', '#3AA9AD').style('font-size', '15px');
             }).on('mouseout', function(d) {
-                // Sklanjanje tooltip-a kada se miš udalji
+                // Hiding the tooltip when the mouse moves away
                 setTimeout(function() {
                     if (!$('.tooltip:hover').length) {
                         div.transition()
@@ -159,7 +158,7 @@ function _drawTree(treeData) {
                 }, 0);
             });
 
-        // Dodavanje teksta u čvorove
+        // Adding text to nodes
         nodeEnter.append('text').attr('id', function(d) {
                 return 'text_' + d.name;
             })
@@ -174,7 +173,7 @@ function _drawTree(treeData) {
                 }
             });
 
-        // Ažuriranje čvorova
+        // Updating nodes
         tree_node.transition()
             .duration(duration)
             .attr('transform', function(d) {
@@ -190,7 +189,7 @@ function _drawTree(treeData) {
                 return d.color
             });
 
-        // Tranzicija novih čvorova
+        // Transition of new nodes
         nodeEnter.transition()
             .duration(duration)
             .attr('transform', function(d) {
@@ -198,7 +197,7 @@ function _drawTree(treeData) {
             })
             .style('opacity', 1);
 
-        // Uklanjanje čvorova koji nisu više potrebni
+        // Remove nodes that are no longer needed
         tree_node.exit().transition()
             .duration(duration)
             .attr('transform', function() {
@@ -207,48 +206,48 @@ function _drawTree(treeData) {
             .style('opacity', 1e-6)
             .remove();
 
-        // Ažuriranje veza između čvorova
-        var tree_link = tree_svg.selectAll('path.link')
+        // Updating edges between nodes
+        var tree_link = tree_svg.selectAll('path.edge')
             .data(tree.links(tree_nodes), function(d) {
                 return d.target.id;
             });
 
-        // Dodavanje novih veza
+        //Adding new edges
         tree_link.enter().insert('path', 'g')
-            .attr('class', 'link')
+            .attr('class', 'edge')
             .attr('d', lineData)
             .transition()
             .duration(duration)
             .attr('d', lineData);
 
-        // Ažuriranje postojećih veza
+        // Updating existing edges
         tree_link.transition()
             .duration(duration)
             .attr('d', lineData);
 
-        // Uklanjanje veza koje nisu više potrebne
+        // Removing edges that are no longer needed
         tree_link.exit().transition()
             .duration(duration - 400)
             .attr('d', lineData)
             .remove();
 
-        // Ažuriranje početnih pozicija čvorova za sledeće ažuriranje stabla
+        // Updating the initial node positions for the next tree update
         tree_nodes.forEach(function(d) {
             d.x0 = d.x + 50;
             d.y0 = d.y + 400;
         });
 
-        // Ažuriranje širine SVG elementa
+        // Updating the width of an SVG element
         d3.select('.tree_view_svg')
             .attr('width', $(".svg_g")[0].getBBox().width * 1.2);
     }
 
-    // Funkcija koja se poziva prilikom klika na čvor
+    // A function that is called when a node is clicked
     async function click(d) {
         let main_node = "main_" + d.init_name;
         console.log(main_node);
 
-        // Emitovanje klika na odgovarajući čvor u DOM-u
+        // Broadcast a click to the corresponding node in the DOM
         for (var b of node[0]) {
             console.log(b.__data__.init_name);
             if (b.__data__.init_name == d.init_name) {
@@ -256,7 +255,7 @@ function _drawTree(treeData) {
             }
         }
 
-        // Promena prikaza teksta na kliknutom čvoru
+        // Changing the display of the text on the clicked node
         if (d.attr === false) {
             if (d3.select('text#text_' + d.name).text() === ("- " + d.naziv))
                 d3.select('text#text_' + d.name).text("+ " + d.naziv);
@@ -264,7 +263,7 @@ function _drawTree(treeData) {
                 d3.select('text#text_' + d.name).text("- " + d.naziv);
         }
 
-        // Ažuriranje prikaza stabla na osnovu otvaranja/zatvaranja potomaka
+        // Updating the tree view based on opening/closing children
         if (d.children) {
             d._children = d.children;
             d.children = null;
@@ -275,22 +274,22 @@ function _drawTree(treeData) {
         update(d);
     }
 
-    // Funkcija za definisanje boje teksta u čvorovima
+    // Function for defining the color of text in nodes
     function fontColor(d) {
         return d._children ? '#FFFFFF' : d.children ? '#FFFFFF' : '#FFFFFF';
     }
 
-    // Funkcija za generisanje podataka o potomcima čvora
+    // A function to generate data about the childrens of a node
     function generateChildren(current_node) {
         return new Promise(function(resolve, reject) {
             $.get("/get_children", {
                 node_id: current_node.id
             }, function(data) {
-                // Parsiranje dobijenih podataka u formatu JSON
+                // Parsing the received data in JSON format
                 nodes = JSON.parse(data);
                 node_data = [];
 
-                // Kreiranje podataka za čvorove na osnovu dobijenih podataka
+                // Creating data for nodes based on the obtained data
                 for ([key, valueA] of Object.entries(current_node.data)) {
                     node_val = {
                         name: key,
@@ -303,7 +302,7 @@ function _drawTree(treeData) {
                     node_data.push(node_val);
                 }
 
-                // Dodavanje potomaka čvoru
+                // Adding children to a node
                 nodes.forEach(function(node) {
                     node_val = {
                         name: node.id,
@@ -322,5 +321,5 @@ function _drawTree(treeData) {
     }
 }
 
-// Pozivanje funkcije za crtanje stabla sa datim podacima
+// Calling a function to draw a tree with the given data
 _drawTree(treeData);
