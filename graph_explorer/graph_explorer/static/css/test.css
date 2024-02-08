@@ -1,8 +1,19 @@
 .footer {
-    position: fixed; /* Postavi poziciju na fiksnu */
-    bottom: 0; /* Postavi na dno */
-    width: 100%; /* Širina 100% */
-    padding: 20px; /* Dodajte padding po potrebi */
-    box-sizing: border-box; /* Ovo osigurava da padding ne utiče na širinu i visinu */
-    text-align: center; /* Centriraj tekst */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 1; /* Postavite z-index na 1 da bi footer bio iznad drugih elemenata */
+}
+
+.birdWiew {
+    position: fixed;
+    bottom: calc(60px + 80px); /* Pravite odstupanje od dna uzimajući u obzir visinu footera */
+    right: 40px;
+    padding: 10px;
+    border: 2px solid #1F2544;
+    border-radius: 5px;
+    z-index: 2; /* Postavite z-index na 2 da bi "Bird view" bio iznad footera */
 }
