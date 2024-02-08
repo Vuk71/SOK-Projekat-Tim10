@@ -6,34 +6,31 @@ function getAttributes(attributes){
             return str;
 }
 
-//change node color
-function nodeClick(el){
-     d3.select(el).select('circle').attr("fill", "#3AA9AD")
+//change the color of the node on click
+function clickNode(el) {
+    d3.select(el).select('rect').attr('fill', "#6bcf57")
         .transition()
-          .duration(2000)
-    .attr("fill", '#3AB19B');
+            .duration(2000)
+        .attr('fill', "#57b9cf");
 
     let bird_node = "bird_" + el.id.split("_")[1];
-
     var node_value = null;
 
-   for (var b of node_b[0]){
-       if (b.id === bird_node){
-           node_value = b;
-           b.dispatchEvent(new Event('click'));
-       }
-   }
-
-
-
+    for (var b of node_b[0]) {
+        if (b.id === bird_node) {
+            node_value = b;
+            b.dispatchEvent(new Event('click'));
+        }
+    }
 }
 
+//force simulation between nodes and links
 var force = d3.layout.force()
-        .size([500, 500])
+        .size([600, 600])
         .nodes(d3.values(nodes))
-        .links(links)
+        .edges(edges)
         .on("tick", tick)
-        .linkDistance(300)
+        .edgeDistance(300)
         .charge(-500)
         .start();
 
@@ -41,6 +38,7 @@ var force = d3.layout.force()
  var drag = force.drag()
      .on("dragstart", dragstart);
 
+ //zooming and scrolling
 var svg_simple =d3.select('#main_view').call(d3.behavior.zoom().scaleExtent([0.5, 6]).on("zoom", function () {
          svg_simple.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
 
@@ -78,20 +76,20 @@ var div = d3.select('.tooltip');
 //    .attr('class', 'tooltip')
 //    .style('opacity', 0);
 
-//dodavanje linkova
-var link = svg_simple.selectAll('.link')
-    .data(links)
-    .enter().append('line')
-    .attr('class', 'main_view_link');
+//drawing edges
+var edge = svg_complex.selectAll('.edge')
+        .data(edges)
+        .enter().append('line')
+        .attr('class', 'main_view_edge');
 
-//dodavanje cvorova
+//added nodes
 var node = svg_simple.selectAll('.main_view_node')
     .data(force_bird.nodes()) //add
     .enter().append('g')
     .attr('class', 'main_view_node')
     .attr('id', function(d){ return "main_" + d.name;})
     .on('click',function(){
-       nodeClick(this);
+       clickNode(this);
     })
     .on('mouseover',function(d){
             console.log("d = ");
@@ -137,7 +135,6 @@ function simpleView(d) {
     var duzina = 100;
     var textSize = 10;
 
-    // Create a <filter> element with a drop shadow effect
     var filter = d3.select("svg")
       .append("defs")
       .append("filter")
@@ -146,7 +143,7 @@ function simpleView(d) {
 
     filter.append("feGaussianBlur")
       .attr("in", "SourceAlpha")
-      .attr("stdDeviation", 3) // Adjust the standard deviation to control the blur effect
+      .attr("stdDeviation", 3)
 
     filter.append("feOffset")
       .attr("dx", 2)
@@ -157,7 +154,6 @@ function simpleView(d) {
     feMerge.append("feMergeNode");
     feMerge.append("feMergeNode").attr("in", "SourceGraphic");
 
-    // Append the circle element
     d3.select("g#" + "main_" + d.name)
       .append('circle')
       .attr('cx', 0)
@@ -168,8 +164,8 @@ function simpleView(d) {
 
     d3.select("g#" + "main_" + d.name)
       .append('text')
-      .attr('x', 0) // x-coordinate of the center
-      .attr('y', 0) // y-coordinate of the center
+      .attr('x', 0)
+      .attr('y', 0)
       .attr('text-anchor', 'middle')
       .attr('alignment-baseline', 'middle')
       .attr('font-size', textSize+3)
@@ -185,9 +181,9 @@ function dragstart(d) {
     d3.select(this).classed("fixed", d.fixed = true);
 }
 
-
+//updates the positions of edges and nodes in the graph
 function tick() {
-    link.attr("x1", function(d) { return d.source.x; })
+    edge.attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
