@@ -2,7 +2,6 @@
 var rootNode = treeData.name;
 
 function _drawTree(treeData) {
-    // This solves the maximum call stack issue with d3 layout function
 
     var margin = {
             top: 55,
@@ -23,7 +22,7 @@ function _drawTree(treeData) {
             return d.children;
         });
 
-    var line = d3.svg.line().interpolate('step') // pomeranje kvadrata //pomeranje linije gore dole
+    var line = d3.svg.line().interpolate('step') // move the square //move the line up and down
         .x(function(d) {
             return d.x-20;
         })
@@ -31,20 +30,16 @@ function _drawTree(treeData) {
             return d.y-40;
         });
 
-    // Define 'div' for tooltips
     var div = d3.select('#tree')
-        // Declare the tooltip div
         .append('div')
-        // Apply the 'tooltip' class
         .attr('class', 'tooltip')
         .style('opacity', 0);
 
     var tree_svg = d3.select('#tree').append('svg').attr('class', 'tree_view_svg')
-        //.attr('width', width + margin.left + margin.right)
         .append('g')
         .attr('transform', `translate(${ margin.left },${ margin.top })`).attr('class','svg_g');
 
-    function lineData(d) { //pomeranje linija
+    function lineData(d) {
         var points = [{
             x: d.source.y+barWidth/2,
             y: d.source.x+barHeight-5
@@ -65,7 +60,6 @@ function _drawTree(treeData) {
             .attr('width', $(".svg_g")[0].getBBox().width*1.4);
 
     function update(source) {
-        // Compute the flattened node list.
         var tree_nodes = tree.nodes(root);
 
         var height = Math.max(500, tree_nodes.length * barHeight + margin.top + margin.bottom);
@@ -74,14 +68,13 @@ function _drawTree(treeData) {
             .duration(duration)
             .attr('height', height);
 
-        // Compute the layout.
-        tree_nodes.forEach(function(n, i) { //PODESAVANJE KOORDINATA KVADRATA
+        tree_nodes.forEach(function(n, i) {
             n.x = i * barHeight/1.2; //d.target.x - barHeight/1.5
         });
         tree_nodes.y = barHeight / 1.5;
 
 
-        // Update the nodes.
+        // update the nodes
         var tree_node = tree_svg.selectAll('g.tree_node')
             .data(tree_nodes, function(d) {
                 return d.id || (d.id = ++i);
@@ -101,10 +94,8 @@ function _drawTree(treeData) {
             }
             return str;
        }
-
-        // Enter any new nodes at the parent's previous position.
         nodeEnter.append('rect')
-            .attr('y', -barHeight / 2) //x i y te tacke
+            .attr('y', -barHeight / 2)
             .attr('height',function(){return barHeight/2})
             .attr('width', function(d) {
                 return d.naziv.length*16})
@@ -146,9 +137,6 @@ function _drawTree(treeData) {
                 }, 0);
             });
 
-        // Create anchors for y-offset to display company at the top of page
-
-        // Transition nodes to their new position.
          nodeEnter.append('text').attr('id', function (d){return 'text_' + d.name;})
             .attr('dy', -7)
             .attr('dx', 10.5)
@@ -182,7 +170,6 @@ function _drawTree(treeData) {
             })
             .style('opacity', 1);
 
-        // Transition exiting nodes to the parent's new position.
         tree_node.exit().transition()
             .duration(duration)
             .attr('transform', function() {
@@ -205,18 +192,15 @@ function _drawTree(treeData) {
             .duration(duration)
             .attr('d', lineData);
 
-        // Transition links to their new position.
         tree_link.transition()
             .duration(duration)
             .attr('d', lineData);
 
-        // Transition exiting nodes to the parent's new position.
         tree_link.exit().transition()
             .duration(duration - 400)
             .attr('d', lineData)
             .remove();
 
-        // Stash the new positions for transition from right
         tree_nodes.forEach(function(d) {
             d.x0 = d.x + 50;
             d.y0 = d.y + 400;
@@ -226,7 +210,6 @@ function _drawTree(treeData) {
             .attr('width', $(".svg_g")[0].getBBox().width*1.2);
     }
 
-   // Toggle children on click.
     async function click(d) {
         let main_node = "main_" + d.init_name;
         console.log(main_node);
@@ -283,10 +266,10 @@ function _drawTree(treeData) {
 
                 nodes.forEach(function(node){
                     node_val = {
-                        name: node.node_id,
+                        name: node.id,
                         init_name: node.init_node_id,
                         naziv: node.name,
-                        attributes: node.attributes,
+                        attributes: node.data,
                         children: [],
                         attr : false,
                         color: '#3AA9AD'
