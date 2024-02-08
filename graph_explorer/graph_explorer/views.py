@@ -102,9 +102,9 @@ def workspace_test(request):
 
             core_config.workspaces.append(core_config.platform.get_graph())
             core_config.active_workspace = len(core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
-            return redirect('index_test')
+            return JsonResponse({'success': True})
 
-    return redirect('index_test')
+    return JsonResponse({'success': False})
 
 def visualize_graph(request):
     pass
