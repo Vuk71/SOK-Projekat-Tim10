@@ -63,7 +63,7 @@ def index_test(request):
                    'bird_script': bird_script.decode("utf-8"),
                    'tree_script': tree_script.decode("utf-8"),
                    'graph': graph,
-                   'roots': roots,
+                   'roots': [roots],
                    'data_sources': json_data_sources,
                    'workspaces': workspace_indices}
                   )
@@ -171,13 +171,15 @@ def get_available_visualizers():
     # ...
 
 def get_children(request):
-    node_id =  request.GET["node_id"]
+    node_id =  int(request.GET["node_id"])
     children = []
     print("Node_id:::")
     print(node_id)
     for edge in core_config.platform.get_graph().edges:
         if node_id == edge.source:
             children.append(edge.target)
+        if node_id == edge.target:
+            children.append(edge.source)
     children_json = jsonpickle.encode(children, unpicklable=False)
     print("deca:::")
     print(children)

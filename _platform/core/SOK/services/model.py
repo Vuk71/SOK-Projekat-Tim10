@@ -28,19 +28,9 @@ class Graph:
         return f"# Graph Nodes:\n{node_str}\n\n# Graph Edges:\n{edge_str}"
     
     def get_roots(self):
-        # Stvorite skup odredišnih čvorova iz bridova
-        targets = set(edge.target for edge in self.edges)
-
-        # Inicijalizirajte listu korijenskih čvorova
-        roots = []
-
         # Iterirajte kroz sve čvorove grafa
         for node_id, node in self.nodes.items():
-            # Ako čvor nije odredište nijednog brida, dodajte ga u listu korijenskih čvorova
-            if node_id not in targets:
-                roots.append(node)
-
-        return roots
+            return node
     
     def add_node(self, node: Node) -> None:
         self.nodes[node.id] = node
