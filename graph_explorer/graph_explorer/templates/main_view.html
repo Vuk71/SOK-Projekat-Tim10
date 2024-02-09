@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block main %}
+<svg id="main_view"></svg>
+<script>
 
-</body>
-</html>
+        {% autoescape off %}{{ main_script }}{% endautoescape %}
+</script>
+{% endblock %}

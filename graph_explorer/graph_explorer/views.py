@@ -51,11 +51,12 @@ def index_test(request):
         main_script_decoded = main_script.decode("utf-8")
 
     tree_script = pkg_resources.resource_string(__name__, 'static/js/tree_view.js')
+    bird_script = pkg_resources.resource_string(__name__, 'static/js/bird_view.js')
     # transform to json
     json_data_sources = json.dumps(data_sources)
     return render(request, 'tree_view.html',
                   {'main_script': main_script_decoded,
-                   'bird_script': bird_script,
+                   'bird_script': bird_script.decode("utf-8"),
                    'tree_script': tree_script.decode("utf-8"),
                    'graph': graph,
                    'roots': roots,
