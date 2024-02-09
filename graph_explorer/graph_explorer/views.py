@@ -53,6 +53,10 @@ def index_test(request):
     tree_script = pkg_resources.resource_string(__name__, 'static/js/tree_view.js')
     bird_script = pkg_resources.resource_string(__name__, 'static/js/bird_view.js')
     # transform to json
+    print("generisani graf: ")
+    print(graph)
+    print("roots grafa: ")
+    print(roots)
     json_data_sources = json.dumps(data_sources)
     return render(request, 'tree_view.html',
                   {'main_script': main_script_decoded,
@@ -159,9 +163,13 @@ def get_available_visualizers():
 def get_children(request):
     node_id =  request.GET["node_id"]
     children = []
+    print("Node_id:::")
+    print(node_id)
     for edge in core_config.platform.get_graph().edges:
         if node_id == edge.source:
-            children.append(edge.destination)
+            children.append(edge.target)
     children_json = jsonpickle.encode(children, unpicklable=False)
+    print("deca:::")
+    print(children)
     return JsonResponse(children_json, safe=False)
 

@@ -22,6 +22,7 @@ var svg_bird = d3.select("#bird_svg")
     .call(zoom);
 
 console.log(edges);
+console.log(nodes);
 
 //simulacija sila
 var force_bird = d3.layout.force()

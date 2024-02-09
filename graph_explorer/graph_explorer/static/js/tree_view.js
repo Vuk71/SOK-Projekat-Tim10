@@ -135,10 +135,10 @@ function _drawTree(treeData) {
                     .style('pointer-events', 'auto')
                     .style('visibility', 'visible');
                 div.html(
-                        `<h3 class = 'popover-title' >${ d.id }</h3>
+                        `<h3 class = 'popover-title' >${ d[0].name }</h3>
                     <br>
                     <p class='popover-assets'>
-                            ${ getAttributes(d) }
+                            ${ getAttributes(d[0].attributes) }
                     </p>`)
                     .style('left', '20%')
                     .style('top', '80px').style('color', '#3AA9AD').style('font-size', '15px');
@@ -248,7 +248,8 @@ function _drawTree(treeData) {
         console.log(main_node);
 
         for (var b of node[0]){
-            console.log(b.__data__.init_name);
+            console.log("ispisivanje b:::")
+            console.log(b);
            if (b.__data__.init_name == d.init_name){
                b.dispatchEvent(new Event('click'));
            }
@@ -278,13 +279,12 @@ function _drawTree(treeData) {
     // A function to generate data about the childrens of a node
     function generateChildren(current_node) {
         return new Promise(function(resolve, reject) {
-            $.get("/get_children", { node_id: current_node.id })
+            $.get("/get_children", { node_id: current_node[0].name })
                 .done(function(data) {
                     var nodes = JSON.parse(data);
                     var node_data = [];
-    
-                    // Add attributes of current_node as nodes
-                    console.log(attributes);
+
+                    current_node = current_node[0]
                     if (current_node.attributes && typeof current_node.attributes === 'object') {
                         Object.entries(current_node.attributes).forEach(function([key, value]) {
                             var node_val = {

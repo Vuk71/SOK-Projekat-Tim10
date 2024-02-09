@@ -36,6 +36,9 @@ class DataSourceInstagram(ParseDataBase):
     def name(self):
         return "Load from instagram"
 
+    def string_to_int(self, s):
+        return hash(s)
+
     def parse_data(self) -> Graph:
         ig = instaloader.Instaloader()
         ig.login(self.username, self.password)
@@ -53,19 +56,19 @@ class DataSourceInstagram(ParseDataBase):
         # forming graph from data
         print("making graph: ")
         graph = Graph()
-        profile_node = Node(id=profile.username, data={"private": profile.is_private, "followers": profile.followers,
+        profile_node = Node(id= self.string_to_int(profile.username), data={"name": profile.username,"private": profile.is_private, "followers": profile.followers,
                                                        "followees": profile.followees})
         graph.nodes[profile_node.id] = profile_node
         for followee, followee_followees in profile_followees.items():
-            node = Node(id=followee.username, data={"private": followee.is_private, "followers": followee.followers,
+            node = Node(id= self.string_to_int(followee.username), data={"name": followee.username, "private": followee.is_private, "followers": followee.followers,
                                                     "followees": followee.followees})
             graph.nodes[node.id] = node
             edge = Edge(source=self.username, target=followee.username, name="following")
             graph.edges.append(edge)
             for followee_followee in followee_followees:
                 edge = Edge(source=followee.username, target=followee_followee.username, name="following")
-                node = Node(id=followee_followee.username,
-                            data={"private": followee_followee.is_private, "followers": followee_followee.followers,
+                node = Node(id= self.string_to_int(followee_followee.username),
+                            data={"name": followee_followee.username, "private": followee_followee.is_private, "followers": followee_followee.followers,
                                   "followees": followee_followee.followees})
                 graph.nodes[node.id] = node
                 graph.edges.append(edge)

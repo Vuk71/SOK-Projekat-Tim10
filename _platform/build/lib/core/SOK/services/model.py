@@ -31,7 +31,7 @@ class Graph:
         return f"#node\n{node_str}\n\n#edges\n{edge_str}"
 
 class Node:
-    def __init__(self, id: str, data: Dict):
+    def __init__(self, id: int, data: Dict):
         self.id = id
         self.data = data
 
