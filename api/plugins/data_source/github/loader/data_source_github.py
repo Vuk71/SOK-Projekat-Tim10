@@ -1,14 +1,13 @@
 from core.SOK.services.api import ParseDataBase
-from core.SOK.services.model import Graph,Node,Edge
+from core.SOK.services.model import Graph, Node, Edge
 from github import Github
 
 class DataSourceGithub(ParseDataBase):
-
-
     def __init__(self: str):
         self.github_token = "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"
         self.repo = "BookingAppTeam18/IKS"
         self.account = ""
+        self.node_counter = 0  # Dodajemo brojač za čvorove
 
     def set_token(self, token):
         self.github_token = token
@@ -29,37 +28,33 @@ class DataSourceGithub(ParseDataBase):
         g = Github(self.github_token)
         repo = g.get_repo(self.repo)
         commits = repo.get_commits()
-        commits_list = [{"sha": commit.sha, "author": commit.author.login, "date": commit.commit.author.date, "message": commit.commit.message, "parents": [p.sha for p in commit.parents]} for commit in commits]
+        commits_list = [{"sha": commit.sha, "author": commit.author.login, "date": commit.commit.author.date, "parents": [p.sha for p in commit.parents]} for commit in commits]
         print("loading data ...")
         
         print("making graph ...")
         graph = Graph()
-        # node1 = Node(id=0,data = {'name':'test', 'podatak':'neka vrednost'})
-        # node2 = Node(id=1,data = {'name':'test2', 'podatak':'neka druga vrednost'})
-        # edge = Edge(source =0,target = 1)
-        # graph.nodes[node1.id]=node1
-        # graph.nodes[node2.id]=node2
-        # graph.edges.append(edge)
 
-        commit_nodes = {} 
         for commit_data in commits_list:
             sha = commit_data["sha"]
             author = commit_data["author"]
             date = commit_data["date"]
-            message = commit_data["message"]
+            # message = commit_data["message"]
 
-            # Kreirajte cvor za svaki commit
-            node = Node(sha, {"author": author, "date": date, "message":message})
-            graph.nodes[sha] = node
-            commit_nodes[sha] = node
+            # Kreirajte čvor za svaki commit sa rednim brojem kao ID
+            node = Node(self.node_counter, {"sha": sha, "author": author, "date": date})
+            graph.nodes[self.node_counter] = node
+            self.node_counter += 1  # Povećavamo brojač
 
-        # Dodajte grane na osnovu roditelja svakog commita
+        # Dodajemo grane na osnovu roditelja svakog commit-a
         for commit_data in commits_list:
             sha = commit_data["sha"]
             parents = commit_data["parents"]
             for parent_sha in parents:
-                # Create an edge from parent commit to current commit
-                edge = Edge(parent_sha, sha)
+                # Pronalazimo ID-jeve roditelja i deteta
+                parent_id = [k for k, v in graph.nodes.items() if v.data["sha"] == parent_sha][0]
+                child_id = [k for k, v in graph.nodes.items() if v.data["sha"] == sha][0]
+                # Dodajemo granu sa izvorom i ciljem koji pokazuju na ID-jeve čvorova
+                edge = Edge(parent_id, child_id)
                 graph.edges.append(edge)
         
         return graph
