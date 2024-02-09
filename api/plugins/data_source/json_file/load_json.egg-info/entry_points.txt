@@ -1,0 +1,2 @@
+[graph.load]
+load_json = loader.data_source_json_file:FileSystemJSONPlugin

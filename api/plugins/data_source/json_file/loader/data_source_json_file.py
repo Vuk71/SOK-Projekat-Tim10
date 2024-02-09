@@ -18,6 +18,9 @@ class FileSystemJSONPlugin(ParseDataBase):
 
     def name(self):
         return "Load from a JSON file"
+    
+    def __str__(self):
+        return "load_json " + str(type(self))
 
     def parse_data(self) -> Graph:
         """Parses the JSON file and constructs the graph."""
