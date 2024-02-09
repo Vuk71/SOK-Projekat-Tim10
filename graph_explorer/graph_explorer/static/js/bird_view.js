@@ -1,3 +1,4 @@
+//menja boju noda nad kojim se poziva
 function birdNodeClick(node) {
     d3.select(node).select('circle')
         .attr("fill", "#3AA9AD")
@@ -6,6 +7,7 @@ function birdNodeClick(node) {
         .attr("fill", "#FFFFFF");
 }
 
+//omogucava zumiranje, poziva se u fitZoom
 var zoom = d3.behavior
     .zoom()
     .scaleExtent([1/4, 4])
@@ -14,11 +16,14 @@ var zoom = d3.behavior
             'translate('+ d3.event.translate + ')' + 'scale(' + d3.event.scale + ')');
     });
 
+//zumira selektovano
 var svg_bird = d3.select("#bird_svg")
     .append("g").attr("id", "bird_g")
     .call(zoom);
 
 console.log(edges);
+
+//simulacija sila
 var force_bird = d3.layout.force()
         .size([500, 500])
         .nodes(d3.values(nodes))
@@ -48,6 +53,7 @@ d3.selectAll('.bird_view_node').each(function (d) {
     birdView(d);
 });
 
+//primenjuje simulaciju
 function lapsedFitZoom(ticks, transitionDuration) {
     for (var i = ticks || 100; i > 0; --i) force_bird.tick();
     force_bird.stop();
@@ -57,6 +63,7 @@ function lapsedFitZoom(ticks, transitionDuration) {
 lapsedFitZoom(undefined, 500);
 fitZoom(500);
 
+//izracunava zoom faktor
 function fitZoom(transitionDuration) {
     var bounds = svg_bird.node().getBBox();
     var parent = svg_bird.node().parentElement;
@@ -83,12 +90,14 @@ function fitZoom(transitionDuration) {
     svg_bird.on('.zoom', null);
 }
 
+//prikaz sa odredjenim idjem
 function birdView(d) {
     d3.select("g#" + "bird_" + d.id).append('circle')
         .attr('r', 10)
         .attr('fill', '#FFFFFF');
 }
 
+//azurira poziciju
 function tick_bird() {
     node_b.attr("cx", function (d) {return d.x;})
         .attr("cy", function (d) {return d.y;});
@@ -104,6 +113,7 @@ function tick_bird() {
 
 }
 
+//ucitava html dokument pa upravlja njime
 $(document).ready(function () {
     var gDimensions = document.getElementById('main_view').getBoundingClientRect();
 
