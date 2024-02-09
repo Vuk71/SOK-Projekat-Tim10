@@ -14,6 +14,7 @@ if __name__ == "__main__":
     lay_egs("./_platform")
     lay_egs("./api/plugins/data_source/instagram")
     lay_egs("./api/plugins/data_source/github")
+    lay_egs("./api/plugins/data_source/json_file")
     lay_egs("./api/plugins/visualizer/basic")
     lay_egs("./api/plugins/visualizer/detailed")
     subprocess.run(["pip", "install", "setuptools"])

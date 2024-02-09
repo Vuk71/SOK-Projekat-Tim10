@@ -9,6 +9,7 @@ import pkg_resources
 class Platform:
     def __init__(self):
         self.graph = None
+        self.og_graph = None
         self.data_sources = []
         self.data_visualizers = []
 
@@ -18,6 +19,11 @@ class Platform:
     def get_graph(self):
         return self.graph
 
+    def set_og_graph(self,graph):
+        self.og_graph = graph
+
+    def get_og_graph(self):
+        return self.og_graph
 
     def set_data_source(self, plugin: ParseDataBase) -> None:
         self.graph = plugin.parse_data()

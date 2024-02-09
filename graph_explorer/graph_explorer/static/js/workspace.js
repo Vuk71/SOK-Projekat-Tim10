@@ -148,6 +148,45 @@ $(document).ready(function() {
                 dialog.append('<div class="additionalFields"><input type="text" id="param3" name="username" placeholder="enter username (optional)"></div>');
                 dialog.append('<div class="additionalFields"><input type="text" id="param4" name="password" placeholder="enter password (optional)"></div>');
             }
+            if (selectedDataSource == 'JSON Parser Data Source') {
+                dialog.append('<div class="additionalFields"><input type="text" id="param1" name="json file path" placeholder="enter json file path"></div>');
+            }
         });
     });
+});
+
+//====================================================================================================================
+
+$(document).ready(function() {
+    $('#simple-visualization-btn').click(function(e) {
+        e.preventDefault();
+        console.log("Clicked on Simple Visualizer button");
+        changeVisualization('basic');
+    });
+
+    $('#detailed-visualization-btn').click(function(e) {
+        e.preventDefault();
+        console.log("Clicked on Detailed Visualizer button");
+        changeVisualization('detailed');
+    });
+
+    function changeVisualization(type) {
+        $.ajax({
+            url: '/change_visualization/',  // Postavite URL koji vodi do vašeg view-a
+            method: 'POST',
+            data: {'visualization_type': type},
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    // Opciono: Ažurirajte UI kako biste odrazili promenu vizualizacije
+                    location.reload(); // Ovo osvežava stranicu nakon promene vizualizacije
+                } else {
+                    console.error('Failed to change visualization');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
 });

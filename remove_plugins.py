@@ -17,6 +17,7 @@ if __name__ == "__main__":
         "detailed-visualizer",
         "load-github",
         "load_instagram",
+        "load-json",
         "Django",
         "asgiref",
         "sqlparse",
