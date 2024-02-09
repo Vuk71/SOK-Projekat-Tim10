@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Detailed Visualizator Test</title>
     {% load static %}
-    <link rel="stylesheet" href="../static/css/detailed.css"> <!-- Ukljucivanje CSS datoteke -->
+    <link rel="stylesheet" href="../static/css/styles.css"> <!-- Ukljucivanje CSS datoteke -->
     <!-- Ukljucivanje jQuery i jQuery UI -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -16,13 +16,13 @@
 <body>
     <h1>Detailed Visualizator</h1>
     <div class="center" id="center">
-        {% block main %}
+        {% block detailed %}
             <svg id="main-view"></svg>
-            <script>
-                {% autoescape off %}{{ main_script }}{% endautoescape %}
-            </script>
+
         {% endblock %}
     </div>
-
+    <script>
+        {% autoescape off %}{{ detailed_script }}{% endautoescape %}
+    </script>
 </body>
 </html>
