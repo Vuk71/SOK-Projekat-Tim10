@@ -1,25 +1,25 @@
 from typing import Dict, List
 
 class Node:
-    def __init__(self, id: str, data: Dict):
+    def __init__(self, id: int, data: Dict):
         self.id = id
         self.data = data
 
     def __str__(self):
-        return "ID: " + self.id + " Data: " + str(self.data)
+        return "ID: " + str(self.id) + " Data: " + str(self.data)
 
 class Edge:
-    def __init__(self, source: str, target: str, name: str = ""):
+    def __init__(self, source: int, target: int, name: str = ""):
         self.source = source
         self.target = target
         self.name = name
 
     def __str__(self):
-        return "Source Node ID: " + self.source + " Target Node ID: " + self.target + " Edge Name: " + self.name
+        return "Source Node ID: " + str(self.source) + " Target Node ID: " + str(self.target) + " Edge Name: " + self.name
 
 class Graph:
     def __init__(self):
-        self.nodes: Dict[str, Node] = {}
+        self.nodes: Dict[int, Node] = {}
         self.edges: List[Edge] = []
 
     def __str__(self) -> str:
@@ -79,11 +79,11 @@ class Graph:
 
 if __name__ == "__main__":
     graph = Graph()
-    graph.add_node(Node("1", {"name": "John", "age": 25}))
-    graph.add_node(Node("2", {"name": "Jane", "age": 30, "searchFilter": True}))
-    graph.add_node(Node("3", {"name": "Alice", "age": 20}))
-    graph.add_edge(Edge("1", "2", "friend"))
-    graph.add_edge(Edge("2", "3", "friend"))
+    graph.add_node(Node(1, {"name": "John", "age": 25}))
+    graph.add_node(Node(2, {"name": "Jane", "age": 30, "searchFilter": True}))
+    graph.add_node(Node(3, {"name": "Alice", "age": 20}))
+    graph.add_edge(Edge(1, 2, "friend"))
+    graph.add_edge(Edge(2, 3, "friend"))
     print(graph)
     print("\n==========\n")
     print(graph.search("searchFilter"))
