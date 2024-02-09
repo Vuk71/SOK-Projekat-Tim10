@@ -148,6 +148,9 @@ $(document).ready(function() {
                 dialog.append('<div class="additionalFields"><input type="text" id="param3" name="username" placeholder="enter username (optional)"></div>');
                 dialog.append('<div class="additionalFields"><input type="text" id="param4" name="password" placeholder="enter password (optional)"></div>');
             }
+            if (selectedDataSource == 'JSON Parser Data Source') {
+                dialog.append('<div class="additionalFields"><input type="text" id="param1" name="json file path" placeholder="enter json file path"></div>');
+            }
         });
     });
 });

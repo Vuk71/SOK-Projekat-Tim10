@@ -63,7 +63,7 @@ def index_test(request):
                    'bird_script': bird_script.decode("utf-8"),
                    'tree_script': tree_script.decode("utf-8"),
                    'graph': graph,
-                   'roots': roots,
+                   'roots': [roots],
                    'data_sources': json_data_sources,
                    'workspaces': workspace_indices}
                   )
@@ -76,7 +76,8 @@ def update_active_workspace(request):
         print("updated")
         active_workspace = int(request.POST['active_workspace'])
         core_config.active_workspace = active_workspace
-        core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace])
+        core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace]["graph"])
+        core_config.platform.set_og_graph(core_config.workspaces[core_config.active_workspace]["og_graph"])
         return JsonResponse({'success': True})
     return JsonResponse({'success': False})
 
@@ -128,7 +129,16 @@ def workspace_test(request):
 
                 core_config.platform.set_data_source(data_source)
 
-            core_config.workspaces.append(core_config.platform.get_graph())
+            if (selected_data_source == "JSON Parser Data Source"):
+                json_path = request.POST.get('param1')
+                data_source = core_config.get_data_source_plugin(selected_data_source)
+                data_source.set_filepath(json_path)
+                core_config.platform.set_data_source(data_source)
+
+            core_config.workspaces.append({
+                    "graph": core_config.platform.get_graph(),
+                    "og_graph": core_config.platform.get_graph(),
+                })
             core_config.active_workspace = len(core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
             return JsonResponse({'success': True})
 
@@ -164,17 +174,49 @@ def get_available_visualizers():
     # ...
 
 def get_children(request):
-    node_id =  request.GET["node_id"]
+    node_id =  int(request.GET["node_id"])
     children = []
     print("Node_id:::")
     print(node_id)
     for edge in core_config.platform.get_graph().edges:
         if node_id == edge.source:
             children.append(edge.target)
+        if node_id == edge.target:
+            children.append(edge.source)
     children_json = jsonpickle.encode(children, unpicklable=False)
     print("deca:::")
     print(children)
     return JsonResponse(children_json, safe=False)
+
+def filter(request):
+    print("filter")
+    og_graph = core_config.platform.get_og_graph()
+    if og_graph is None:
+        og_graph = core_config.platform.get_graph()
+        core_config.platform.set_og_graph(og_graph)
+
+    filtered_graph = core_config.platform.get_graph().filter(request.POST["query"])
+    core_config.platform.set_graph(filtered_graph)
+    core_config.workspaces[core_config.active_workspace]["graph"] = filtered_graph
+    return JsonResponse({'success': True})
+
+def search(request):
+    print("search")
+    og_graph = core_config.platform.get_og_graph()
+    if og_graph is None:
+        og_graph = core_config.platform.get_graph()
+        core_config.platform.set_og_graph(og_graph)
+
+    searched_graph = core_config.platform.get_graph().search(request.POST["query"])
+    core_config.platform.set_graph(searched_graph)
+    core_config.workspaces[core_config.active_workspace]["graph"] = searched_graph
+    return JsonResponse({'success': True})
+
+def clean(request):
+    og_graph = core_config.platform.get_og_graph()
+    core_config.platform.set_graph(og_graph)
+    core_config.workspaces[core_config.active_workspace]["graph"] = og_graph
+    return JsonResponse({'success': True})
 
 
 def change_visualization(request):
