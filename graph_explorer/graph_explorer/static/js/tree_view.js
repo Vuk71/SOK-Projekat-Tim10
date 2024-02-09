@@ -1,5 +1,5 @@
 "use strict";
-var rootNode = treeData.name; // Definition of the root node of a tree
+
 function _drawTree(treeData) {
 
     // Setting the margins and dimensions for the tree display
@@ -17,7 +17,7 @@ function _drawTree(treeData) {
     var root;
 
     // Tree layout definition
-    var tree = d3.layout.tree()
+    var tree = d3.layout.tree() //objekat preko kojeg se racunaju pozicije cvorova
         .nodeSize([0, 75])
         .children(function(d) {
             return d.children;
@@ -58,10 +58,13 @@ function _drawTree(treeData) {
     }
 
     // Setting up the root node
-    root = treeData;
-    root.x0 = 0;
+    root = treeData; //niz gde mu je prvi element zapravo objekat 1 cvora
+    root.x0 = 0; 
     root.y0 = 0;
-
+    // console.log('tree data');
+    // console.log(treeData);
+    // console.log('root');
+    // console.log(root);
     // Updating the tree view
     update(root);
 
@@ -71,8 +74,14 @@ function _drawTree(treeData) {
 
     // Function to update the tree view
     function update(source) {
+        // console.log("tree");
+        // console.log(tree);
+    
         var tree_nodes = tree.nodes(root);
-
+        // console.log("tree nodes");
+        // console.log(tree_nodes); //niz u nizu, imamo da je prvi element niz ciji je prvi el cvor, a drugi
+                                 //su oni klasicni detalji o nizu, i ima jos 2 dodatna elementa u prvom
+                                 //nizu a to su y i lenght
         // Calculating the height of an SVG element based on the number of nodes
         var height = Math.max(500, tree_nodes.length * barHeight + margin.top + margin.bottom);
 
@@ -92,6 +101,8 @@ function _drawTree(treeData) {
             .data(tree_nodes, function(d) {
                 return d.id || (d.id = ++i);
             });
+        // console.log("updatet tree node");
+        // console.log(tree_node);
 
         // Adding new nodes
         var nodeEnter = tree_node.enter().append('g')
@@ -111,6 +122,7 @@ function _drawTree(treeData) {
         }
 
         //Adding rectangles (nodes) and defining actions on events
+        console.log(nodeEnter);
         nodeEnter.append('rect')
             .attr('y', -barHeight / 2)
             .attr('height', function() {
@@ -135,13 +147,13 @@ function _drawTree(treeData) {
                     .style('pointer-events', 'auto')
                     .style('visibility', 'visible');
                 div.html(
-                        `<h3 class = 'popover-title' >${ d.id }</h3>
-                    <br>
+                        `<h3 class = 'popover-title' >${ d[0].id }</h3>
                     <p class='popover-assets'>
-                            ${ getAttributes(d) }
+                            
+                            ${ getAttributes(d[0].attributes) }
                     </p>`)
                     .style('left', '20%')
-                    .style('top', '80px').style('color', '#3AA9AD').style('font-size', '15px');
+                    .style('top', '80px').style('color', '#FFD0EC').style('font-size', '15px');
             }).on('mouseout', function(d) {
                 // Hiding the tooltip when the mouse moves away
                 setTimeout(function() {

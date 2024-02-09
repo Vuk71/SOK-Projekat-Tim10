@@ -1,5 +1,5 @@
 {
-    name: {{node.id}},
+    id: {{node.id}},
     attributes: {{%for key,value in node.data.items %}
                     "{{key}}" : "{{value}}",
                     {%endfor%}},
