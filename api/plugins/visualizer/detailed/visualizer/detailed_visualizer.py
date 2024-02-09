@@ -12,7 +12,7 @@ class DetailedVisualizer(VisualizeDataBase):
     def name(self):
         return "Detailed visualization graph"
 
-    def visualize_graph(self):
+    def visualize_graph(self, graph:Graph):
         # nodes = ""
         # edges = ""
         # for node in graph.nodes.values():

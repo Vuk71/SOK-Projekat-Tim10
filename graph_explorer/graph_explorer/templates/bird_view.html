@@ -4,63 +4,30 @@
 <script>
     console.log("BIRD");
 
-    // Generisanje podataka za čvorove
+
     var nodes = [
-        { id: 1, name: "Node_1" },
-        { id: 2, name: "Node_2" },
-        { id: 3, name: "Node_3" },
-        { id: 4, name: "Node_4" },
-        { id: 5, name: "Node_5" },
-        { id: 6, name: "Node_6" },
-        { id: 7, name: "Node_7" },
-        { id: 8, name: "Node_8" },
-        { id: 9, name: "Node_9" },
-        { id: 10, name: "Node_10" }
+        {% for node_id, node in graph.nodes.items %}
+            {
+            id: {{ node_id }},
+            name: "{{ node.data.name }}",
+            attributes: {
+            {% for key, value in node.data.items %}
+            "{{ key }}": "{{ value }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+            }
+            }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+
     ];
 
-    // Generisanje podataka za ivice
     var edges = [
-        { source: 1, target: 2 },
-        { source: 1, target: 3 },
-        { source: 2, target: 4 },
-        { source: 2, target: 5 },
-        { source: 3, target: 6 },
-        { source: 3, target: 7 },
-        { source: 4, target: 8 },
-        { source: 5, target: 9 },
-        { source: 6, target: 10 },
-        { source: 8, target: 10 },
-        { source: 9, target: 10 }
+        {% for edge in graph.edges %}
+            {
+                source: {{edge.source}},
+                target: {{edge.target}}
+            }{% if not forloop.last %},{% endif %}
+        {% endfor %}
     ];
-
-// Ispisivanje podataka u konzoli radi provere
-console.log("Nodes:", nodes);
-console.log("Edges:", edges);
-
-
-    {#var nodes = [#}
-    {#    {% for node_id, node in graph.nodes.items %}#}
-    {#        {#}
-    {#            id: {{ node_id }},#}
-    {#            name: "{{ node.data.name }}",#}
-    {#            attributes: {#}
-    {#                {% for key, value in node.data.items %}#}
-    {#                    "{{ key }}": "{{ value }}"{% if not forloop.last %},{% endif %}#}
-    {#                {% endfor %}#}
-    {#            }#}
-    {#        }{% if not forloop.last %},{% endif %}#}
-    {#    {% endfor %}#}
-    {#];#}
-    {##}
-    {#var edges = [#}
-    {#    {% for edge in graph.edges %}#}
-    {#        {#}
-    {#            source: 2,#}
-    {#            target: 3,#}
-    {#            weight: 5#}
-    {#        }{% if not forloop.last %},{% endif %}#}
-    {#    {% endfor %}#}
-    {#];#}
 
 
     {% autoescape off %}{{ bird_script }}{% endautoescape %}
