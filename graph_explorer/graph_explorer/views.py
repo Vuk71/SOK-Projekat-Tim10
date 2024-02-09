@@ -1,3 +1,4 @@
+import pkg_resources
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -153,7 +154,6 @@ def get_available_visualizers():
     pass
     # Implement logic to discover and return available visualizer plugins
     # ...
-
 
 def get_children(request):
     node_id =  request.GET["node_id"]

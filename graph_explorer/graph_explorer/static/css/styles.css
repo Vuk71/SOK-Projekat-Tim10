@@ -25,6 +25,46 @@ select {
     border: 1px solid #ccc;
 }
 
+.center {
+    margin-left: 25%;
+    width: 50vw;
+    height: 100vh;
+    background-color: #11172F;
+}
+
+.bird_view_node {
+    cursor: pointer;
+    color: #16425b;
+}
+
+.bird_view_edge {
+    fill: none;
+    stroke: #ccdbcd;
+    stroke-width: 1.5px;
+}
+
+.main_view_node {
+    cursor: pointer;
+    color: #3AAA9D;
+}
+
+.main_view_edge {
+    fill: none;
+    stroke: #C9ADA7;
+    stroke-width: 1.5px;
+}
+
+.edges line {
+    stroke: #E2BCB7;
+    stroke-opacity: 0.6;
+}
+
+.nodes circle {
+    stroke: #CA8A8B;
+    stroke-width: 1.5px;
+}
+
+
 #nav {
     background-color: #1F2544 !important; /* Ljubičasta boja - možete prilagoditi ovu vrednost prema vašim željama */
 }
