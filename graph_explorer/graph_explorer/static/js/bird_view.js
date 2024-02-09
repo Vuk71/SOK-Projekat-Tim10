@@ -44,7 +44,7 @@ var node_b = svg_bird.selectAll('.bird_view_node')
     .enter().append('g')
     .attr('class', 'bird_view_node')
     .attr('id', function (d) {
-        return "bird" + d.id;
+        return "bird" + d.name;
     })
     .on("click", function () {
         birdNodeClick(this);
@@ -93,10 +93,15 @@ function fitZoom(transitionDuration) {
 
 //prikaz sa odredjenim idjem
 function birdView(d) {
-    d3.select("g#" + "bird_" + d.id).append('circle')
+    var birdGroup = d3.select("#bird" + d.name);
+
+    birdGroup.append('circle')
         .attr('r', 10)
-        .attr('fill', '#FFFFFF');
+        .attr('fill', '#FFFFFF')
+        .attr('cx', 0) // Adjust as needed
+        .attr('cy', 0); // Adjust as needed
 }
+
 
 //azurira poziciju
 function tick_bird() {
