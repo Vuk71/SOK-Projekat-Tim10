@@ -8,7 +8,6 @@ class Node:
     def __str__(self):
         return "ID: " + str(self.id) + " Data: " + str(self.data)
 
-
 class Edge:
     def __init__(self, source: int, target: int, name: str = ""):
         self.source = source
@@ -16,6 +15,7 @@ class Edge:
         self.name = name
 
     def __str__(self):
+
         return "Source Node ID: " + str(self.source) + " Target Node ID: " + str(self.target) + " Edge Name: " + self.name
 
 class Graph:
