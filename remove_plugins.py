@@ -21,7 +21,11 @@ if __name__ == "__main__":
         "asgiref",
         "sqlparse",
         "tzdata",
-        "setuptools"
+        "setuptools",
+        "jsonpickle",
+        "instaloader",
+        "PyGithub"
+
     ]
 
     # Pozivanje funkcije za deinstalaciju paketa

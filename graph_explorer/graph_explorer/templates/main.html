@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block main %}
+<svg id="main_view"></svg>
+<script>
+    var nodes = [
+            {% for node_id, node in graph.nodes.items %}
+                {
+                    id: "{{ node_id }}",
+                    data: {
+                        {% for key, value in node.data.items %}
+                            "{{ key }}": "{{ value }}"{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    }
+                }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        var edges = [
+            {% for edge in graph.edges %}
+                {
+                    source: "{{ edge.source }}",
+                    target: "{{ edge.target }}",
+                    name: "{{ edge.name }}"
+                }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        {% autoescape off %}{{ main_script }}{% endautoescape %}
+</script>
+{% endblock %}
