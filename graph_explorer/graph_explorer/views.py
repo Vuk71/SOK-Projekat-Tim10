@@ -39,9 +39,11 @@ def index_test(request):
         main_script = ""
         bird_script = ""
         tree_script= ""
+    roots = "nema"
     graph = "nema"
     if core_config.platform.get_graph():
-        graph = core_config.platform.get_graph().get_roots()
+        roots = core_config.platform.get_graph().get_roots()
+        graph = core_config.platform.get_graph()
 
     main_script_decoded = ""
     if main_script != "":
@@ -54,7 +56,8 @@ def index_test(request):
                   {'main_script': main_script_decoded,
                    'bird_script': bird_script,
                    'tree_script': tree_script.decode("utf-8"),
-                   'roots': graph,
+                   'graph': graph,
+                   'roots': roots,
                    'data_sources': json_data_sources,
                    'workspaces': workspace_indices}
                   )

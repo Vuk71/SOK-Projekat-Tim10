@@ -243,27 +243,23 @@ function _drawTree(treeData) {
     }
 
     // A function that is called when a node is clicked
-    async function click(node) {
-        let main_node = "main_" + node.name;
-        console.log(node);
+    async function click(d) {
+        let main_node = "main_" + d.init_name;
+        console.log(main_node);
 
-        // Broadcast a click to the corresponding node in the DOM
-        for (var atr of node[0].attributes) {
-            console.log(atr.__data__.name);
-            if (atr.__data__.name == d.name) {
-                atr.dispatchEvent(new Event('click'));
-            }
-        }
-
-        // Changing the display of the text on the clicked node
-        if (d.attr === false) {
-            if (d3.select('text#text_' + d.name).text() === ("- " + d.naziv))
-                d3.select('text#text_' + d.name).text("+ " + d.naziv);
+        for (var b of node[0]){
+            console.log(b.__data__.init_name);
+           if (b.__data__.init_name == d.init_name){
+               b.dispatchEvent(new Event('click'));
+           }
+       }
+        if(d.attr === false){
+             if( d3.select('text#text_' + d.name).text() === ("- " +d.naziv))
+                d3.select('text#text_' + d.name).text("+ " +d.naziv);
             else
-                d3.select('text#text_' + d.name).text("- " + d.naziv);
+                 d3.select('text#text_' + d.name).text("- " +d.naziv);
         }
 
-        // Updating the tree view based on opening/closing children
         if (d.children) {
             d._children = d.children;
             d.children = null;

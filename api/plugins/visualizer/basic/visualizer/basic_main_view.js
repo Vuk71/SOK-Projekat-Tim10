@@ -1,5 +1,4 @@
-//var nodes = {{ nodes_json|safe }};
-//var edges = {{ edges_json|safe }};
+
 function getAttributes(attributes){
             var str = ""
             for (const [key, value] of Object.entries(attributes)) {
@@ -30,7 +29,7 @@ function clickNode(el) {
 var force = d3.layout.force()
         .size([600, 600])
         .nodes(d3.values(nodes))
-        .edges(edges)
+        .links(edges)
         .on("tick", tick)
         .edgeDistance(300)
         .charge(-500)
