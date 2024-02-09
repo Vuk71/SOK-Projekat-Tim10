@@ -10,7 +10,7 @@ import pkg_resources
 core_config = apps.get_app_config("graph_explorer")
 
 # simple/detailed
-selected_visualizer = core_config.platform.get_available_visualizers()[0]
+selected_visualizer = core_config.platform.get_available_visualizers()[1]
 available_data_sources = core_config.platform.get_available_data_sources()
 
 def index(request):
