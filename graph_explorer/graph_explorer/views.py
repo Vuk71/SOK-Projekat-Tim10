@@ -98,6 +98,12 @@ def workspace_test(request):
 
                 core_config.platform.set_data_source(data_source)
 
+            if (selected_data_source == "JSON Parser Data Source"):
+                json_path = request.POST.get('param1')
+                data_source = core_config.get_data_source_plugin(selected_data_source)
+                data_source.set_filepath(json_path)
+                core_config.platform.set_data_source(data_source)
+
             core_config.workspaces.append(core_config.platform.get_graph())
             core_config.active_workspace = len(core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
             return redirect('index_test')
