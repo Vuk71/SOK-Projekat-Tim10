@@ -76,7 +76,8 @@ def update_active_workspace(request):
         print("updated")
         active_workspace = int(request.POST['active_workspace'])
         core_config.active_workspace = active_workspace
-        core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace])
+        core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace]["graph"])
+        core_config.platform.set_og_graph(core_config.workspaces[core_config.active_workspace]["og_graph"])
         return JsonResponse({'success': True})
     return JsonResponse({'success': False})
 
@@ -131,7 +132,10 @@ def workspace_test(request):
                 data_source.set_filepath(json_path)
                 core_config.platform.set_data_source(data_source)
 
-            core_config.workspaces.append(core_config.platform.get_graph())
+            core_config.workspaces.append({
+                    "graph": core_config.platform.get_graph(),
+                    "og_graph": core_config.platform.get_graph(),
+                })
             core_config.active_workspace = len(core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
             return JsonResponse({'success': True})
 
@@ -179,3 +183,32 @@ def get_children(request):
     print(children)
     return JsonResponse(children_json, safe=False)
 
+def filter(request):
+    print("filter")
+    og_graph = core_config.platform.get_og_graph()
+    if og_graph is None:
+        og_graph = core_config.platform.get_graph()
+        core_config.platform.set_og_graph(og_graph)
+
+    filtered_graph = core_config.platform.get_graph().filter(request.POST["query"])
+    core_config.platform.set_graph(filtered_graph)
+    core_config.workspaces[core_config.active_workspace]["graph"] = filtered_graph
+    return JsonResponse({'success': True})
+
+def search(request):
+    print("search")
+    og_graph = core_config.platform.get_og_graph()
+    if og_graph is None:
+        og_graph = core_config.platform.get_graph()
+        core_config.platform.set_og_graph(og_graph)
+
+    searched_graph = core_config.platform.get_graph().search(request.POST["query"])
+    core_config.platform.set_graph(searched_graph)
+    core_config.workspaces[core_config.active_workspace]["graph"] = searched_graph
+    return JsonResponse({'success': True})
+
+def clean(request):
+    og_graph = core_config.platform.get_og_graph()
+    core_config.platform.set_graph(og_graph)
+    core_config.workspaces[core_config.active_workspace]["graph"] = og_graph
+    return JsonResponse({'success': True})

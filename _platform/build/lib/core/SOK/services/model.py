@@ -1,11 +1,32 @@
 from typing import Dict, List
-#import json
+
+class Node:
+    def __init__(self, id: int, data: Dict):
+        self.id = id
+        self.data = data
+
+    def __str__(self):
+        return "ID: " + str(self.id) + " Data: " + str(self.data)
+
+class Edge:
+    def __init__(self, source: int, target: int, name: str = ""):
+        self.source = source
+        self.target = target
+        self.name = name
+
+    def __str__(self):
+        return "Source Node ID: " + str(self.source) + " Target Node ID: " + str(self.target) + " Edge Name: " + self.name
 
 class Graph:
     def __init__(self):
-        self.nodes: Dict[str, Node] = {}
+        self.nodes: Dict[int, Node] = {}
         self.edges: List[Edge] = []
 
+    def __str__(self) -> str:
+        node_str = '\n'.join(str(node) for node in self.nodes.values())
+        edge_str = '\n'.join(str(edge) for edge in self.edges)
+        return f"# Graph Nodes:\n{node_str}\n\n# Graph Edges:\n{edge_str}"
+    
     def get_roots(self):
         # Stvorite skup odredišnih čvorova iz bridova
         targets = set(edge.target for edge in self.edges)
@@ -20,39 +41,6 @@ class Graph:
                 roots.append(node)
 
         return roots
-
-
-    def __str__(self) -> str:
-        node_str = '\n'.join(str(node) for node in self.nodes.values())
-        edge_str = '\n'.join(str(edge) for edge in self.edges)
-        return f"#node\n{node_str}\n\n#edges\n{edge_str}"
-
-class Node:
-    def __init__(self, id: int, data: Dict):
-        self.id = id
-        self.data = data
-
-    def __str__(self):
-        return " id: " + self.id + " data: " + str(self.data)
-
-class Edge:
-    def __init__(self, source: str, target: str, name: str = ""):
-        self.source = source
-        self.target = target
-        self.name = name
-
-    def __str__(self):
-        return "source: " + self.source + " target: " + self.target + "name: " + self.name
-
-class Graph:
-    def __init__(self):
-        self.nodes: Dict[str, Node] = {}
-        self.edges: List[Edge] = []
-
-    def __str__(self) -> str:
-        node_str = '\n'.join(str(node) for node in self.nodes.values())
-        edge_str = '\n'.join(str(edge) for edge in self.edges)
-        return f"#node\n{node_str}\n\n#edges\n{edge_str}"
     
     def add_node(self, node: Node) -> None:
         self.nodes[node.id] = node
@@ -71,9 +59,8 @@ class Graph:
         return subgraph
 
     def filter(self, filter_query: str) -> 'Graph':
-        attribute_comparator, rest = filter_query.split(None, 1)
-        attribute, comparator = attribute_comparator.split()
-        value = rest.strip()
+        attribute, comparator_value = filter_query.split(None, 1)
+        comparator, value = comparator_value.split()
         subgraph = Graph()
         for node in self.nodes.values():
             if attribute not in node.data:
@@ -104,3 +91,16 @@ class Graph:
                 raise ValueError(f"The value {value} is not of the appropriate type for the attribute {attribute}.")
         subgraph.edges = [edge for edge in self.edges if edge.source in subgraph.nodes and edge.target in subgraph.nodes]
         return subgraph
+
+if __name__ == "__main__":
+    graph = Graph()
+    graph.add_node(Node(1, {"name": "John", "age": 25}))
+    graph.add_node(Node(2, {"name": "Jane", "age": 30, "searchFilter": True}))
+    graph.add_node(Node(3, {"name": "Alice", "age": 20}))
+    graph.add_edge(Edge(1, 2, "friend"))
+    graph.add_edge(Edge(2, 3, "friend"))
+    print(graph)
+    print("\n==========\n")
+    print(graph.search("searchFilter"))
+    print("\n==========\n")
+    print(graph.filter("age >= 25"))

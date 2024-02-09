@@ -1,34 +1,6 @@
 from typing import Dict, List
-#import json
-
-class Graph:
-    def __init__(self):
-        self.nodes: Dict[str, Node] = {}
-        self.edges: List[Edge] = []
-
-    def get_roots(self):
-        # Stvorite skup odredišnih čvorova iz bridova
-        targets = set(edge.target for edge in self.edges)
-
-        # Inicijalizirajte listu korijenskih čvorova
-        roots = []
-
-        # Iterirajte kroz sve čvorove grafa
-        for node_id, node in self.nodes.items():
-            # Ako čvor nije odredište nijednog brida, dodajte ga u listu korijenskih čvorova
-            if node_id not in targets:
-                roots.append(node)
-
-        return roots
-
-
-    def __str__(self) -> str:
-        node_str = '\n'.join(str(node) for node in self.nodes.values())
-        edge_str = '\n'.join(str(edge) for edge in self.edges)
-        return f"#node\n{node_str}\n\n#edges\n{edge_str}"
 
 class Node:
-    def __init__(self, id: int, data: Dict):
     def __init__(self, id: int, data: Dict):
         self.id = id
         self.data = data
@@ -55,6 +27,21 @@ class Graph:
         edge_str = '\n'.join(str(edge) for edge in self.edges)
         return f"# Graph Nodes:\n{node_str}\n\n# Graph Edges:\n{edge_str}"
     
+    def get_roots(self):
+        # Stvorite skup odredišnih čvorova iz bridova
+        targets = set(edge.target for edge in self.edges)
+
+        # Inicijalizirajte listu korijenskih čvorova
+        roots = []
+
+        # Iterirajte kroz sve čvorove grafa
+        for node_id, node in self.nodes.items():
+            # Ako čvor nije odredište nijednog brida, dodajte ga u listu korijenskih čvorova
+            if node_id not in targets:
+                roots.append(node)
+
+        return roots
+    
     def add_node(self, node: Node) -> None:
         self.nodes[node.id] = node
 
@@ -73,7 +60,8 @@ class Graph:
 
     def filter(self, filter_query: str) -> 'Graph':
         attribute, comparator_value = filter_query.split(None, 1)
-        comparator, value = comparator_value.split()
+        comparator, rest = comparator_value.split(None, 1)
+        value = rest.strip()
         subgraph = Graph()
         for node in self.nodes.values():
             if attribute not in node.data:

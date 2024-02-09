@@ -39,11 +39,13 @@
                     <!-- Add other navigation items here if needed -->
                 </ul>
             </div>
-            <form class="form-inline ml-auto">
-                <input class="form-control mr-2" type="text" id="filterInput" placeholder="Filter">
-                <input class="form-control mr-2" type="text" id="searchInput" placeholder="Search">
-                <button class="btn btn-outline-secondary" type="button" onclick="cleanForm()">Clean</button>
-                <button class="btn btn-outline-secondary" type="button">Simple Visualizer</button>
+            <form class="form-inline ml-auto" style="margin-bottom: 0px;">
+                <input class="form-control mr-2" type="text" id="filterInput" placeholder="Filter" style="width: 300px;">
+                <button class="btn btn-outline-secondary" type="button" onclick="filter()">Filter</button>
+                <input class="form-control mr-2" type="text" id="searchInput" placeholder="Search" style="margin-left: 8px;">
+                <button class="btn btn-outline-secondary" type="button" onclick="search()" style="margin-right: 16px;">Search</button>
+                <button class="btn btn-outline-secondary" type="button" onclick="clean()">Clean</button>
+                <button class="btn btn-outline-secondary" type="button" style="margin-left: 32px; margin-right: 16px;">Simple Visualizer</button>
                 <button class="btn btn-outline-secondary" type="button">Detailed Visualizer</button>
             </form>
         </nav>

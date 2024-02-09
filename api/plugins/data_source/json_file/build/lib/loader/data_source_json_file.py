@@ -32,6 +32,8 @@ class FileSystemJSONPlugin(ParseDataBase):
 
             for node_data in data:
                 node_id = node_data["@id"]
+                if not isinstance(node_id, int):
+                    node_id = int(node_id)
                 node_data_attributes = {key: value for key, value in node_data.items() if not key.startswith("@")}
                 node = Node(node_id, node_data_attributes)
                 graph.add_node(node)
@@ -40,10 +42,14 @@ class FileSystemJSONPlugin(ParseDataBase):
                     if key.startswith("@") and key != "@id":
                         if isinstance(value, list):
                             for ref_id in value:
+                                if not isinstance(ref_id, int):
+                                    ref_id = int(ref_id)
                                 edge = Edge(node_id, ref_id, key[1:])
                                 graph.add_edge(edge)
                         else:
                             ref_id = value
+                            if not isinstance(ref_id, int):
+                                ref_id = int(ref_id)
                             edge = Edge(node_id, ref_id, key[1:])
                             graph.add_edge(edge)
 
