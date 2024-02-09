@@ -154,7 +154,7 @@ def get_available_visualizers():
 def get_children(request):
     node_id =  request.GET["node_id"]
     children = []
-    for edge in apps.get_app_config('Core').graph.edges:
+    for edge in core_config.platform.get_graph().edges:
         if node_id == edge.source:
             children.append(edge.destination)
     children_json = jsonpickle.encode(children, unpicklable=False)

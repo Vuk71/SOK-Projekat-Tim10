@@ -102,9 +102,9 @@ function _drawTree(treeData) {
             .style('opacity', 1e-6).style('text-align', 'left');
 
         // A function to get the attribute in the form of a string
-        function getAttributes(attributes) {
+        function getAttributes(data) {
             var str = "";
-            for (const [key, value] of Object.entries(attributes)) {
+            for (const [key, value] of Object.entries(data)) {
                 str += "- " + key + " : " + value + "<br>";
             }
             return str;
@@ -117,7 +117,7 @@ function _drawTree(treeData) {
                 return barHeight / 2
             })
             .attr('width', function(d) {
-                return d.naziv.length * 16
+                return 160
             })
             .style('font-size', '15px').style('fill', function(d) {
                 return d.color
@@ -135,10 +135,10 @@ function _drawTree(treeData) {
                     .style('pointer-events', 'auto')
                     .style('visibility', 'visible');
                 div.html(
-                        `<h3 class = 'popover-title' >${ d.naziv }</h3>
+                        `<h3 class = 'popover-title' >${ d.id }</h3>
                     <br>
                     <p class='popover-assets'>
-                            ${ getAttributes(d.attributes) }
+                            ${ getAttributes(d) }
                     </p>`)
                     .style('left', '20%')
                     .style('top', '80px').style('color', '#3AA9AD').style('font-size', '15px');
@@ -290,7 +290,8 @@ function _drawTree(treeData) {
                 node_data = [];
 
                 // Creating data for nodes based on the obtained data
-                for ([key, valueA] of Object.entries(current_node.data)) {
+                console.log(current_node)
+                for ([key, valueA] of Object.entries(current_node.attributes)) {
                     node_val = {
                         name: key,
                         attributes: {},

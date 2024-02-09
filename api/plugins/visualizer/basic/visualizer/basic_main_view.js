@@ -15,14 +15,14 @@ function clickNode(el) {
             .duration(2000)
         .attr('fill', "#57b9cf");
 
-    let bird_node = "bird_" + el.id.split("_")[1];
+    // let bird_node = "bird_" + el.id.split("_")[1];
     var node_value = null;
 
     for (var b of node_b[0]) {
-        if (b.id === bird_node) {
-            node_value = b;
-            b.dispatchEvent(new Event('click'));
-        }
+        // if (b.id === bird_node) {
+        //     node_value = b;
+        //     b.dispatchEvent(new Event('click'));
+        // }
     }
 }
 
@@ -44,7 +44,7 @@ var force = d3.layout.force()
 var svg_simple =d3.select('#main_view').call(d3.behavior.zoom().scaleExtent([0.5, 6]).on("zoom", function () {
          svg_simple.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
 
-         svg_bird.select('#frame').remove();
+        //  svg_bird.select('#frame').remove();
 
         let svgWidth = document.getElementById('main_view').getBoundingClientRect().width;
         let svgHeight = document.getElementById('main_view').getBoundingClientRect().height;
@@ -61,13 +61,13 @@ var svg_simple =d3.select('#main_view').call(d3.behavior.zoom().scaleExtent([0.5
         let dy = d3.event.translate[1]  / d3.event.scale;
 
 
-        svg_bird.append('rect')
-          .attr('id', 'frame')
-          .attr('width', mapWidth*factorSvgWidth / factor / d3.event.scale )
-          .attr('height', mapHeight*factorSvgHeight / factor / d3.event.scale )
-          .attr('stroke', '#3AA9AD')
-          .attr('fill', 'none')
-          .attr('transform', `translate(${-dx},${-dy})`);
+        // svg_bird.append('rect')
+        //   .attr('id', 'frame')
+        //   .attr('width', mapWidth*factorSvgWidth / factor / d3.event.scale )
+        //   .attr('height', mapHeight*factorSvgHeight / factor / d3.event.scale )
+        //   .attr('stroke', '#3AA9AD')
+        //   .attr('fill', 'none')
+        //   .attr('transform', `translate(${-dx},${-dy})`);
       }))
       .append("g").attr('id', 'main_g');
 
@@ -86,7 +86,8 @@ var edge = svg_complex.selectAll('.edge')
 
 //added nodes
 var node = svg_simple.selectAll('.main_view_node')
-    .data(force_bird.nodes()) //add
+    // .data(force_bird.nodes()) //add
+    .data(nodes)
     .enter().append('g')
     .attr('class', 'main_view_node')
     .attr('id', function(d){ return "main_" + d.name;})
@@ -194,5 +195,5 @@ function tick() {
       .attr("cy", function(d) { return d.y; });
 
   node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")";});
-    tick_bird();
+    // tick_bird();
 }
