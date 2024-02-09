@@ -243,15 +243,15 @@ function _drawTree(treeData) {
     }
 
     // A function that is called when a node is clicked
-    async function click(d) {
-        let main_node = "main_" + d.init_name;
-        console.log(main_node);
+    async function click(node) {
+        let main_node = "main_" + node.name;
+        console.log(node);
 
         // Broadcast a click to the corresponding node in the DOM
-        for (var b of node[0]) {
-            console.log(b.__data__.init_name);
-            if (b.__data__.init_name == d.init_name) {
-                b.dispatchEvent(new Event('click'));
+        for (var atr of node[0].attributes) {
+            console.log(atr.__data__.name);
+            if (atr.__data__.name == d.name) {
+                atr.dispatchEvent(new Event('click'));
             }
         }
 
@@ -282,39 +282,44 @@ function _drawTree(treeData) {
     // A function to generate data about the childrens of a node
     function generateChildren(current_node) {
         return new Promise(function(resolve, reject) {
-            $.get("/get_children", {
-                node_id: current_node.id
-            }, function(data) {
-                // Parsing the received data in JSON format
-                nodes = JSON.parse(data);
-                node_data = [];
-
-                // Creating data for nodes based on the obtained data
-                console.log(current_node)
-                for ([key, valueA] of Object.entries(current_node.attributes)) {
-                    node_val = {
-                        name: key,
-                        attributes: {},
-                        children: [],
-                        attr: true,
-                        color: '#3AA9AD'
+            $.get("/get_children", { node_id: current_node.id })
+                .done(function(data) {
+                    var nodes = JSON.parse(data);
+                    var node_data = [];
+    
+                    // Add attributes of current_node as nodes
+                    console.log(attributes);
+                    if (current_node.attributes && typeof current_node.attributes === 'object') {
+                        Object.entries(current_node.attributes).forEach(function([key, value]) {
+                            var node_val = {
+                                name: key,
+                                attributes: {},
+                                children: [],
+                                attr: true,
+                                color: '#3AA9AD'
+                            };
+                            node_data.push(node_val);
+                        });
+                    
                     }
-                    node_data.push(node_val);
-                }
-
-                // Adding children to a node
-                nodes.forEach(function(node) {
-                    node_val = {
-                        name: node.id,
-                        attributes: node.data,
-                        children: [],
-                        attr: false,
-                        color: '#3AA9AD'
-                    }
-                    node_data.push(node_val);
+    
+                    // Add children nodes
+                    nodes.forEach(function(node) {
+                        var node_val = {
+                            name: node.id,
+                            attributes: node.data,
+                            children: [],
+                            attr: false,
+                            color: '#3AA9AD'
+                        };
+                        node_data.push(node_val);
+                    });
+    
+                    resolve(node_data);
+                })
+                .fail(function(xhr, status, error) {
+                    reject(error);
                 });
-                resolve(node_data);
-            });
         });
     }
 }
