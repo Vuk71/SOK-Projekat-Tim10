@@ -114,10 +114,13 @@ def workspace_test(request):
                 print("username: " + username)
                 print("password: " +password)
                 data_source = core_config.get_data_source_plugin(selected_data_source)
+
                 if(profile != ""):
                     data_source.set_profile(profile)
                 if(width != ""):
-                    data_source.set_width(width)
+                    data_source.set_width(int(width))
+                else:
+                    data_source.set_width(5)
                 if(username != ""):
                     data_source.set_username(username)
                 if(password != ""):
