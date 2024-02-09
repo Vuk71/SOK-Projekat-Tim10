@@ -2,6 +2,10 @@ from .services.api import ParseDataBase, VisualizeDataBase
 import pkg_resources
 
 
+from .services.api import ParseDataBase, VisualizeDataBase
+import pkg_resources
+
+
 class Platform:
     def __init__(self):
         self.graph = None
@@ -18,10 +22,10 @@ class Platform:
     def set_data_source(self, plugin: ParseDataBase) -> None:
         self.graph = plugin.parse_data()
 
-    def get_visualized_graph(self, plugin: VisualizeDataBase) -> str:
+    def get_visualized_graph(self, plugin: VisualizeDataBase):
         if not self.graph:
             raise Exception("No data source has been set.")
-        return plugin.visualize_graph(self.graph)
+        return plugin.visualize_graph(self.graph), "bird view", "tree view"
 
     def load_available_plugins(self):
         self.data_sources = load_plugins("graph.load")

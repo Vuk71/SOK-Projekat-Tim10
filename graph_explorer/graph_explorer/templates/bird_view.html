@@ -1,0 +1,37 @@
+{% extends "main_view.html" %}
+{% block bird %}
+<svg id="bird_svg"></svg>
+<script>
+    console.log("BIRD");
+
+
+    var nodes = [
+        {% for node_id, node in graph.nodes.items %}
+            {
+            id: {{ node_id }},
+            name: "{{ node.data.name }}",
+            attributes: {
+            {% for key, value in node.data.items %}
+            "{{ key }}": "{{ value }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+            }
+            }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+
+    ];
+
+    var edges = [
+        {% for edge in graph.edges %}
+            {
+                source: {{edge.source}},
+                target: {{edge.target}}
+            }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+
+    {% autoescape off %}{{ bird_script }}{% endautoescape %}
+</script>
+
+
+{% endblock %}

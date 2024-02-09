@@ -18,10 +18,8 @@ function changeWorkspace(button, workspace) {
         },
         dataType: 'json',
         success: function(response) {
-            console.log(response); // Ispisujemo odgovor u konzoli radi provere
+                window.location.href = '';
 
-        // Ažuriramo podatke na stranici
-            $('#dataParagraph').text(response.data);
         },
         error: function(error) {
             console.error('Error:', error); // Ako dođe do greške, ispisujemo je u konzoli
@@ -32,47 +30,38 @@ function changeWorkspace(button, workspace) {
 $(document).ready(function() {
 
     $('#workspaceForm').submit(function(event) {
+    event.preventDefault(); // Spriječava podnošenje forme putem uobičajenog postupka
 
-        event.preventDefault(); // Spriječava podnošenje forme putem uobičajenog postupka
+    var selectedWorkspace = $('.selected').text().replace('Workspace ', ''); // Dohvaća odabrani workspace
+    var paragraph = $('#workspaceNumber');
+    paragraph.text("Selected workspace: " + selectedWorkspace);
 
+    // Serijalizirajte podatke iz forme
+    var formData = $(this).serialize();
 
+    // Dodajte dodatne parametre, ako je potrebno
+    formData += '&active_workspace=' + selectedWorkspace;
 
-        var selectedWorkspace = $('.selected').text().replace('Workspace ', ''); // Dohvaća odabrani workspace
+    // Slanje AJAX zahteva za ažuriranje aktivnog workspace-a
+    $.ajax({
+        url: '/add_workspace/', // URL endpoint za ažuriranje aktivnog workspace-a
+        type: 'POST',
+        data: formData,
+        dataType: 'json',
+        success: function(response) {
+            console.log(response); // Ispisujemo odgovor u konzoli radi provere
 
-        var paragraph = $('#workspaceNumber');
-        paragraph.text("Selected workspace: " + selectedWorkspace);
-
-        // Serijalizirajte podatke iz forme
-        var formData = $(this).serialize();
-
-        // Dodajte dodatne parametre, ako je potrebno
-        formData += '&active_workspace=' + selectedWorkspace;
-
-        // Slanje AJAX zahteva za ažuriranje aktivnog workspace-a
-        $.ajax({
-            url: '/add_workspace/', // URL endpoint za ažuriranje aktivnog workspace-a
-            type: 'POST',
-            data: formData,
-            dataType: 'json',
-            success: function(response) {
-                console.log(response); // Ispisujemo odgovor u konzoli radi provere
-
-                // Ažuriramo podatke na stranici
-                $('#dataParagraph').text(response.data);
-
-                var buttons = document.querySelectorAll('.button');
-
-                var newWorkspace = buttons[buttons.length - 2];
-
-                newWorkspace.classList.add('selected');
-            },
-            error: function(error) {
-                console.error('Error:', error); // Ako dođe do greške, ispisujemo je u konzoli
+            if (response.success) {
+                // Ako je uspešno, izvršite redirekciju na novu stranicu
+                window.location.href = '';
+            } else {
+                console.error('Error: Response does not indicate success');
             }
+        },
+        error: function(error) {
+            console.error('Error:', error); // Ako dođe do greške, ispisujemo je u konzoli
+        }
         });
-
-        return false; // Spriječava preusmjeravanje na drugu stranicu
-
     });
 
 

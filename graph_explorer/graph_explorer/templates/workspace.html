@@ -1,5 +1,6 @@
 {% block workspace %}
-<h1>Workspaces</h1>
+<div class="horizontal-line"></div>
+<h4>workspaces:</h4>
 <form id="workspaceForm" method="post" action="{% url 'add_workspace' %}">
     {% csrf_token %}
     {% for workspace in workspaces %}

@@ -18,9 +18,9 @@ class DataSourceGithub(ParseDataBase):
 
     def parse_data(self) -> Graph:
         graph = Graph()
-        node1 = Node(id="2",data = {'podatak':'neka vrednost'})
-        node2 = Node(id="3",data = {'podatak':'neka druga vrednost'})
-        edge = Edge(source = "2",target = "3")
+        node1 = Node(id=0,data = {'name':'test', 'podatak':'neka vrednost'})
+        node2 = Node(id=1,data = {'name':'test2', 'podatak':'neka druga vrednost'})
+        edge = Edge(source =0,target = 1)
         graph.nodes[node1.id]=node1
         graph.nodes[node2.id]=node2
         graph.edges.append(edge)

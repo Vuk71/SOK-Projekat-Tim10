@@ -1,0 +1,6 @@
+"cvor_{{ node.id }}":{
+    name: "cvor_{{node.id}}",
+    attributes: {{%for key,value in node.data.items %}
+                    "{{key}}" : "{{value}}",
+                    {%endfor%}}
+}

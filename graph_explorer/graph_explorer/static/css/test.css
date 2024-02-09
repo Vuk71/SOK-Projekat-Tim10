@@ -1,0 +1,63 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 1; /* Postavite z-index na 1 da bi footer bio iznad drugih elemenata */
+}
+
+.birdView {
+    position: fixed;
+    bottom: calc(60px + 80px); /* Pravite odstupanje od dna uzimajući u obzir visinu footera */
+    right: 40px;
+    padding: 10px;
+    border: 2px solid #1F2544;
+    border-radius: 5px;
+    z-index: 2; /* Postavite z-index na 2 da bi "Bird view" bio iznad footera */
+}
+
+.treeView {
+    position: fixed;
+    top: 0;
+    left: 20px;
+    top: 100px; /* Visina navbar-a */
+    bottom: 130px; /* Visina footera */
+    width: 240px;
+    border: 2px solid #1F2544;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 3; /* Postavite z-index na veći broj kako biste bili sigurni da je sidebar iznad svih ostalih sadržaja */
+}
+
+.treeView {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent; /* Stilizacija scrollbar-a */
+}
+
+/* Prekrivanje podataka za scrollbar na različitim pregledačima */
+/* Webkit */
+.treeView::-webkit-scrollbar {
+    width: 5px;
+}
+.treeView::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+/* Mozila */
+.treeView::-moz-scrollbar {
+    width: 5px;
+}
+.treeView::-moz-scrollbar-thumb {
+    background-color: #ccc;
+}
+
+.mainView {
+    display: flex;
+    justify-content: center; /* Centriraj horizontalno */
+    align-items: center; /* Centriraj vertikalno */
+    height: 600px;
+    width: 600px;
+}
