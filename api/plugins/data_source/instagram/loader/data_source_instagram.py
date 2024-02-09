@@ -57,24 +57,25 @@ class DataSourceInstagram(ParseDataBase):
         # forming graph from data
         print("making graph: ")
         graph = Graph()
-        profile_node = Node(id= self.num_nodes, data={"name": profile.username,"private": profile.is_private, "followers": profile.followers,
+        profile_node = Node(id= 0, data={"name": profile.username,"private": profile.is_private, "followers": profile.followers,
                                                        "followees": profile.followees})
         self.num_nodes += 1
         graph.nodes[profile_node.id] = profile_node
         for followee, followee_followees in profile_followees.items():
+            target = self.num_nodes
             node = Node(id= self.num_nodes, data={"name": followee.username, "private": followee.is_private, "followers": followee.followers,
                                                     "followees": followee.followees})
             self.num_nodes += 1
             graph.nodes[node.id] = node
-            edge = Edge(source=self.username, target=followee.username, name="following")
+            edge = Edge(source = 0, target = target, name="following")
             graph.edges.append(edge)
             for followee_followee in followee_followees:
+                target2 = self.num_nodes
                 node = Node(id= self.num_nodes,
                             data={"name": followee_followee.username, "private": followee_followee.is_private, "followers": followee_followee.followers,
                                   "followees": followee_followee.followees})
+                edge = Edge(source=target, target=target2, name="following")
                 self.num_nodes += 1
-                edge = Edge(source=followee.username, target=followee_followee.username, name="following")
-
                 graph.nodes[node.id] = node
                 graph.edges.append(edge)
 
