@@ -78,15 +78,14 @@ var div = d3.select('.tooltip');
 //    .style('opacity', 0);
 
 //drawing edges
-var edge = svg_complex.selectAll('.edge')
+var edge = svg_simple.selectAll('.edge')
         .data(edges)
         .enter().append('line')
         .attr('class', 'main_view_edge');
 
 //added nodes
 var node = svg_simple.selectAll('.main_view_node')
-    // .data(force_bird.nodes()) //add
-    .data(nodes)
+    .data(force_bird.nodes()) //add
     .enter().append('g')
     .attr('class', 'main_view_node')
     .attr('id', function(d){ return "main_" + d.name;})

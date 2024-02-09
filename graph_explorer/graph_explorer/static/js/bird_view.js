@@ -27,9 +27,9 @@ console.log(edges);
 var force_bird = d3.layout.force()
         .size([500, 500])
         .nodes(d3.values(nodes))
-        .edges(edges)
+        .links(edges)
         .on('tick', tick_bird)
-        .edgeDistance(300)
+        .linkDistance(300)
         .charge(-500)
         .start();
 

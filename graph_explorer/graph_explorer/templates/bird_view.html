@@ -5,27 +5,42 @@
     console.log("BIRD");
 
     var nodes = [
-            {% for node_id, node in graph.nodes.items %}
-                {
-                    id: "{{ node_id }}",
-                    data: {
-                        {% for key, value in node.data.items %}
-                            "{{ key }}": "{{ value }}"{% if not forloop.last %},{% endif %}
-                        {% endfor %}
-                    }
-                }{% if not forloop.last %},{% endif %}
-            {% endfor %}
-        ];
+        { id: 1, name: "Node_1" },
+        { id: 2, name: "Node_2" },
+        { id: 3, name: "Node_3" },
+        { id: 4, name: "Node_4" }
+    ];
 
-        var edges = [
-            {% for edge in graph.edges %}
-                {
-                    source: "{{ edge.source }}",
-                    target: "{{ edge.target }}",
-                    name: "{{ edge.name }}"
-                }{% if not forloop.last %},{% endif %}
-            {% endfor %}
-        ];
+    var edges = [
+        { source: 1, target: 2, weight: 5 },
+        { source: 2, target: 3, weight: 3 },
+        { source: 3, target: 1, weight: 7 }
+    ];
+    {#var nodes = [#}
+    {#        {% for node_id, node in graph.nodes.items %}#}
+    {#            {#}
+    {#                name: "{{ node_id }}",#}
+    {#                data: {#}
+    {#                    {% for key, value in node.data.items %}#}
+    {#                        "{{ key }}": "{{ value }}"{% if not forloop.last %},{% endif %}#}
+    {#                    {% endfor %}#}
+    {#                },#}
+    {#                attributes:{#}
+    {#                    "source":"2",#}
+    {#                    "target":"3"#}
+    {#                }#}
+    {#            }{% if not forloop.last %},{% endif %}#}
+    {#        {% endfor %}#}
+    {#    ];#}
+    {##}
+    {#    var edges = [#}
+    {#        {% for edge in graph.edges %}#}
+    {#            {#}
+    {#                source: "{{ edge.source }}",#}
+    {#                target: "{{ edge.target }}"#}
+    {#            }{% if not forloop.last %},{% endif %}#}
+    {#        {% endfor %}#}
+    {#    ];#}
 
 
     {% autoescape off %}{{ bird_script }}{% endautoescape %}

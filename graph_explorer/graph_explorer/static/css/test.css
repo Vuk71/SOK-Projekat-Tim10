@@ -58,5 +58,6 @@
     display: flex;
     justify-content: center; /* Centriraj horizontalno */
     align-items: center; /* Centriraj vertikalno */
-    height: 100vh; 
+    height: 600px;
+    width: 600px;
 }
