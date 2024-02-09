@@ -4,12 +4,14 @@ from django.shortcuts import render, redirect
 
 from django.apps.registry import apps
 import json
+import jsonpickle
+import pkg_resources
 
 core_config = apps.get_app_config("graph_explorer")
 
 # simple/detailed
-selected_visualizer = core_config.platform.get_available_visualizers()[1]
-
+selected_visualizer = core_config.platform.get_available_visualizers()[0]
+available_data_sources = core_config.platform.get_available_data_sources()
 
 def index(request):
     # Handle user interactions, list available data sources and visualizers
@@ -29,16 +31,46 @@ def index(request):
 
 
 def index_test(request):
-    core_config.platform.set_data_source(core_config.platform.get_available_data_sources()[0])
-    return render(request, 'detailed.html', {'data': core_config.platform.get_visualized_graph(selected_visualizer)})
+    data_sources = [{"id": ds.identifier(), "name": ds.name()} for ds in available_data_sources]
+    workspace_indices = range(0, len(core_config.workspaces))
+    try:
+        main_script, bird_script, tree_script = core_config.platform.get_visualized_graph(selected_visualizer)
+    except Exception as e:
+        print(f"An exception occurred: {e}")
+        main_script = ""
+        bird_script = ""
+        tree_script= ""
+    roots = "nema"
+    graph = "nema"
+    if core_config.platform.get_graph():
+        roots = core_config.platform.get_graph().get_roots()
+        graph = core_config.platform.get_graph()
+
+    main_script_decoded = ""
+    if main_script != "":
+        main_script_decoded = main_script.decode("utf-8")
+
+    tree_script = pkg_resources.resource_string(__name__, 'static/js/tree_view.js')
+    # transform to json
+    json_data_sources = json.dumps(data_sources)
+    return render(request, 'tree_view.html',
+                  {'main_script': main_script_decoded,
+                   'bird_script': bird_script,
+                   'tree_script': tree_script.decode("utf-8"),
+                   'graph': graph,
+                   'roots': roots,
+                   'data_sources': json_data_sources,
+                   'workspaces': workspace_indices}
+                  )
 
 
 # take graph from workspaces and set it on platform
 def update_active_workspace(request):
+    print("ovde je upao")
     if request.method == 'POST' and 'active_workspace' in request.POST:
+        print("updated")
         active_workspace = int(request.POST['active_workspace'])
         core_config.active_workspace = active_workspace
-        print("selected workspace: " + str(active_workspace))
         core_config.platform.set_graph(core_config.workspaces[core_config.active_workspace])
         return JsonResponse({'success': True})
     return JsonResponse({'success': False})
@@ -47,8 +79,6 @@ def update_active_workspace(request):
 # change graph on platform based on selected data source and add it to workspaces
 def workspace_test(request):
 
-    # get number of workspaces nad currently selected work space
-    num_workspaces = len(core_config.workspaces)
     # check if form was sent
     if request.method == 'POST':
         # if clicked on add workspace
@@ -59,6 +89,8 @@ def workspace_test(request):
             # get params based on data source
             param1 = ""
             param2 = ""
+            param3 = ""
+            param4 = ""
 
             # make data source and send it to platform to make a graph with it
             if (selected_data_source == "Github Data Source"):
@@ -67,29 +99,37 @@ def workspace_test(request):
                 data_source.set_account(param1)
                 core_config.platform.set_data_source(data_source)
 
-            core_config.workspaces.append(core_config.platform.get_visualized_graph(selected_visualizer))
-            core_config.active_workspace = len(
-                core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
+            if (selected_data_source == "Instagram Data Source"):
+                profile = request.POST.get('param1')
+                width = request.POST.get('param2')
+                username = request.POST.get('param3')
+                password = request.POST.get('param4')
+                print("profile: " + profile)
+                print("width: " + width)
+                print("username: " + username)
+                print("password: " +password)
+                data_source = core_config.get_data_source_plugin(selected_data_source)
+                if(profile != ""):
+                    data_source.set_profile(profile)
+                if(width != ""):
+                    data_source.set_width(width)
+                if(username != ""):
+                    data_source.set_username(username)
+                if(password != ""):
+                    data_source.set_password(password)
 
-            return redirect('workspace_test')
+                core_config.platform.set_data_source(data_source)
 
-    # list of indexes to draw all buttons for workspaces
-    workspace_indices = range(0, num_workspaces)
-    available_data_sources = core_config.platform.get_available_data_sources()
+            core_config.workspaces.append(core_config.platform.get_graph())
+            core_config.active_workspace = len(core_config.workspaces) - 1  # Postavljamo na indeks poslednjeg workspace-a
+            return JsonResponse({'success': True})
 
-    # send plugins names and id so user can select new data source
-    data_sources = [{"id": ds.identifier(), "name": ds.name()} for ds in available_data_sources]
-    print(data_sources)
-
-    # transoform to json
-    json_data_sources = json.dumps(data_sources)
-
-    return render(request, 'workspace.html', {'data_sources': json_data_sources, 'workspaces': workspace_indices})
-
+    return JsonResponse({'success': False})
 
 def visualize_graph(request):
     core_config.platform.set_data_source(core_config.platform.get_available_data_sources()[0])
     return render(request, 'test.html', {'data': core_config.platform.get_visualized_graph(selected_visualizer)})
+
 
 
 def get_data_source_plugin(name):
@@ -115,10 +155,12 @@ def get_available_visualizers():
     # Implement logic to discover and return available visualizer plugins
     # ...
 
-def bird_view(request):
-    html_graph_script = pkg_resources.resource_string(__name__, 'static/js/bird_view.js')
+def get_children(request):
+    node_id =  request.GET["node_id"]
+    children = []
+    for edge in core_config.platform.get_graph().edges:
+        if node_id == edge.source:
+            children.append(edge.destination)
+    children_json = jsonpickle.encode(children, unpicklable=False)
+    return JsonResponse(children_json, safe=False)
 
-    return render(request, "bird_view.html", {
-        "script": html_graph_script.decode("utf-8"),
-        "graph": apps.get_app_config('Core').searchedGraph
-    })
