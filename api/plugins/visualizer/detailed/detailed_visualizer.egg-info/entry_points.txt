@@ -1,0 +1,2 @@
+[graph.visualizer]
+detailed_visualizer = visualizer.detailed_visualizer:DetailedVisualizer

@@ -126,8 +126,9 @@ def workspace_test(request):
     return JsonResponse({'success': False})
 
 def visualize_graph(request):
-    pass
-    # ...
+    core_config.platform.set_data_source(core_config.platform.get_available_data_sources()[0])
+    return render(request, 'test.html', {'data': core_config.platform.get_visualized_graph(selected_visualizer)})
+
 
 
 def get_data_source_plugin(name):

@@ -2,6 +2,10 @@ from .services.api import ParseDataBase, VisualizeDataBase
 import pkg_resources
 
 
+from .services.api import ParseDataBase, VisualizeDataBase
+import pkg_resources
+
+
 class Platform:
     def __init__(self):
         self.graph = None
