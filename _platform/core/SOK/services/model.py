@@ -45,7 +45,7 @@ class Edge:
         self.name = name
 
     def __str__(self):
-        return "source: " + str(self.source) + " target: " + str(self.target) + "name: " + self.name
+        return "source: " + str(self.source) + " target: " + str(self.target) + " name: " + self.name
 
     #
     #

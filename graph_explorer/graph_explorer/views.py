@@ -54,7 +54,7 @@ def index_test(request):
     bird_script = pkg_resources.resource_string(__name__, 'static/js/bird_view.js')
     # transform to json
     print("generisani graf: ")
-    # print(graph)
+    print(graph)
     print("roots grafa: ")
     print(roots)
     json_data_sources = json.dumps(data_sources)

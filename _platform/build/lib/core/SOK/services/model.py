@@ -36,7 +36,7 @@ class Node:
         self.data = data
 
     def __str__(self):
-        return " id: " + self.id + " data: " + str(self.data)
+        return " id: " + str(self.id) + " data: " + str(self.data)
 
 class Edge:
     def __init__(self, source: str, target: str, name: str = "default"):
@@ -45,7 +45,7 @@ class Edge:
         self.name = name
 
     def __str__(self):
-        return "source: " + self.source + " target: " + self.target + "name: " + self.name
+        return "source: " + str(self.source) + " target: " + str(self.target) + "name: " + self.name
 
     #
     #
