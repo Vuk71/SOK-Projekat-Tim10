@@ -176,3 +176,25 @@ def get_children(request):
     print(children)
     return JsonResponse(children_json, safe=False)
 
+
+def change_visualization(request):
+    if request.method == 'POST':
+        visualization_type = request.POST.get('visualization_type')
+        # Ovde dodajte logiku za promenu vizualizacije
+        # Na primer, ako imate listu dostupnih vizualizatora, možete postaviti selected_visualizer na odgovarajuću vrednost
+        core_config = apps.get_app_config("graph_explorer")
+        available_visualizers = core_config.platform.get_available_visualizers()
+        print("visualizers:::")
+        print(visualization_type)
+        if visualization_type == 'basic':
+            print('uso u basic')
+            selected_visualizer = core_config.platform.get_available_visualizers()[0]
+            return JsonResponse({'success': True})
+        else:
+            print('uso u detailed')
+            selected_visualizer = core_config.platform.get_available_visualizers()[1]
+            return JsonResponse({'success': True})
+        
+            #return JsonResponse({'success': False, 'error': 'Invalid visualization type'})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
