@@ -8,6 +8,7 @@ class Node:
     def __str__(self):
         return "ID: " + str(self.id) + " Data: " + str(self.data)
 
+
 class Edge:
     def __init__(self, source: int, target: int, name: str = ""):
         self.source = source
@@ -95,3 +96,4 @@ if __name__ == "__main__":
     print(graph.search("searchFilter"))
     print("\n==========\n")
     print(graph.filter("age >= 25"))
+

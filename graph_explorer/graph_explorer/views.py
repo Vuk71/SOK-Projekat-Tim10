@@ -115,10 +115,13 @@ def workspace_test(request):
                 print("username: " + username)
                 print("password: " +password)
                 data_source = core_config.get_data_source_plugin(selected_data_source)
+
                 if(profile != ""):
                     data_source.set_profile(profile)
                 if(width != ""):
-                    data_source.set_width(width)
+                    data_source.set_width(int(width))
+                else:
+                    data_source.set_width(5)
                 if(username != ""):
                     data_source.set_username(username)
                 if(password != ""):
@@ -214,3 +217,26 @@ def clean(request):
     core_config.platform.set_graph(og_graph)
     core_config.workspaces[core_config.active_workspace]["graph"] = og_graph
     return JsonResponse({'success': True})
+
+
+def change_visualization(request):
+    if request.method == 'POST':
+        visualization_type = request.POST.get('visualization_type')
+        # Ovde dodajte logiku za promenu vizualizacije
+        # Na primer, ako imate listu dostupnih vizualizatora, možete postaviti selected_visualizer na odgovarajuću vrednost
+        core_config = apps.get_app_config("graph_explorer")
+        available_visualizers = core_config.platform.get_available_visualizers()
+        print("visualizers:::")
+        print(visualization_type)
+        if visualization_type == 'basic':
+            print('uso u basic')
+            selected_visualizer = core_config.platform.get_available_visualizers()[0]
+            return JsonResponse({'success': True})
+        else:
+            print('uso u detailed')
+            selected_visualizer = core_config.platform.get_available_visualizers()[1]
+            return JsonResponse({'success': True})
+        
+            #return JsonResponse({'success': False, 'error': 'Invalid visualization type'})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
+

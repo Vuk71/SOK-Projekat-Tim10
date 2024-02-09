@@ -15,6 +15,7 @@ class Edge:
         self.name = name
 
     def __str__(self):
+
         return "Source Node ID: " + str(self.source) + " Target Node ID: " + str(self.target) + " Edge Name: " + self.name
 
 class Graph:
@@ -95,3 +96,4 @@ if __name__ == "__main__":
     print(graph.search("searchFilter"))
     print("\n==========\n")
     print(graph.filter("age >= 25"))
+
