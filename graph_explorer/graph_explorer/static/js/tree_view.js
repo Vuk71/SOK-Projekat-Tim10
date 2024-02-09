@@ -32,11 +32,7 @@ function _drawTree(treeData) {
             return d.y - 40;
         });
 
-    // Adding a div element to display the tooltip
-    var div = d3.select('#tree')
-        .append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0);
+
 
     // Adding an SVG element to display the tree
     var tree_svg = d3.select('#tree').append('svg').attr('class', 'tree_view_svg')
