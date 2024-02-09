@@ -152,12 +152,11 @@ $(document).ready(function() {
                 dialog.append('<div class="additionalFields"><input type="text" id="param1" name="json file path" placeholder="enter json file path"></div>');
             }
         });
+
+
     });
-});
 
-//====================================================================================================================
 
-$(document).ready(function() {
     $('#simple-visualization-btn').click(function(e) {
         e.preventDefault();
         console.log("Clicked on Simple Visualizer button");
@@ -190,3 +189,5 @@ $(document).ready(function() {
         });
     }
 });
+
+//====================================================================================================================

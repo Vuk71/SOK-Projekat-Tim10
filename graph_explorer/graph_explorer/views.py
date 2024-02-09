@@ -220,11 +220,13 @@ def clean(request):
 
 
 def change_visualization(request):
+
+    global selected_visualizer
     if request.method == 'POST':
         visualization_type = request.POST.get('visualization_type')
         # Ovde dodajte logiku za promenu vizualizacije
         # Na primer, ako imate listu dostupnih vizualizatora, možete postaviti selected_visualizer na odgovarajuću vrednost
-        core_config = apps.get_app_config("graph_explorer")
+
         available_visualizers = core_config.platform.get_available_visualizers()
         print("visualizers:::")
         print(visualization_type)

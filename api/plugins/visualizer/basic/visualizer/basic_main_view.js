@@ -105,7 +105,7 @@ var node = svg_simple.selectAll('.main_view_node')
                 .style('pointer-events', 'auto')
                 .style('visibility','visible');;
             div.html(
-                    `<h3 class = 'popover-title' >${ d.naziv }</h3>
+                    `<h3 class = 'popover-title' >${ d.name }</h3>
                 <br>
                 <p class='popover-assets'>
                         ${ getAttributes(d.attributes) }
@@ -173,7 +173,7 @@ function simpleView(d) {
         .style('font-weight', 'bold')
       .attr('font-family', 'sans-serif')
       .attr('fill', '#FFFFFF')
-      .text(d.naziv);
+      .text(d.name);
 
 }
 
