@@ -4,6 +4,14 @@
 <script>
     console.log("BIRD");
 
+    function getIndexFromNodeId(nodes, nodeId) {
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].id === nodeId) {
+                return i; // Vraća indeks čvora sa traženim ID-om
+            }
+        }
+        return -1; // Vraća -1 ako čvor sa traženim ID-om nije pronađen
+    }
 
     var nodes = [
         {% for node_id, node in graph.nodes.items %}
@@ -28,15 +36,6 @@
             }{% if not forloop.last %},{% endif %}
         {% endfor %}
     ];
-
-    function getIndexFromNodeId(nodes, nodeId) {
-        for (var i = 0; i < nodes.length; i++) {
-            if (nodes[i].id === nodeId) {
-                return i; // Vraća indeks čvora sa traženim ID-om
-            }
-        }
-        return -1; // Vraća -1 ako čvor sa traženim ID-om nije pronađen
-    }
 
 
     {% autoescape off %}{{ bird_script }}{% endautoescape %}

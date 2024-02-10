@@ -18,7 +18,7 @@ var force = d3.layout.force()
         .nodes(d3.values(nodes))
         .links(edges)
         .on("tick", tick)
-        .edgeDistance(300)
+        .linkDistance(300)
         .charge(-500)
         .start();
 

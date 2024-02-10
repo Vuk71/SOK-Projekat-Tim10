@@ -1,3 +1,5 @@
+import re
+
 from core.SOK.services.api import ParseDataBase
 from core.SOK.services.model import Graph,Node,Edge
 import instaloader
@@ -36,8 +38,14 @@ class DataSourceInstagram(ParseDataBase):
     def name(self):
         return "Load from instagram"
 
-    def string_to_int(self, s):
-        return hash(s)
+    def clear_string(self, s):
+        # Regularni izraz za pronalaženje svih specijalnih karaktera
+        regex = r'[^a-zA-Z0-9\s]'
+
+        # Zamena svih specijalnih karaktera donjom crtom
+        cleaned_string = re.sub(regex, '_', s)
+
+        return cleaned_string
 
     def parse_data(self) -> Graph:
         num_nodes = 0
@@ -57,13 +65,13 @@ class DataSourceInstagram(ParseDataBase):
         # forming graph from data
         print("making graph: ")
         graph = Graph()
-        profile_node = Node(id= 0, data={"name": profile.username,"private": profile.is_private, "followers": profile.followers,
+        profile_node = Node(id= 0, data={"name": self.clear_string(profile.username),"private": profile.is_private, "followers": profile.followers,
                                                        "followees": profile.followees})
         num_nodes += 1
         graph.nodes[profile_node.id] = profile_node
         for followee, followee_followees in profile_followees.items():
             target = num_nodes
-            node = Node(id= num_nodes, data={"name": followee.username, "private": followee.is_private, "followers": followee.followers,
+            node = Node(id= num_nodes, data={"name": self.clear_string(followee.username), "private": followee.is_private, "followers": followee.followers,
                                                     "followees": followee.followees})
             num_nodes += 1
             graph.nodes[node.id] = node
@@ -72,7 +80,7 @@ class DataSourceInstagram(ParseDataBase):
             for followee_followee in followee_followees:
                 target2 = num_nodes
                 node = Node(id= num_nodes,
-                            data={"name": followee_followee.username, "private": followee_followee.is_private, "followers": followee_followee.followers,
+                            data={"name": self.clear_string(followee_followee.username), "private": followee_followee.is_private, "followers": followee_followee.followers,
                                   "followees": followee_followee.followees})
                 edge = Edge(source=target, target=target2, name="following")
                 num_nodes += 1

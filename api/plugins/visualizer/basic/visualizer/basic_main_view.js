@@ -31,7 +31,7 @@ var force = d3.layout.force()
         .nodes(d3.values(nodes))
         .links(edges)
         .on("tick", tick)
-        .edgeDistance(300)
+        .linkDistance(300)
         .charge(-500)
         .start();
 
@@ -70,12 +70,10 @@ var svg_simple =d3.select('#main_view').call(d3.behavior.zoom().scaleExtent([0.5
       }))
       .append("g").attr('id', 'main_g');
 
-var div = d3.select('.tooltip');
-//    // Declare the tooltip div
-//    .append('div')
-//    // Apply the 'tooltip' class
-//    .attr('class', 'tooltip')
-//    .style('opacity', 0);
+      var div = d3.select('.mainView')
+      .append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', 0);
 
 //drawing edges
 var edge = svg_simple.selectAll('.edge')
@@ -88,7 +86,7 @@ var node = svg_simple.selectAll('.main_view_node')
     .data(force_bird.nodes()) //add
     .enter().append('g')
     .attr('class', 'main_view_node')
-    .attr('id', function(d){ return "main_" + d[0].name;})
+    .attr('id', function(d){ return "main_" + d.name;})
     .on('click',function(){
        clickNode(this);
     })
