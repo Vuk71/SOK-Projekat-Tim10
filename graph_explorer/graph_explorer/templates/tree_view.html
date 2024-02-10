@@ -1,0 +1,13 @@
+{% extends "bird_view.html" %}
+{% block tree %}
+    <div id="tree" class="tree"></div>
+<script>
+
+    var treeData = {% for node in roots %}
+                        {%include "tree_node.html" %}
+                    {% endfor %}
+
+
+    {% autoescape off %}{{ tree_script }}{% endautoescape %}
+</script>
+{% endblock %}

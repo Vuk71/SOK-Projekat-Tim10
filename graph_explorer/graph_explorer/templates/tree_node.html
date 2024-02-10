@@ -1,0 +1,8 @@
+{
+    name: "{{node.id}}",
+    attributes: {{%for key,value in node.data.items %}
+                    "{{key}}" : "{{value}}",
+                    {%endfor%}},
+    attr : false,
+    color : '#3AA9AD'
+}

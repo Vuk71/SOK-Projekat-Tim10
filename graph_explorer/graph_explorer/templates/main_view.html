@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block main %}
+<svg id="main_view"></svg>
+<script>
+
+        {% autoescape off %}{{ main_script }}{% endautoescape %}
+</script>
+{% endblock %}

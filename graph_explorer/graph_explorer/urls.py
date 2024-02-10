@@ -16,10 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index, visualize_graph, index_test
-
+from . import views
 urlpatterns = [
-    path('', index_test, name='index_test'),
-    path('visualize-graph/', visualize_graph, name='visualize_graph'),
-    path("admin/", admin.site.urls)
+    path('', views.index_test, name='index_test'),
+    path('add_workspace/', views.workspace_test, name='add_workspace'),
+    path('update_active_workspace/', views.update_active_workspace, name='update_active_workspace'),
+    path('change_visualization/', views.change_visualization, name='change_visualization'),
+    path('visualize-graph/', views.visualize_graph, name='visualize_graph'),
+    path('get_children', views.get_children, name="get_children"),
+    path("admin/", admin.site.urls),
+    path("filter/", views.filter, name="filter"),
+    path("search/", views.search, name="search"),
+    path("clean/", views.clean, name="clean"),
 ]
