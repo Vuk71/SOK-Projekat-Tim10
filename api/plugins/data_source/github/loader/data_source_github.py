@@ -1,6 +1,7 @@
 from core.SOK.services.api import ParseDataBase
 from core.SOK.services.model import Graph, Node, Edge
 from github import Github
+import re
 
 class DataSourceGithub(ParseDataBase):
     def __init__(self: str):
@@ -28,7 +29,7 @@ class DataSourceGithub(ParseDataBase):
         g = Github(self.github_token)
         repo = g.get_repo(self.repo)
         commits = repo.get_commits()
-        commits_list = [{"sha": commit.sha, "author": commit.author.login, "date": commit.commit.author.date, "parents": [p.sha for p in commit.parents]} for commit in commits]
+        commits_list = [{"sha": commit.sha, "author": commit.author.login, "date": commit.commit.author.date, "title": commit.commit.message.split('\n')[0], "parents": [p.sha for p in commit.parents]} for commit in commits]
         print("loading data ...")
         
         print("making graph ...")
@@ -38,10 +39,10 @@ class DataSourceGithub(ParseDataBase):
             sha = commit_data["sha"]
             author = commit_data["author"]
             date = commit_data["date"]
-            # message = commit_data["message"]
+            title = clean_name(commit_data["title"])
 
             # Kreirajte čvor za svaki commit sa rednim brojem kao ID
-            node = Node(self.node_counter, {"sha": sha, "author": author, "date": date})
+            node = Node(self.node_counter, {"sha": sha, "author": author, "date": date, "name": title})
             graph.nodes[self.node_counter] = node
             self.node_counter += 1  # Povećavamo brojač
 
@@ -61,6 +62,9 @@ class DataSourceGithub(ParseDataBase):
 
     def __str__(self):
         return "load_github " + str(type(self))
+    
+def clean_name(name):
+    return re.sub(r'[^a-zA-Z_]', '', name)
 
 if __name__ == "__main__":
     data_source = DataSourceGithub()
