@@ -1,5 +1,4 @@
 "use strict";
-var rootNode = treeData.name; // Definition of the root node of a tree
 function _drawTree(treeData) {
 
     // Setting the margins and dimensions for the tree display
@@ -131,10 +130,10 @@ function _drawTree(treeData) {
                     .style('pointer-events', 'auto')
                     .style('visibility', 'visible');
                 div.html(
-                        `<h3 class = 'popover-title' >${ d[0].name }</h3>
+                        `<h3 class = 'popover-title' >${ d.name }</h3>
                     <br>
                     <p class='popover-assets'>
-                            ${ getAttributes(d[0].attributes) }
+                            ${ getAttributes(d.attributes) }
                     </p>`)
                     .style('left', '20%')
                     .style('top', '80px').style('color', '#3AA9AD').style('font-size', '15px');
@@ -163,9 +162,11 @@ function _drawTree(treeData) {
             .style('fill', fontColor).style('text-align', 'left')
             .attr('font-size', 10).attr('font-family', 'sans-serif').text(function(d) {
                 if (d.attr === true) {
-                    return "- " + d.naziv;
+                    console.log("D attribute::::")
+                    console.log(d)
+                    return "- " + d.name + ": " + d.parent.attributes[d.name];
                 } else {
-                    return "+ " + d.naziv;
+                    return "+ " + d.attributes.name;
                 }
             });
 
@@ -181,7 +182,6 @@ function _drawTree(treeData) {
             .style('fill', fontColor).style('border', function(d) {
                 return d.color
             }).style('fill', function(d) {
-                console.log("Boja")
                 return d.color
             });
 
@@ -212,6 +212,7 @@ function _drawTree(treeData) {
         tree_link.enter().insert('path', 'g')
             .attr('class', 'edge')
             .attr('d', lineData)
+            .attr('styles','background-color:#81689D')
             .transition()
             .duration(duration)
             .attr('d', lineData);
@@ -240,21 +241,20 @@ function _drawTree(treeData) {
 
     // A function that is called when a node is clicked
     async function click(d) {
-        let main_node = "main_" + d.init_name;
-        console.log(main_node);
+        let main_node = "main_" + d.name;
+        console.log("d:::")
+        console.log(d)
 
         for (var b of node[0]){
-            console.log("ispisivanje b:::")
-            console.log(b);
-           if (b.__data__.init_name == d.init_name){
+           if (b.__data__.name == d.attributes.name){
                b.dispatchEvent(new Event('click'));
            }
        }
         if(d.attr === false){
-             if( d3.select('text#text_' + d.name).text() === ("- " +d.naziv))
-                d3.select('text#text_' + d.name).text("+ " +d.naziv);
+             if( d3.select('text#text_' + d.name).text() === ("- " +d.attributes.name))
+                d3.select('text#text_' + d.name).text("+ " +d.attributes.name);
             else
-                 d3.select('text#text_' + d.name).text("- " +d.naziv);
+                 d3.select('text#text_' + d.name).text("- " +d.attributes.name);
         }
 
         if (d.children) {
@@ -275,12 +275,11 @@ function _drawTree(treeData) {
     // A function to generate data about the childrens of a node
     function generateChildren(current_node) {
         return new Promise(function(resolve, reject) {
-            $.get("/get_children", { node_id: current_node[0].name })
+            $.get("/get_children", { node_id: current_node.name })
                 .done(function(data) {
                     var nodes = JSON.parse(data);
                     var node_data = [];
 
-                    current_node = current_node[0]
                     if (current_node.attributes && typeof current_node.attributes === 'object') {
                         Object.entries(current_node.attributes).forEach(function([key, value]) {
                             var node_val = {

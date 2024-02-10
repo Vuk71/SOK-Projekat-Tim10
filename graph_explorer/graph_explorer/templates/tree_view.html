@@ -3,9 +3,9 @@
     <div id="tree" class="tree"></div>
 <script>
 
-    var treeData = [{% for node in roots %}
+    var treeData = {% for node in roots %}
                         {%include "tree_node.html" %}
-                    {% endfor %}]
+                    {% endfor %}
 
 
     {% autoescape off %}{{ tree_script }}{% endautoescape %}

@@ -73,8 +73,6 @@ function fitZoom(transitionDuration) {
     var width = bounds.width,
         height = bounds.height;
 
-    console.log("Sirina: " + width);
-    console.log("Visina: " + height);
 
     if (width === 0 || height === 0) return;
     if (width < 300 && height < 300) {
@@ -125,10 +123,6 @@ $(document).ready(function () {
 
     var littleGHeight = gDimensions.height;
     var littleGWidth = gDimensions.width;
-
-    console.log("aaa");
-    console.log(littleGHeight);
-    console.log(littleGWidth);
 
     svg_bird.append('rect')
         .attr('height', littleGHeight)

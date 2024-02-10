@@ -180,9 +180,9 @@ def get_children(request):
     print(node_id)
     for edge in core_config.platform.get_graph().edges:
         if node_id == edge.source:
-            children.append(edge.target)
+            children.append(core_config.platform.get_graph().nodes[edge.target])
         if node_id == edge.target:
-            children.append(edge.source)
+            children.append(core_config.platform.get_graph().nodes[edge.source])
     children_json = jsonpickle.encode(children, unpicklable=False)
     print("deca:::")
     print(children)
