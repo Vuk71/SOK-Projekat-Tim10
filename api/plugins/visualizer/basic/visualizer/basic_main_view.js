@@ -88,7 +88,7 @@ var node = svg_simple.selectAll('.main_view_node')
     .data(force_bird.nodes()) //add
     .enter().append('g')
     .attr('class', 'main_view_node')
-    .attr('id', function(d){ return "main_" + d.name;})
+    .attr('id', function(d){ return "main_" + d[0].name;})
     .on('click',function(){
        clickNode(this);
     })

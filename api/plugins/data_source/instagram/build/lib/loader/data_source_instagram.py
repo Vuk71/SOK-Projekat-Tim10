@@ -12,7 +12,6 @@ class DataSourceInstagram(ParseDataBase):
 
 
     def __init__(self: str):
-        self.num_nodes = 0
         self.username = "jovanvuckovic2"
         self.password = "&ca#VPsN5d3szS"
         self.profile = "jovanvuckovic2"
